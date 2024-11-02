@@ -5,6 +5,6 @@
 
 Arcadia_Maker 1차 발표 링크 : https://youtu.be/ShTfKeEb9Mc?feature=shared
 
-![Arcadia_Maker_main_img](src/asset/kenney_pixel-platformer/SampleA.png)
+![Arcadia_Maker_main_img](src/asset/kenney_pixel-platformer/SampleB2.png)
 
 ## Info
