@@ -1,5 +1,4 @@
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT
-
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT
 
 
 def start_event(e):
@@ -26,9 +25,6 @@ def space_down(e):
 
 def time_out(e):
     return e[0] == 'TIME_OUT'
-
-
-
 
 
 class StateMachine:

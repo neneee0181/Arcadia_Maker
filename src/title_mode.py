@@ -1,5 +1,6 @@
 from pico2d import load_image, clear_canvas, update_canvas, get_events
-from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDLK_SPACE
+from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDLK_SPACE, SDL_MOUSEBUTTONDOWN, SDLK_LEFT, SDL_BUTTON_LEFT, \
+    SDLK_RETURN
 import src.config.game_framework as game_framework, src.play_mode as play_mode
 import src.config.config as config
 
@@ -13,9 +14,14 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif  event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        elif  event.type == SDL_KEYDOWN and event.key == SDLK_RETURN:
             game_framework.change_mode(play_mode)
-
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
+            print(event.x, event.y)
+            # 1550 788
+            # 1883 788
+            # 1548 1048
+            # 1890 1048
 
 def init():
     global image
