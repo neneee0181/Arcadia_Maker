@@ -156,6 +156,4 @@ class Boy:
         # fill here
         if group == 'boy:ball':
             self.ball_count += 1
-
-
     pass
