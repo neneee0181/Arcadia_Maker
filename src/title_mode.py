@@ -17,11 +17,9 @@ def handle_events():
         elif  event.type == SDL_KEYDOWN and event.key == SDLK_RETURN:
             game_framework.change_mode(play_mode)
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-            print(event.x, event.y)
-            # 1550 788
-            # 1883 788
-            # 1548 1048
-            # 1890 1048
+            if 1550 <= event.x <= 1890 and 788 <= event.y <= 1048:
+                game_framework.change_mode(play_mode)
+
 
 def init():
     global image
