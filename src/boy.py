@@ -3,10 +3,10 @@
 from pico2d import get_time, load_image, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, load_font, \
     draw_rectangle
 
-from ball import Ball
-import game_world
-import game_framework
-from state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, time_out
+from src.ball import Ball
+import src.config.game_world as game_world
+import src.config.game_framework as game_framework
+from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, time_out
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -115,8 +115,8 @@ class Boy:
         self.x, self.y = 400, 90
         self.face_dir = 1
         self.ball_count = 10
-        self.font = load_font('ENCR10B.TTF', 16)
-        self.image = load_image('animation_sheet.png')
+        self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
+        self.image = load_image('./src/asset/prac/animation_sheet.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(

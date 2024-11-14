@@ -1,6 +1,6 @@
 from pico2d import *
-import game_world
-import game_framework
+import src.config.game_world as game_world
+import src.config.game_framework as game_framework
 
 
 class Ball:
@@ -8,7 +8,7 @@ class Ball:
 
     def __init__(self, x=400, y=300, velocity=1):
         if Ball.image == None:
-            Ball.image = load_image('ball21x21.png')
+            Ball.image = load_image('./src/asset/prac/ball21x21.png')
         self.x, self.y, self.velocity = x, y, velocity
 
     def draw(self):

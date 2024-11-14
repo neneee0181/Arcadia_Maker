@@ -1,7 +1,7 @@
 import random
 import math
-import game_framework
-import game_world
+import src.config.game_framework as game_framework
+import src.config.game_world as game_world
 
 from pico2d import *
 
@@ -26,7 +26,7 @@ class Zombie:
         if Zombie.images == None:
             Zombie.images = {}
             for name in animation_names:
-                Zombie.images[name] = [load_image("./zombie/"+ name + " (%d)" % i + ".png") for i in range(1, 11)]
+                Zombie.images[name] = [load_image("./src/asset/prac/zombie/"+ name + " (%d)" % i + ".png") for i in range(1, 11)]
 
     def __init__(self):
         self.x, self.y = random.randint(1600-800, 1600), 150

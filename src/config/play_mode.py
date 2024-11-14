@@ -1,13 +1,13 @@
 import random
 
 from pico2d import *
-import game_framework
+import src.config.game_framework as game_framework
 
-import game_world
-from grass import Grass
-from boy import Boy
-from ball import Ball
-from zombie import Zombie
+import src.config.game_world as game_world
+from src.grass import Grass
+from src.boy import Boy
+from src.ball import Ball
+from src.zombie import Zombie
 
 
 # boy = None
