@@ -1,6 +1,6 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
+from pico2d import load_image, clear_canvas, update_canvas, get_events
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDLK_SPACE
-import src.config.game_framework as game_framework, src.config.play_mode as play_mode
+import src.config.game_framework as game_framework, src.play_mode as play_mode
 import src.config.config as config
 
 
