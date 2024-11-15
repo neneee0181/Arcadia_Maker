@@ -1,9 +1,9 @@
 # 이것은 각 상태들을 객체로 구현한 것임.
 
-from pico2d import get_time, load_image, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, load_font, \
+from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 
-from src.ball import Ball
+from src.object.ball import Ball
 import src.config.game_world as game_world
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, time_out

@@ -1,6 +1,6 @@
 from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
 
-import src.config.game_framework as game_framework, src.title_mode as title_mode
+import src.config.game_framework as game_framework, src.mode.title_mode as title_mode
 import src.config.config as config
 
 

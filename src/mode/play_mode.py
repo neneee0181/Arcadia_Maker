@@ -4,10 +4,10 @@ from pico2d import *
 import src.config.game_framework as game_framework
 
 import src.config.game_world as game_world
-from src.grass import Grass
-from src.boy import Boy
-from src.ball import Ball
-from src.zombie import Zombie
+from src.object.grass import Grass
+from src.object.boy import Boy
+from src.object.ball import Ball
+from src.object.zombie import Zombie
 
 
 # boy = None
