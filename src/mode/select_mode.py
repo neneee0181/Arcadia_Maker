@@ -4,6 +4,7 @@ from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BU
 import src.config.game_framework as game_framework, src.mode.play_mode as play_mode
 import src.config.config as config
 
+
 def handle_events():
     global running, selected_num
 
@@ -22,6 +23,8 @@ def handle_events():
 def init():
     global background_image
     background_image = load_image('./src/asset/kenney_platformer-pack-redux/Sample1.png')
+    global selected_img1
+    selected_img1 = load_image('./src/asset/mode/select_mode/divider-000.png')
     global font
     global selected_mode
     global selected_num
@@ -36,6 +39,7 @@ def finish():
     del background_image
     pass
 
+
 def update():
     pass
 
@@ -43,5 +47,14 @@ def update():
 def draw():
     clear_canvas()
     background_image.draw(config.screen_width / 2, config.screen_height / 2, config.screen_width, config.screen_height)
+    selected_img1.draw(config.screen_width / 2 - 200, config.screen_height / 2)
+    # 좌우 반전
+    selected_img1.clip_composite_draw(0, 0,
+                                      selected_img1.w, selected_img1.h,
+                                      0,
+                                      'h',
+                                      config.screen_width / 2 + 200, config.screen_height / 2,
+                                      selected_img1.w, selected_img1.h)
     font.draw(50, 50, f'{10:02d}', (0, 255, 0))
+
     update_canvas()
