@@ -3,7 +3,7 @@ from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BU
     SDLK_RETURN
 import src.config.game_framework as game_framework, src.mode.play_mode as play_mode
 import src.config.config as config
-
+import src.mode.select_mode as select_mode
 
 def handle_events():
     global running
@@ -15,10 +15,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif  event.type == SDL_KEYDOWN and event.key == SDLK_RETURN:
-            game_framework.change_mode(play_mode)
+            game_framework.change_mode(select_mode)
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
             if 1550 <= event.x <= 1890 and 788 <= event.y <= 1048:
-                game_framework.change_mode(play_mode)
+                game_framework.change_mode(select_mode)
 
 
 def init():
