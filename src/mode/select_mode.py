@@ -15,9 +15,15 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_UP:
-            selected_num = selected_num + 1
+            if selected_num == 2:
+                selected_num = 0
+            else:
+                selected_num = selected_num + 1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_DOWN:
-            selected_num = selected_num - 1
+            if selected_num == 0:
+                selected_num = 2
+            else:
+                selected_num = selected_num - 1
 
 
 def init():
@@ -28,7 +34,7 @@ def init():
     global font
     global selected_mode
     global selected_num
-    font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
+    font = load_font('./src/asset/font/SourGummy-VariableFont_wdth,wght.ttf', 56)
     selected_mode = ["Load Game", "Make Game", "Quit"]
     selected_num = 0
     pass
@@ -52,14 +58,13 @@ def draw():
                                       0,
                                       '',
                                       config.screen_width / 2 - 400, config.screen_height / 2,
-                                      selected_img1.w + 100, selected_img1.h + 50)
+                                      selected_img1.w + 50, selected_img1.h + 0)
     # 좌우 반전
     selected_img1.clip_composite_draw(0, 0,
                                       selected_img1.w, selected_img1.h,
                                       0,
                                       'h',
                                       config.screen_width / 2 + 400, config.screen_height / 2,
-                                      selected_img1.w + 100, selected_img1.h + 50)
-    font.draw(50, 50, f'{10:02d}', (0, 255, 0))
-
+                                      selected_img1.w + 50, selected_img1.h + 0)
+    font.draw(config.screen_width / 2 - 50, config.screen_height / 2, f'{selected_mode[selected_num]}', (0, 255, 0))
     update_canvas()
