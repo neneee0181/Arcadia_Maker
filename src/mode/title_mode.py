@@ -23,7 +23,7 @@ def handle_events():
 
 def init():
     global image
-    image = load_image('./src/asset/kenney_pixel-platformer/SampleB2.png')
+    image = load_image('./src/asset/mode/title/SampleB2.png')
 
 
 def finish():

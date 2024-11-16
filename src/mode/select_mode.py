@@ -12,8 +12,6 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_UP:
             if selected_num == 2:
                 selected_num = 0
@@ -24,6 +22,13 @@ def handle_events():
                 selected_num = 2
             else:
                 selected_num = selected_num - 1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_RETURN:
+            if selected_num == 0:
+                pass
+            elif selected_num == 1:
+                pass
+            elif selected_num == 2:
+                game_framework.quit()
 
 
 def init():
@@ -35,7 +40,11 @@ def init():
     global selected_mode
     global selected_num
     font = load_font('./src/asset/font/SourGummy-VariableFont_wdth,wght.ttf', 56)
-    selected_mode = ["Load Game", "Make Game", "Quit"]
+    selected_mode = [
+        {"mode": "Load Game", "value": 130},
+        {"mode": "Make Game", "value": 130},
+        {"mode": "Quit", "value": 50}
+    ]
     selected_num = 0
     pass
 
@@ -66,5 +75,6 @@ def draw():
                                       'h',
                                       config.screen_width / 2 + 400, config.screen_height / 2,
                                       selected_img1.w + 50, selected_img1.h + 0)
-    font.draw(config.screen_width / 2 - 50, config.screen_height / 2, f'{selected_mode[selected_num]}', (0, 255, 0))
+    font.draw(config.screen_width / 2 - selected_mode[selected_num]["value"], config.screen_height / 2,
+              f'{selected_mode[selected_num]["mode"]}', (0, 255, 0))
     update_canvas()
