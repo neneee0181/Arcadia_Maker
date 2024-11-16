@@ -4,6 +4,7 @@ import src.config.game_framework as game_framework
 import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
 import src.config.config as config
+from src.object.mouse import Mouse
 
 
 def ui_init():
@@ -56,9 +57,6 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(select_mode)
-        elif event.type == SDL_MOUSEMOTION:
-            print(f"Mouse moved to: {event.x}, {event.y}")
-            pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_q:
             tile_h_num = max(tile_h_num - 20, 0)  # 0 이하로 내려가지 않도록 제한
         elif event.type == SDL_KEYDOWN and event.key == SDLK_e:
@@ -70,6 +68,10 @@ def init():
     tile_h_num = 0
 
     ui_init()
+
+    mouse = Mouse()
+    game_world.add_object(mouse, 1)
+
     pass
 
 
@@ -85,8 +87,8 @@ def update():
 
 def draw():
     clear_canvas()
-    game_world.render()
     ui_draw()
+    game_world.render()
     update_canvas()
 
 

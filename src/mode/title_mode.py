@@ -4,6 +4,8 @@ from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BU
 import src.config.game_framework as game_framework, src.mode.play_mode as play_mode
 import src.config.config as config
 import src.mode.select_mode as select_mode
+from src.object.mouse import Mouse
+import src.config.game_world as game_world
 
 def handle_events():
     global running
@@ -25,17 +27,23 @@ def init():
     global image
     image = load_image('./src/asset/mode/title/SampleB2.png')
 
+    mouse = Mouse()
+    game_world.add_object(mouse, 1)
+
 
 def finish():
     global image
     del image
+    game_world.clear()
 
 
 def update():
+    game_world.update()
     pass
 
 
 def draw():
     clear_canvas()
     image.draw(config.screen_width / 2, config.screen_height / 2, config.screen_width, config.screen_height)
+    game_world.render()
     update_canvas()

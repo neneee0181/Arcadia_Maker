@@ -14,7 +14,6 @@ def init():
     image = load_image('./src/asset/tuk_credit.png')
     logo_start_time = get_time()
 
-
 def finish():
     global image
     del image
