@@ -26,10 +26,11 @@ def ui_init():
                 num_tiles_x=20,
                 margin=5
             )
+            tile.tt_line = 9
             tile.tile_size = (config.screen_width - (tile.num_tiles_x - 1) * tile.margin) // tile.num_tiles_x
             tile.x = (i % tile.num_tiles_x) * (tile.tile_size + tile.margin) + tile.tile_size // 2
-            tile.y = 200 - (((i - tile_h_num) // tile.num_tiles_x) * (tile.tile_size + tile.margin)) - (
-                        tile.tile_size // 2) - tile.margin
+            tile.y = 200 - ((i // tile.num_tiles_x) * (tile.tile_size + tile.margin)) - (
+                    tile.tile_size // 2) - tile.margin
             tiles.append(tile)  # 배열에 추가
         except OSError:
             print(f"Cannot load image: ./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
@@ -49,7 +50,6 @@ def ui_draw():
 
 def handle_events():
     events = get_events()
-    global tile_h_num
 
     for event in events:
         if event.type == SDL_QUIT:
@@ -57,19 +57,25 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(select_mode)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_q:
-            tile_h_num = max(tile_h_num - 20, 0)  # 0 이하로 내려가지 않도록 제한
+            for tile in tiles:
+                if tile.num_tiles_x * tile.tt_line < tile.select_num:
+                    return
+                tile.select_num += tile.num_tiles_x
+                tile.y += tile.tile_size + tile.margin
+                pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_e:
-            tile_h_num = min(tile_h_num + 20, 179)  # 179 이상으로 올라가지 않도록 제한
+            for tile in tiles:
+                if tile.num_tiles_x * 2 > tile.select_num:
+                    return
+                tile.select_num -= tile.num_tiles_x
+                tile.y -= tile.tile_size + tile.margin
+                pass
         else:
             mouse.handle_event(event)
 
 
 def init():
-    global tile_h_num
-    tile_h_num = 0
-
     ui_init()
-
     global mouse
     mouse = Mouse()
     game_world.add_object(mouse, 1)
