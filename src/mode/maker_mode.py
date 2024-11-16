@@ -11,11 +11,37 @@ import src.config.config as config
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
+
+    tile_width = config.screen_width // 10  # 한 줄에 최대 10개
+    tile_height = config.screen_height // 10  # 한 열에 최대 10개
+    # tiles에 이미지 로드
+    global tiles
+    tiles = [None] * 179
+    for i in range(179):
+        try:
+            image = load_image(f"./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
+            tile_info = {
+                "image": image,  # 이미지 객체
+                "x": (i % 10) * tile_width + tile_width // 2,  # X 좌표
+                "y": config.screen_height - ((i // 10) * tile_height + tile_height // 2),  # Y 좌표
+                "tile_cnt_w": 10,
+                "tile_cnt_h": 10
+            }
+            tiles[i] = tile_info
+        except OSError:
+            print(f"Cannot load image: ./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
+            tiles[i] = None
     pass
 
 
 def ui_draw():
     bottom_line_ui.draw(config.screen_width / 2, 100, config.screen_width, bottom_line_ui.h)
+
+    # tiles를 화면에 그리기 (예: 10개씩 줄 맞춰 출력)
+    for i in range(179):
+        if tiles[i]:  # None이 아닌 경우에만 그리기
+            tiles[i]["image"].draw(tiles[i]["x"], tiles[i]["y"], config.screen_width // tiles[i]["tile_cnt_w"],
+                                   config.screen_height // tiles[i]["tile_cnt_h"])
     pass
 
 
