@@ -3,7 +3,7 @@ from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BU
     SDLK_RETURN, SDLK_UP, SDLK_DOWN
 import src.config.game_framework as game_framework, src.mode.play_mode as play_mode
 import src.config.config as config
-
+import src.mode.maker_mode as maker_mode
 
 def handle_events():
     global running, selected_num
@@ -26,6 +26,7 @@ def handle_events():
             if selected_num == 0:
                 pass
             elif selected_num == 1:
+                game_framework.change_mode(maker_mode)
                 pass
             elif selected_num == 2:
                 game_framework.quit()

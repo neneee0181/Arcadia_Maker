@@ -9,9 +9,6 @@ from src.object.boy import Boy
 from src.object.ball import Ball
 from src.object.zombie import Zombie
 
-
-# boy = None
-
 def handle_events():
     events = get_events()
     for event in events:
@@ -57,7 +54,7 @@ def finish():
 
 
 def update():
-    game_world.update()  # 소년과 볼 위치가 다 업데이트 완료
+    game_world.update()
     game_world.handle_collisions()
 
 def draw():
