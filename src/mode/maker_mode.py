@@ -1,5 +1,3 @@
-import random
-
 from pico2d import *
 import src.config.game_framework as game_framework
 
@@ -12,8 +10,6 @@ def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
-    tile_width = config.screen_width // 10  # 한 줄에 최대 10개
-    tile_height = config.screen_height // 10  # 한 열에 최대 10개
     # tiles에 이미지 로드
     global tiles
     tiles = [None] * 179
@@ -21,11 +17,13 @@ def ui_init():
         try:
             image = load_image(f"./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
             tile_info = {
+                "id": i,
                 "image": image,  # 이미지 객체
-                "x": (i % 10) * tile_width + tile_width // 2,  # X 좌표
-                "y": config.screen_height - ((i // 10) * tile_height + tile_height // 2),  # Y 좌표
-                "tile_cnt_w": 20,
-                "tile_cnt_h": 20
+                "type": "kenney_pixel-platformer",
+                "margin": 5,
+                "num_tiles_x": 20,
+                "x": -100,
+                "y": -100,
             }
             tiles[i] = tile_info
         except OSError:
@@ -37,25 +35,40 @@ def ui_init():
 def ui_draw():
     bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
 
-    # tiles를 화면에 그리기 (예: 10개씩 줄 맞춰 출력)
-    for i in range(179):
-        if tiles[i]:  # None이 아닌 경우에만 그리기
-            tiles[i]["image"].draw(tiles[i]["x"], tiles[i]["y"] - config.screen_height + 200,
-                                   config.screen_width // tiles[i]["tile_cnt_w"],
-                                   config.screen_height // tiles[i]["tile_cnt_h"])
+    for i in range(tile_h_num, 179):
+        if tiles[i]:
+            num_tiles_x = tiles[i]["num_tiles_x"]
+            margin = tiles[i]["margin"]
+            tile_size = (config.screen_width - (num_tiles_x - 1) * margin) // num_tiles_x
+            # 타일 위치 계산
+            x = (i % num_tiles_x) * (tile_size + margin) + tile_size // 2
+            y = 200 - (((i - tile_h_num) // num_tiles_x) * (tile_size + margin)) - (tile_size // 2) - margin
+            tiles[i]["image"].draw(x, y, tile_size, tile_size)
     pass
 
 
 def handle_events():
     events = get_events()
+    global tile_h_num
+
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(select_mode)
+        elif event.type == SDL_MOUSEMOTION:
+            print(f"Mouse moved to: {event.x}, {event.y}")
+            pass
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_q:
+            tile_h_num = max(tile_h_num - 20, 0)  # 0 이하로 내려가지 않도록 제한
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_e:
+            tile_h_num = min(tile_h_num + 20, 179)  # 179 이상으로 올라가지 않도록 제한
 
 
 def init():
+    global tile_h_num
+    tile_h_num = 0
+
     ui_init()
     pass
 
