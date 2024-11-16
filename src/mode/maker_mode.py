@@ -24,8 +24,8 @@ def ui_init():
                 "image": image,  # 이미지 객체
                 "x": (i % 10) * tile_width + tile_width // 2,  # X 좌표
                 "y": config.screen_height - ((i // 10) * tile_height + tile_height // 2),  # Y 좌표
-                "tile_cnt_w": 10,
-                "tile_cnt_h": 10
+                "tile_cnt_w": 20,
+                "tile_cnt_h": 20
             }
             tiles[i] = tile_info
         except OSError:
@@ -35,12 +35,13 @@ def ui_init():
 
 
 def ui_draw():
-    bottom_line_ui.draw(config.screen_width / 2, 100, config.screen_width, bottom_line_ui.h)
+    bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
 
     # tiles를 화면에 그리기 (예: 10개씩 줄 맞춰 출력)
     for i in range(179):
         if tiles[i]:  # None이 아닌 경우에만 그리기
-            tiles[i]["image"].draw(tiles[i]["x"], tiles[i]["y"], config.screen_width // tiles[i]["tile_cnt_w"],
+            tiles[i]["image"].draw(tiles[i]["x"], tiles[i]["y"] - config.screen_height + 200,
+                                   config.screen_width // tiles[i]["tile_cnt_w"],
                                    config.screen_height // tiles[i]["tile_cnt_h"])
     pass
 
