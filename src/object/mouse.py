@@ -24,7 +24,7 @@ class Mouse:
             self.image_up.draw(self.x, self.y)
         draw_rectangle(*self.get_bb())
 
-    def handle_event(self, event, tiles):
+    def handle_event(self, event, make_tiles):
         if event.type == SDL_MOUSEMOTION:
             self.x, self.y = event.x, get_canvas_height() - event.y
         elif event.type == SDL_MOUSEBUTTONDOWN:
@@ -33,6 +33,8 @@ class Mouse:
         elif event.type == SDL_MOUSEBUTTONUP:
             self.click_status = False
             self.tile = None
+            for tile in make_tiles:
+                tile.selected = False
 
     pass
 
@@ -59,6 +61,7 @@ class Mouse:
                     select_num=other.select_num,
                     tt_line=other.tt_line,
                 )
+                self.tile.selected = True
                 maker_mode.make_tiles.append(self.tile)
                 game_world.add_objects(maker_mode.make_tiles, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)

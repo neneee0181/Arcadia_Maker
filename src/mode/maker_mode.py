@@ -9,6 +9,7 @@ from src.object.tile import Tile
 
 make_tiles = []
 
+
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
@@ -72,7 +73,7 @@ def handle_events():
                 tile.y -= tile.tile_size + tile.margin
                 pass
         else:
-            mouse.handle_event(event, tiles)
+            mouse.handle_event(event, make_tiles)
 
 
 def init():

@@ -29,10 +29,12 @@ class Tile:
         pass
 
     def handle_event(self, event):
+        if event.type == SDL_MOUSEBUTTONUP:
+            self.selected = False
         pass
 
     def handle_collision(self, group, other):
-        if other.click_status and group == "mouse:tile_select":
+        if self.selected and other.click_status and group == "mouse:tile_select":
             self.x, self.y = other.x, other.y
         pass
 
