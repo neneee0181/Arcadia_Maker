@@ -6,14 +6,17 @@ class Tile:
     select_num = 40  # 화면에 보이는 전체 개수
     tt_line = 0  # 타일 전체 줄수 -> ex 9개
 
-    def __init__(self, id, x, y, image, tile_type, margin, num_tiles_x):
+    def __init__(self, id, x, y, image, tile_type, margin, num_tiles_x, tile_size=20, select_num=40, tt_line=0):
         self.id = id
         self.x = x
         self.y = y
         self.image = image
-        self.type = tile_type
+        self.tile_type = tile_type
         self.margin = margin
         self.num_tiles_x = num_tiles_x
+        self.tile_size = tile_size
+        self.select_num = select_num
+        self.tt_line = tt_line
 
     def update(self):
         pass

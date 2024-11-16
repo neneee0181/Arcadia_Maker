@@ -1,10 +1,15 @@
 from pico2d import *
 
+import src.mode.maker_mode as maker_mode
+from src.object.tile import Tile
+import src.config.game_world as game_world
+
 
 class Mouse:
     image_down = None
     image_up = None
     click_status = False
+    tile = None
 
     def __init__(self, x=-100, y=-100, velocity=1):
         if Mouse.image_down == None:
@@ -27,6 +32,7 @@ class Mouse:
             self.click_status = True
         elif event.type == SDL_MOUSEBUTTONUP:
             self.click_status = False
+            self.tile = None
 
     pass
 
@@ -39,4 +45,23 @@ class Mouse:
         pass
 
     def handle_collision(self, group, other):
+        if self.click_status and group == "mouse:tile":
+            if self.tile is None:
+                self.tile = Tile(
+                    id=other.id,
+                    x=other.x,  # 초기 X 좌표
+                    y=other.y,  # 초기 Y 좌표
+                    image=other.image,
+                    tile_type=other.tile_type,
+                    num_tiles_x=other.num_tiles_x,
+                    margin=other.margin,
+                    tile_size=other.tile_size,
+                    select_num=other.select_num,
+                    tt_line=other.tt_line,
+                )
+                maker_mode.make_tiles.append(self.tile)
+                game_world.add_objects(maker_mode.make_tiles, 1)
+                game_world.add_collision_pair('mouse:tile_select', None, self.tile)
+        if self.click_status and group == "mouse:tile_select":
+            print("123123123")
         pass

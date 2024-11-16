@@ -7,6 +7,7 @@ import src.config.config as config
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 
+make_tiles = []
 
 def ui_init():
     global bottom_line_ui
@@ -78,8 +79,9 @@ def init():
     ui_init()
     global mouse
     mouse = Mouse()
-    game_world.add_object(mouse, 1)
+    game_world.add_object(mouse, 2)
     game_world.add_collision_pair('mouse:tile', mouse, None)
+    game_world.add_collision_pair('mouse:tile_select', mouse, None)
 
     pass
 
