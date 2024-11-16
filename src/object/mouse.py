@@ -10,6 +10,7 @@ class Mouse:
     image_up = None
     click_status = False
     tile = None
+    tile_move_selected = False
 
     def __init__(self, x=-100, y=-100, velocity=1):
         if Mouse.image_down == None:
@@ -33,8 +34,9 @@ class Mouse:
         elif event.type == SDL_MOUSEBUTTONUP:
             self.click_status = False
             self.tile = None
-            for tile in make_tiles:
-                tile.selected = False
+            self.tile_move_selected = False
+            for make_tile in make_tiles:
+                make_tile.selected = False
 
     pass
 
@@ -47,7 +49,7 @@ class Mouse:
         pass
 
     def handle_collision(self, group, other):
-        if self.click_status and group == "mouse:tile":
+        if self.click_status and group == "mouse:tile" and self.tile_move_selected is False:
             if self.tile is None:
                 self.tile = Tile(
                     id=other.id,
@@ -65,4 +67,7 @@ class Mouse:
                 maker_mode.make_tiles.append(self.tile)
                 game_world.add_objects(maker_mode.make_tiles, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)
+        if self.tile_move_selected is False and self.click_status and group == "mouse:tile_select":
+            other.selected = True
+            self.tile_move_selected = True
         pass
