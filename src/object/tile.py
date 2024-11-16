@@ -5,6 +5,7 @@ class Tile:
     tile_size = 20
     select_num = 40
     tt_line = 0
+
     def __init__(self, id, x, y, image, tile_type, margin, num_tiles_x):
         self.id = id
         self.x = x
@@ -20,6 +21,7 @@ class Tile:
     def draw(self):
         if self.select_num > self.id >= self.select_num - 40:
             self.image.draw(self.x, self.y, self.tile_size, self.tile_size)
+        draw_rectangle(*self.get_bb())
         pass
 
     def handle_event(self, event):
@@ -29,4 +31,7 @@ class Tile:
         pass
 
     def get_bb(self):
-        return self.x, self.y, self.x, self.y
+        if self.select_num > self.id >= self.select_num - 40:
+            return self.x - self.tile_size // 2, self.y - self.tile_size // 2, self.x + self.tile_size // 2, self.y + self.tile_size // 2
+        else:
+            return 0, 0, 0, 0
