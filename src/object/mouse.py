@@ -63,5 +63,6 @@ class Mouse:
                 game_world.add_objects(maker_mode.make_tiles, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)
         if self.click_status and group == "mouse:tile_select":
-            print("123123123")
+            other.x, other.y = self.x, self.y
+            pass
         pass
