@@ -22,9 +22,9 @@ def handle_events():
 
 def init():
     global background_image
-    background_image = load_image('./src/asset/kenney_platformer-pack-redux/Sample1.png')
+    background_image = load_image('./src/asset/mode/select_mode/Sample1.png')
     global selected_img1
-    selected_img1 = load_image('./src/asset/mode/select_mode/divider-000.png')
+    selected_img1 = load_image('./src/asset/mode/select_mode/divider-000-green.png')
     global font
     global selected_mode
     global selected_num
@@ -47,14 +47,19 @@ def update():
 def draw():
     clear_canvas()
     background_image.draw(config.screen_width / 2, config.screen_height / 2, config.screen_width, config.screen_height)
-    selected_img1.draw(config.screen_width / 2 - 200, config.screen_height / 2)
+    selected_img1.clip_composite_draw(0, 0,
+                                      selected_img1.w, selected_img1.h,
+                                      0,
+                                      '',
+                                      config.screen_width / 2 - 400, config.screen_height / 2,
+                                      selected_img1.w + 100, selected_img1.h + 50)
     # 좌우 반전
     selected_img1.clip_composite_draw(0, 0,
                                       selected_img1.w, selected_img1.h,
                                       0,
                                       'h',
-                                      config.screen_width / 2 + 200, config.screen_height / 2,
-                                      selected_img1.w, selected_img1.h)
+                                      config.screen_width / 2 + 400, config.screen_height / 2,
+                                      selected_img1.w + 100, selected_img1.h + 50)
     font.draw(50, 50, f'{10:02d}', (0, 255, 0))
 
     update_canvas()
