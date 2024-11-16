@@ -34,12 +34,12 @@ def handle_events():
 
 def init():
     global background_image
-    background_image = load_image('./src/asset/mode/select_mode/Sample1.png')
+    background_image = load_image('./src/asset/mode/select/Sample1.png')
     global selected_img1
-    selected_img1 = load_image('./src/asset/mode/select_mode/divider-000-green.png')
+    selected_img1 = load_image('./src/asset/mode/select/divider-000-green.png')
     global keyboard_img_arrow, keyboard_img_return
-    keyboard_img_arrow = load_image('./src/asset/mode/select_mode/keyboard_arrows_vertical.png')
-    keyboard_img_return = load_image('./src/asset/mode/select_mode/keyboard_enter.png')
+    keyboard_img_arrow = load_image('./src/asset/mode/select/keyboard_arrows_vertical.png')
+    keyboard_img_return = load_image('./src/asset/mode/select/keyboard_enter.png')
     global font
     global selected_mode
     global selected_num
