@@ -36,6 +36,9 @@ def init():
     background_image = load_image('./src/asset/mode/select_mode/Sample1.png')
     global selected_img1
     selected_img1 = load_image('./src/asset/mode/select_mode/divider-000-green.png')
+    global keyboard_img_arrow, keyboard_img_return
+    keyboard_img_arrow = load_image('./src/asset/mode/select_mode/keyboard_arrows_vertical.png')
+    keyboard_img_return = load_image('./src/asset/mode/select_mode/keyboard_enter.png')
     global font
     global selected_mode
     global selected_num
@@ -75,6 +78,8 @@ def draw():
                                       'h',
                                       config.screen_width / 2 + 400, config.screen_height / 2,
                                       selected_img1.w + 50, selected_img1.h + 0)
+    keyboard_img_arrow.draw(config.screen_width - 200, 100)
+    keyboard_img_return.draw(config.screen_width - 100, 105, keyboard_img_arrow.w - 30, keyboard_img_arrow.h - 30)
     font.draw(config.screen_width / 2 - selected_mode[selected_num]["value"], config.screen_height / 2,
               f'{selected_mode[selected_num]["mode"]}', (0, 255, 0))
     update_canvas()
