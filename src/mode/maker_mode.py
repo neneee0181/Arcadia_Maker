@@ -5,46 +5,45 @@ import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
 import src.config.config as config
 from src.object.mouse import Mouse
+from src.object.tile import Tile
 
 
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
-    # tiles에 이미지 로드
     global tiles
-    tiles = [None] * 179
+    tiles = []
     for i in range(179):
         try:
             image = load_image(f"./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
-            tile_info = {
-                "id": i,
-                "image": image,  # 이미지 객체
-                "type": "kenney_pixel-platformer",
-                "margin": 5,
-                "num_tiles_x": 20,
-                "x": -100,
-                "y": -100,
-            }
-            tiles[i] = tile_info
+            tile = Tile(
+                id=i,
+                x=-100,  # 초기 X 좌표
+                y=-100,  # 초기 Y 좌표
+                image=image,
+                tile_type="kenney_pixel-platformer",
+                num_tiles_x=20,
+                margin=5
+            )
+            tile.tile_size = (config.screen_width - (tile.num_tiles_x - 1) * tile.margin) // tile.num_tiles_x
+            tile.x = (i % tile.num_tiles_x) * (tile.tile_size + tile.margin) + tile.tile_size // 2
+            tile.y = 200 - (((i - tile_h_num) // tile.num_tiles_x) * (tile.tile_size + tile.margin)) - (
+                        tile.tile_size // 2) - tile.margin
+            tiles.append(tile)  # 배열에 추가
         except OSError:
             print(f"Cannot load image: ./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
-            tiles[i] = None
+            tiles.append(None)  # 로드 실패 시 None 추가
+    game_world.add_objects(tiles, 1)
+
+    for tile in tiles:
+        game_world.add_collision_pair('mouse:tile', None, tile)
+
     pass
 
 
 def ui_draw():
     bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
-
-    for i in range(tile_h_num, 179):
-        if tiles[i]:
-            num_tiles_x = tiles[i]["num_tiles_x"]
-            margin = tiles[i]["margin"]
-            tile_size = (config.screen_width - (num_tiles_x - 1) * margin) // num_tiles_x
-            # 타일 위치 계산
-            x = (i % num_tiles_x) * (tile_size + margin) + tile_size // 2
-            y = 200 - (((i - tile_h_num) // num_tiles_x) * (tile_size + margin)) - (tile_size // 2) - margin
-            tiles[i]["image"].draw(x, y, tile_size, tile_size)
     pass
 
 
@@ -74,6 +73,7 @@ def init():
     global mouse
     mouse = Mouse()
     game_world.add_object(mouse, 1)
+    game_world.add_collision_pair('mouse:tile', mouse, None)
 
     pass
 
