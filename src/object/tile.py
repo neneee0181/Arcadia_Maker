@@ -2,9 +2,9 @@ from pico2d import *
 
 
 class Tile:
-    tile_size = 20
-    select_num = 40
-    tt_line = 0
+    tile_size = 20  # 기본 타일 사이즈
+    select_num = 40  # 화면에 보이는 전체 개수
+    tt_line = 0  # 타일 전체 줄수 -> ex 9개
 
     def __init__(self, id, x, y, image, tile_type, margin, num_tiles_x):
         self.id = id

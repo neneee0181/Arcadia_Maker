@@ -16,8 +16,7 @@ class Mouse:
     def handle_event(self, event):
         if event.type == SDL_MOUSEMOTION:
             self.x, self.y = event.x, get_canvas_height() - event.y
-        elif event.type == SDL_MOUSEBUTTONDOWN:
-            print(self.x, self.y)
+
     pass
 
     def update(self):
@@ -25,7 +24,7 @@ class Mouse:
 
     def get_bb(self):
         # fill here
-        return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+        return self.x - self.image.w // 2, self.y - self.image.w // 2, self.x + self.image.w // 2, self.y + self.image.w // 2
         pass
 
     def handle_collision(self, group, other):
