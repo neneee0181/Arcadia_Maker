@@ -56,6 +56,10 @@ def init():
 def finish():
     global background_image
     del background_image
+    global keyboard_img_arrow, keyboard_img_return, font
+    del keyboard_img_arrow
+    del keyboard_img_return
+    del font
     pass
 
 

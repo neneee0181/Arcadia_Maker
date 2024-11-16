@@ -5,6 +5,18 @@ import src.config.game_framework as game_framework
 
 import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
+import src.config.config as config
+
+
+def ui_init():
+    global bottom_line_ui
+    bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
+    pass
+
+
+def ui_draw():
+    bottom_line_ui.draw(config.screen_width / 2, 100, config.screen_width, bottom_line_ui.h)
+    pass
 
 
 def handle_events():
@@ -17,6 +29,7 @@ def handle_events():
 
 
 def init():
+    ui_init()
     pass
 
 
@@ -33,6 +46,7 @@ def update():
 def draw():
     clear_canvas()
     game_world.render()
+    ui_draw()
     update_canvas()
 
 
