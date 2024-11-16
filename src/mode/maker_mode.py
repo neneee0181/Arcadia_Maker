@@ -70,10 +70,8 @@ def handle_events():
                 tile.select_num -= tile.num_tiles_x
                 tile.y -= tile.tile_size + tile.margin
                 pass
-        elif event.type == SDL_MOUSEBUTTONDOWN:
-            print(event.x, event.y)
         else:
-            mouse.handle_event(event)
+            mouse.handle_event(event, tiles)
 
 
 def init():

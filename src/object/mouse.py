@@ -13,9 +13,11 @@ class Mouse:
         self.image.draw(self.x, self.y)
         draw_rectangle(*self.get_bb())
 
-    def handle_event(self, event):
+    def handle_event(self, event, tiles):
         if event.type == SDL_MOUSEMOTION:
             self.x, self.y = event.x, get_canvas_height() - event.y
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            print(event.x, event.y)
 
     pass
 
