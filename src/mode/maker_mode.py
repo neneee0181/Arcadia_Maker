@@ -61,6 +61,8 @@ def handle_events():
             tile_h_num = max(tile_h_num - 20, 0)  # 0 이하로 내려가지 않도록 제한
         elif event.type == SDL_KEYDOWN and event.key == SDLK_e:
             tile_h_num = min(tile_h_num + 20, 179)  # 179 이상으로 올라가지 않도록 제한
+        else:
+            mouse.handle_event(event)
 
 
 def init():
@@ -69,6 +71,7 @@ def init():
 
     ui_init()
 
+    global mouse
     mouse = Mouse()
     game_world.add_object(mouse, 1)
 

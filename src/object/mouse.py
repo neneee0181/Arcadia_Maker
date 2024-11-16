@@ -13,11 +13,13 @@ class Mouse:
         self.image.draw(self.x, self.y)
         draw_rectangle(*self.get_bb())
 
+    def handle_event(self, event):
+        if event.type == SDL_MOUSEMOTION:
+            self.x, self.y = event.x, get_canvas_height() - event.y
+
+    pass
+
     def update(self):
-        events = get_events()
-        for event in events:
-            if event.type == SDL_MOUSEMOTION:
-                self.x, self.y = event.x, get_canvas_height() - event.y
         pass
 
     def get_bb(self):
