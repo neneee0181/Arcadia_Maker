@@ -12,8 +12,6 @@ class Mouse:
     click_status_r = False
     tile = None
 
-
-
     def __init__(self, x=-100, y=-100, velocity=1):
         if Mouse.image_down == None:
             Mouse.image_down = load_image('./src/asset/button/hand_closed.png')
@@ -47,7 +45,7 @@ class Mouse:
 
     def get_bb(self):
         # fill here
-        return self.x - self.image_down.w // 2, self.y - self.image_down.w // 2, self.x + self.image_down.w // 2, self.y + self.image_down.w // 2
+        return self.x - 10, self.y - 10, self.x + 10, self.y + 10
         pass
 
     def handle_collision(self, group, other):
