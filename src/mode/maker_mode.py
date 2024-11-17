@@ -73,8 +73,14 @@ def handle_events():
                 tile.y -= tile.tile_size + tile.margin
                 pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # export
-            for maker_tile in maker_tiles:
-                print(maker_tile.x, maker_tile.y)
+            # Tile 객체를 딕셔너리로 변환
+            data = [tile.to_dict() for tile in maker_tiles]
+
+            # JSON 파일로 저장
+            with open("export/maker_tiles.json", "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+
+            print("Data exported to maker_tiles.json")
             pass
         else:
             mouse.handle_event(event)

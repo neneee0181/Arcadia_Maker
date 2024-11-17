@@ -49,3 +49,17 @@ class Tile:
             return self.x - self.tile_size // 2, self.y - self.tile_size // 2, self.x + self.tile_size // 2, self.y + self.tile_size // 2
         else:
             return 0, 0, 0, 0
+
+    def to_dict(self):
+        """객체를 딕셔너리 형태로 변환"""
+        return {
+            "id": self.id,
+            "x": self.x,
+            "y": self.y,
+            "tile_type": self.tile_type,
+            "margin": self.margin,
+            "num_tiles_x": self.num_tiles_x,
+            "tile_size": self.tile_size,
+            "select_num": self.select_num,
+            "tt_line": self.tt_line
+        }
