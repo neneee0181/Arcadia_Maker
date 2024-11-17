@@ -12,6 +12,8 @@ class Mouse:
     click_status_r = False
     tile = None
 
+
+
     def __init__(self, x=-100, y=-100, velocity=1):
         if Mouse.image_down == None:
             Mouse.image_down = load_image('./src/asset/button/hand_closed.png')
@@ -66,6 +68,7 @@ class Mouse:
                 self.tile.selected = True
                 game_world.add_object(self.tile, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)
-        if self.click_status_l and group == "mouse:tile_select":
+        if self.click_status_l and group == "mouse:tile_select" and self.tile is None:
             other.selected = True
+            self.tile = other
         pass
