@@ -4,6 +4,7 @@ import src.config.game_framework as game_framework
 import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
 import src.config.config as config
+import src.mode.maker_fileName_mode as maker_fileName_mode
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 
@@ -73,14 +74,16 @@ def handle_events():
                 tile.y -= tile.tile_size + tile.margin
                 pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # export
-            # Tile 객체를 딕셔너리로 변환
-            data = [tile.to_dict() for tile in maker_tiles]
-
-            # JSON 파일로 저장
-            with open("export/maker_tiles.json", "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=4)
-
-            print("Data exported to maker_tiles.json")
+            maker_fileName_mode.maker_tiles = maker_tiles
+            game_framework.change_mode(maker_fileName_mode)
+            # # Tile 객체를 딕셔너리로 변환
+            # data = [tile.to_dict() for tile in maker_tiles]
+            #
+            # # JSON 파일로 저장
+            # with open("export/maker_tiles.json", "w", encoding="utf-8") as f:
+            #     json.dump(data, f, ensure_ascii=False, indent=4)
+            #
+            # print("Data exported to maker_tiles.json")
             pass
         else:
             mouse.handle_event(event)
