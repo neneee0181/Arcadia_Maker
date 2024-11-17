@@ -56,6 +56,9 @@ def init():
     file_name_font = load_font('./src/asset/font/SourGummy-VariableFont_wdth,wght.ttf', 56)
     global file_name_result
     file_name_result = load_font('./src/asset/font/SourGummy-VariableFont_wdth,wght.ttf', 56)
+
+    global keyboard_img_return
+    keyboard_img_return = load_image('./src/asset/mode/select/keyboard_enter.png')
     pass
 
 
@@ -73,6 +76,7 @@ def draw():
                         f'File Name : ', (100, 255, 100))
     file_name_font.draw(config.screen_width / 2 - 100, config.screen_height / 2,
                         f'{file_name}', (0, 0, 0))
+    keyboard_img_return.draw(config.screen_width - 100, 105, keyboard_img_return.w - 30, keyboard_img_return.h - 30)
     update_canvas()
 
 
