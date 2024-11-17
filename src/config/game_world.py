@@ -31,6 +31,10 @@ def render():
             o.draw()
 
 
+def clear_collision_pairs():
+    collision_pairs.clear()
+
+
 def remove_collision_object(o):
     for pairs in collision_pairs.values():
         if o in pairs[0]:

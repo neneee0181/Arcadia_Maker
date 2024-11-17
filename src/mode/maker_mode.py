@@ -10,7 +10,6 @@ from src.object.tile import Tile
 
 maker_tiles = []
 
-
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
@@ -43,6 +42,23 @@ def ui_init():
     for tile in tiles:
         game_world.add_collision_pair('mouse:tile', None, tile)
 
+    # if len(maker_tiles) > 0:
+    #     for make_tile in maker_tiles:
+    #         tile = Tile(
+    #             id=make_tile.id,
+    #             x=make_tile.x, y=make_tile.y,
+    #             image=make_tile.image,
+    #             tile_type=make_tile.tile_type,
+    #             num_tiles_x=make_tile.num_tiles_x,
+    #             margin=make_tile.margin,
+    #             tile_size=make_tile.tile_size,
+    #             select_num=make_tile.select_num,
+    #             tt_line=make_tile.tt_line,
+    #         )
+    #         game_world.add_object(tile, 1)
+    #         game_world.add_collision_pair('mouse:tile_select', None, tile)
+    #         pass
+
     pass
 
 
@@ -58,6 +74,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_world.clear_collision_pairs()
             game_framework.change_mode(select_mode)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_q:
             for tile in tiles:
@@ -75,6 +92,8 @@ def handle_events():
                 pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # export
             maker_fileName_mode.maker_tiles = maker_tiles
+            game_world.clear()
+            game_world.clear_collision_pairs()
             game_framework.change_mode(maker_fileName_mode)
             # # Tile 객체를 딕셔너리로 변환
             # data = [tile.to_dict() for tile in maker_tiles]
