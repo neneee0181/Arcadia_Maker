@@ -25,6 +25,8 @@ __pycache__/     # Python에서 생성하는 캐시 파일
 .DS_Store        # macOS에서 생성하는 파일
 Thumbs.db        # Windows에서 생성하는 파일
 
+
+export/
 # 로그 파일들
 *.log
 *.out
