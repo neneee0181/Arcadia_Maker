@@ -1,5 +1,6 @@
 from pico2d import *
 
+import src.config.game_world as game_world
 
 class Tile:
     tile_size = 20  # 기본 타일 사이즈
@@ -32,8 +33,11 @@ class Tile:
         pass
 
     def handle_collision(self, group, other):
-        if self.selected and other.click_status and group == "mouse:tile_select":
+        if self.selected and other.click_status_l and group == "mouse:tile_select":
             self.x, self.y = other.x, other.y
+        elif other.click_status_r and group == "mouse:tile_select":
+            game_world.remove_object(self)
+            game_world.remove_collision_object(self)
         pass
 
     def get_bb(self):

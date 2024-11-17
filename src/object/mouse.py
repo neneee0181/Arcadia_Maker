@@ -8,9 +8,9 @@ import src.config.game_world as game_world
 class Mouse:
     image_down = None
     image_up = None
-    click_status = False
+    click_status_l = False
+    click_status_r = False
     tile = None
-    tile_move_selected = False
 
     def __init__(self, x=-100, y=-100, velocity=1):
         if Mouse.image_down == None:
@@ -19,24 +19,24 @@ class Mouse:
         self.x, self.y, self.velocity = x, y, velocity
 
     def draw(self):
-        if self.click_status:
+        if self.click_status_l:
             self.image_down.draw(self.x, self.y)
         else:
             self.image_up.draw(self.x, self.y)
         draw_rectangle(*self.get_bb())
 
-    def handle_event(self, event, make_tiles):
+    def handle_event(self, event):
         if event.type == SDL_MOUSEMOTION:
             self.x, self.y = event.x, get_canvas_height() - event.y
-        elif event.type == SDL_MOUSEBUTTONDOWN:
-            print(event.x, event.y)
-            self.click_status = True
-        elif event.type == SDL_MOUSEBUTTONUP:
-            self.click_status = False
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
+            self.click_status_l = True
+        elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_LEFT:
+            self.click_status_l = False
             self.tile = None
-            self.tile_move_selected = False
-            for make_tile in make_tiles:
-                make_tile.selected = False
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_RIGHT:
+            self.click_status_r = True
+        elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_RIGHT:
+            self.click_status_r = False
 
     pass
 
@@ -49,7 +49,7 @@ class Mouse:
         pass
 
     def handle_collision(self, group, other):
-        if self.click_status and group == "mouse:tile" and self.tile_move_selected is False:
+        if self.click_status_l and group == "mouse:tile":
             if self.tile is None:
                 self.tile = Tile(
                     id=other.id,
@@ -64,10 +64,8 @@ class Mouse:
                     tt_line=other.tt_line,
                 )
                 self.tile.selected = True
-                maker_mode.make_tiles.append(self.tile)
-                game_world.add_objects(maker_mode.make_tiles, 1)
+                game_world.add_object(self.tile, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)
-        if self.tile_move_selected is False and self.click_status and group == "mouse:tile_select":
+        if self.click_status_l and group == "mouse:tile_select":
             other.selected = True
-            self.tile_move_selected = True
         pass
