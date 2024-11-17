@@ -10,6 +10,7 @@ from src.object.tile import Tile
 
 maker_tiles = []
 
+
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
@@ -95,14 +96,6 @@ def handle_events():
             game_world.clear()
             game_world.clear_collision_pairs()
             game_framework.change_mode(maker_fileName_mode)
-            # # Tile 객체를 딕셔너리로 변환
-            # data = [tile.to_dict() for tile in maker_tiles]
-            #
-            # # JSON 파일로 저장
-            # with open("export/maker_tiles.json", "w", encoding="utf-8") as f:
-            #     json.dump(data, f, ensure_ascii=False, indent=4)
-            #
-            # print("Data exported to maker_tiles.json")
             pass
         else:
             mouse.handle_event(event)
