@@ -66,6 +66,7 @@ class Mouse:
                 self.tile.selected = True
                 game_world.add_object(self.tile, 1)
                 game_world.add_collision_pair('mouse:tile_select', None, self.tile)
+                maker_mode.maker_tiles.append(self.tile)
         if self.click_status_l and group == "mouse:tile_select" and self.tile is None:
             other.selected = True
             self.tile = other

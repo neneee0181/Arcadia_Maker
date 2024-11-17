@@ -7,6 +7,9 @@ import src.config.config as config
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 
+maker_tiles = []
+
+
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
@@ -69,6 +72,10 @@ def handle_events():
                 tile.select_num -= tile.num_tiles_x
                 tile.y -= tile.tile_size + tile.margin
                 pass
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # export
+            for maker_tile in maker_tiles:
+                print(maker_tile.x, maker_tile.y)
+            pass
         else:
             mouse.handle_event(event)
 
