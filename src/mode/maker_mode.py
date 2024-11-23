@@ -24,10 +24,10 @@ def ui_init():
                 id=i,
                 x=-100,  # 초기 X 좌표
                 y=-100,  # 초기 Y 좌표
-                image=image,
                 tile_type="kenney_pixel-platformer",
+                margin=5,
                 num_tiles_x=20,
-                margin=5
+                image = image,
             )
             tile.tt_line = 9
             tile.tile_size = (config.screen_width - (tile.num_tiles_x - 1) * tile.margin) // tile.num_tiles_x

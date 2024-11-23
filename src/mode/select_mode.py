@@ -5,6 +5,7 @@ import src.config.game_framework as game_framework
 import src.config.config as config
 import src.mode.maker_mode as maker_mode
 import src.mode.title_mode as title_mode
+import src.mode.load_file_mode as load_mode
 
 def handle_events():
     global running, selected_num
@@ -26,9 +27,10 @@ def handle_events():
             else:
                 selected_num = selected_num - 1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_RETURN:
-            if selected_num == 0:
+            if selected_num == 0: # load
+                game_framework.change_mode(load_mode)
                 pass
-            elif selected_num == 1:
+            elif selected_num == 1: # make
                 game_framework.change_mode(maker_mode)
                 pass
             elif selected_num == 2:
