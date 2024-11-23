@@ -1,7 +1,7 @@
 from pico2d import load_image, clear_canvas, update_canvas, get_events
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, \
     SDLK_RETURN
-import src.config.game_framework as game_framework, src.mode.play_mode as play_mode
+import src.config.game_framework as game_framework, src.mode.play_mode2 as play_mode
 import src.config.config as config
 import src.mode.select_mode as select_mode
 from src.object.mouse import Mouse

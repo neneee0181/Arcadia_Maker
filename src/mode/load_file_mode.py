@@ -3,8 +3,8 @@ import src.config.game_framework as game_framework
 import src.mode.maker_mode as maker_mode
 import src.config.game_world as game_world
 import src.config.config as config
-import src.mode.select_mode as select_mode
 from src.object.tile import Tile
+import src.mode.play_mode as play_mode
 
 maker_tiles = []
 
@@ -44,6 +44,7 @@ def load_file():
             game_world.add_object(tile)
 
         print(f"파일 '{file_name}'을 성공적으로 로드했습니다!")
+        game_framework.change_mode(play_mode)
 
     except FileNotFoundError:
         print(f"파일 '{file_name}'을 찾을 수 없습니다. 경로를 확인하세요.")
@@ -70,7 +71,6 @@ def handle_events():
             elif event.key == SDLK_RETURN:
                 load_file()
                 game_world.clear()
-                game_framework.change_mode(select_mode)
             elif event.key == SDLK_BACKSPACE or event.key == 8:  # Backspace 처리
                 if len(file_name) > 0:
                     file_name = file_name[:-1]
