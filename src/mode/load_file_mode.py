@@ -44,6 +44,7 @@ def load_file():
             game_world.add_object(tile)
 
         print(f"파일 '{file_name}'을 성공적으로 로드했습니다!")
+        play_mode.maker_tiles = maker_tiles
         game_framework.change_mode(play_mode)
 
     except FileNotFoundError:
