@@ -31,7 +31,7 @@ def init():
             tile = Tile(
                 id=make_tile['id'],
                 x=make_tile['x'],
-                y=make_tile['y'],
+                y=make_tile['y'] - 200,
                 tile_type=make_tile['tile_type'],
                 num_tiles_x=make_tile['num_tiles_x'],
                 margin=make_tile['margin'],
@@ -59,7 +59,7 @@ def update():
 
 def draw():
     clear_canvas()
-    bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
+    bottom_line_ui.draw(config.screen_width / 2, 1, config.screen_width, bottom_line_ui.h)
     game_world.render()
     update_canvas()
 

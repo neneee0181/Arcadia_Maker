@@ -43,23 +43,6 @@ def ui_init():
     for tile in tiles:
         game_world.add_collision_pair('mouse:tile', None, tile)
 
-    # if len(maker_tiles) > 0:
-    #     for make_tile in maker_tiles:
-    #         tile = Tile(
-    #             id=make_tile.id,
-    #             x=make_tile.x, y=make_tile.y,
-    #             image=make_tile.image,
-    #             tile_type=make_tile.tile_type,
-    #             num_tiles_x=make_tile.num_tiles_x,
-    #             margin=make_tile.margin,
-    #             tile_size=make_tile.tile_size,
-    #             select_num=make_tile.select_num,
-    #             tt_line=make_tile.tt_line,
-    #         )
-    #         game_world.add_object(tile, 1)
-    #         game_world.add_collision_pair('mouse:tile_select', None, tile)
-    #         pass
-
     pass
 
 
