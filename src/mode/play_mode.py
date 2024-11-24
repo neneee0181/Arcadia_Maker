@@ -20,6 +20,7 @@ def handle_events():
             pass
 
 def init():
+    game_world.clear()
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
@@ -44,7 +45,7 @@ def init():
             print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
             tiles.append(None)  # 로드 실패 시 None 추가
 
-    game_world.add_objects(tiles, 1)
+    game_world.add_objects(tiles, 2)
     pass
 
 def finish():

@@ -3,7 +3,6 @@ import src.config.game_framework as game_framework
 import src.mode.maker_mode as maker_mode
 import src.config.game_world as game_world
 import src.config.config as config
-from src.object.tile import Tile
 import src.mode.play_mode as play_mode
 
 maker_tiles = []
@@ -52,7 +51,6 @@ def handle_events():
                 game_framework.change_mode(maker_mode)
             elif event.key == SDLK_RETURN:
                 load_file()
-                game_world.clear()
             elif event.key == SDLK_BACKSPACE or event.key == 8:  # Backspace 처리
                 if len(file_name) > 0:
                     file_name = file_name[:-1]
