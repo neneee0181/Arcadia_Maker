@@ -3,10 +3,11 @@ import random
 from pico2d import *
 import src.config.game_framework as game_framework
 import src.config.config as config
+from src.object.tile import Tile
 
 import src.config.game_world as game_world
 
-maker_tiles = []
+load_tiles = []
 
 def handle_events():
     events = get_events()
@@ -22,12 +23,29 @@ def init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
-    for i in range(len(maker_tiles)):
-        maker_tiles[i].image = load_image(f"./src/asset/{maker_tiles[i].tile_type}/Tiles/tile_{i:04}.png")
-        print(f"Index: {i}, Tile: {maker_tiles[i]}, img : {maker_tiles[i].image}")
+    global tiles
+    tiles = []
+    for make_tile in load_tiles:
+        try:
+            tile = Tile(
+                id=make_tile['id'],
+                x=make_tile['x'],
+                y=make_tile['y'],
+                tile_type=make_tile['tile_type'],
+                num_tiles_x=make_tile['num_tiles_x'],
+                margin=make_tile['margin'],
+                image=load_image(f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png"),
+                tile_size=make_tile['tile_size'],
+                select_num=make_tile['select_num'],
+                tt_line=make_tile['tt_line']
+            )
+            tiles.append(tile)  # Tile 객체를 리스트에 추가
+        except OSError:
+            print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
+            tiles.append(None)  # 로드 실패 시 None 추가
 
+    game_world.add_objects(tiles, 1)
     pass
-
 
 def finish():
     game_world.clear()
@@ -40,7 +58,7 @@ def update():
 
 def draw():
     clear_canvas()
-    #bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
+    bottom_line_ui.draw(config.screen_width / 2, 200, config.screen_width, bottom_line_ui.h)
     game_world.render()
     update_canvas()
 

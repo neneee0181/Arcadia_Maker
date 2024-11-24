@@ -91,7 +91,7 @@ def handle_events():
                 tile.select_num -= tile.num_tiles_x
                 tile.y -= tile.tile_size + tile.margin
                 pass
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # export
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:  # map
             maker_fileName_mode.maker_tiles = maker_tiles
             game_world.clear()
             game_world.clear_collision_pairs()

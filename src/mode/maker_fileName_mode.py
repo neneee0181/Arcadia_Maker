@@ -17,7 +17,7 @@ def make_file():
     data = [tile.to_dict() for tile in maker_tiles]
 
     # JSON 파일로 저장
-    with open(f"export/{file_name}.json", "w", encoding="utf-8") as f:
+    with open(f"map/{file_name}.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
     print("Data exported to maker_tiles.json")

@@ -10,13 +10,12 @@ maker_tiles = []
 
 def load_file():
     global file_name  # 현재 입력받은 파일 이름
-    maker_tiles = []  # Tile 객체를 저장할 리스트
 
     if file_name == '':
         print("파일 이름이 비어있습니다.")
         return
 
-    file_path = f'./export/{file_name}.json'  # 파일 경로 구성
+    file_path = f'./map/{file_name}.json'  # 파일 경로 구성
     try:
         # JSON 파일 읽기
         with open(file_path, 'r') as file:
@@ -24,28 +23,10 @@ def load_file():
 
         # JSON 데이터에서 타일 정보 추출 및 Tile 객체 생성
         if len(data) > 0:
-            for make_tile in data:
-                tile = Tile(
-                    id=make_tile['id'],
-                    x=make_tile['x'],
-                    y=make_tile['y'],
-                    tile_type=make_tile['tile_type'],
-                    num_tiles_x=make_tile['num_tiles_x'],
-                    margin=make_tile['margin'],
-                    #image=make_tile['image'],
-                    tile_size=make_tile['tile_size'],
-                    select_num=make_tile['select_num'],
-                    tt_line=make_tile['tt_line']
-                )
-                maker_tiles.append(tile)  # Tile 객체를 리스트에 추가
+            print(f"파일 '{file_name}'을 성공적으로 로드했습니다!")
+            play_mode.load_tiles = data
+            game_framework.change_mode(play_mode)
 
-        # Tile 객체를 game_world에 추가
-        for tile in maker_tiles:
-            game_world.add_object(tile)
-
-        print(f"파일 '{file_name}'을 성공적으로 로드했습니다!")
-        play_mode.maker_tiles = maker_tiles
-        game_framework.change_mode(play_mode)
 
     except FileNotFoundError:
         print(f"파일 '{file_name}'을 찾을 수 없습니다. 경로를 확인하세요.")
