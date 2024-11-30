@@ -87,7 +87,7 @@ class Run:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+        player.frame = (player.frame + 3 * ACTION_PER_TIME * game_framework.frame_time) % 3
         player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
         pass
 
@@ -108,7 +108,7 @@ class Player:
             Player.images['alienPink_stand'] = [
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_stand{i}.png") for i in range(1, 3)]
             Player.images['alienPink_walk'] = [
-                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_walk{i}.png") for i in range(1, 3)]
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_walk{i}.png") for i in range(1, 4)]
 
     def __init__(self):
         self.x, self.y = 400, 400
