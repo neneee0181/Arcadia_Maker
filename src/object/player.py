@@ -74,7 +74,6 @@ class Sleep:
 class Run:
     @staticmethod
     def enter(player, e):
-        print(1)
         if right_down(e) or left_up(e):  # 오른쪽으로 RUN
             player.dir = 1
         elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
@@ -127,7 +126,12 @@ class Player:
             }
         )
 
+    #중력
+    def gravity(self):
+        self.y -= 0.1
+
     def update(self):
+        self.gravity()
         self.state_machine.update()
 
     def handle_event(self, event):
@@ -144,4 +148,5 @@ class Player:
         pass
 
     def handle_collision(self, group, other):
+        
         pass
