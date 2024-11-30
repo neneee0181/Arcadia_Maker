@@ -38,7 +38,10 @@ class Idle:
 
     @staticmethod
     def draw(player):
-        player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+        if player.dir < 0:
+            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+        else:
+            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
 class Sleep:
@@ -71,10 +74,11 @@ class Sleep:
 class Run:
     @staticmethod
     def enter(player, e):
+        print(1)
         if right_down(e) or left_up(e):  # 오른쪽으로 RUN
-            player.dir, player.face_dir, player.action = 1, 1, 1
+            player.dir = 1
         elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
-            player.dir, player.face_dir, player.action = -1, -1, 0
+            player.dir= -1
 
     @staticmethod
     def exit(player, e):
@@ -83,21 +87,19 @@ class Run:
 
     @staticmethod
     def do(player):
-        # player.frame = (player.frame + 1) % 8
-        # player.x += player.dir * 5
-
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-
+        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
         player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
         pass
 
     @staticmethod
     def draw(player):
-        player.image.clip_draw(int(player.frame) * 100, player.action * 100, 100, 100, player.x, player.y)
+        if player.dir < 0:
+            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+        else:
+            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
 animation_stand = ['alienPink_stand']
-
 
 class Player:
     images = None
@@ -110,17 +112,17 @@ class Player:
 
     def __init__(self):
         self.x, self.y = 400, 400
-        self.face_dir = 1
         self.ball_count = 10
         self.frame = 0
+        self.dir = 1
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
             {
-                Idle: {},
-                # Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, space_down: Run},
+                Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run},
+                Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
                 # Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle}
             }
         )
