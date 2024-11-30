@@ -126,7 +126,7 @@ class Player:
             }
         )
 
-    #중력
+    # 중력
     def gravity(self):
         self.y -= 0.1
 
@@ -144,9 +144,10 @@ class Player:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+        return self.x - 34, self.y - 45, self.x + 31, self.y + 47
         pass
 
     def handle_collision(self, group, other):
-        
+        if group == 'player:tile':
+            self.y += 0.1
         pass

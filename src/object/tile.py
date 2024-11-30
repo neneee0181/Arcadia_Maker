@@ -34,14 +34,18 @@ class Tile:
         pass
 
     def handle_collision(self, group, other):
-        if other.click_status_l is False and group == "mouse:tile_select":
+
+        if group == "mouse:tile_select" and other.click_status_l is False:
             self.selected = False
-        if self.selected and other.click_status_l and group == "mouse:tile_select":
+        if self.selected and group == "mouse:tile_select" and other.click_status_l:
             if self.id == other.tile.id:
                 self.x, self.y = other.x, other.y
-        elif other.click_status_r and group == "mouse:tile_select":
+        elif group == "mouse:tile_select" and other.click_status_r:
             game_world.remove_object(self)
             game_world.remove_collision_object(self)
+
+        if group == "player:tile":
+            pass
         pass
 
     def get_bb(self):
