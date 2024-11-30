@@ -78,7 +78,7 @@ class Run:
         if right_down(e) or left_up(e):  # 오른쪽으로 RUN
             player.dir = 1
         elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
-            player.dir= -1
+            player.dir = -1
 
     @staticmethod
     def exit(player, e):
@@ -94,12 +94,10 @@ class Run:
     @staticmethod
     def draw(player):
         if player.dir < 0:
-            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+            player.images['alienPink_walk'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
         else:
-            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
+            player.images['alienPink_walk'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
-
-animation_stand = ['alienPink_stand']
 
 class Player:
     images = None
@@ -109,6 +107,8 @@ class Player:
             Player.images = {}
             Player.images['alienPink_stand'] = [
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_stand{i}.png") for i in range(1, 3)]
+            Player.images['alienPink_walk'] = [
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_walk{i}.png") for i in range(1, 3)]
 
     def __init__(self):
         self.x, self.y = 400, 400
