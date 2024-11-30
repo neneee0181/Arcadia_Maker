@@ -39,7 +39,7 @@ class StateMachine:
         self.cur_state.enter(self.o, ('START', 0))
 
     def add_event(self, e):
-        # print(f'    DEBUG: New event {e} added to event Que')
+        print(f'    DEBUG: New event {e} added to event Que')
         self.event_que.append(e)
 
     def set_transitions(self, transitions):

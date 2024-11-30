@@ -6,7 +6,8 @@ from pico2d import get_time, load_image, load_font, \
 from src.object.ball import Ball
 import src.config.game_world as game_world
 import src.config.game_framework as game_framework
-from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, time_out
+from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
+    time_out
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -33,13 +34,11 @@ class Idle:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        if get_time() - player.wait_time > 2:
-            player.state_machine.add_event(('TIME_OUT', 0))
+        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
 
     @staticmethod
     def draw(player):
-        player.image.clip_draw(int(player.frame) * 100, player.action * 100, 100, 100, player.x, player.y)
+        player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
 
 
 class Sleep:
@@ -63,10 +62,10 @@ class Sleep:
     def draw(player):
         if player.face_dir == 1:
             player.image.clip_composite_draw(int(player.frame) * 100, 300, 100, 100,
-                                          3.141592 / 2, '', player.x - 25, player.y - 25, 100, 100)
+                                             3.141592 / 2, '', player.x - 25, player.y - 25, 100, 100)
         else:
             player.image.clip_composite_draw(int(player.frame) * 100, 200, 100, 100,
-                                          -3.141592 / 2, '', player.x + 25, player.y - 25, 100, 100)
+                                             -3.141592 / 2, '', player.x + 25, player.y - 25, 100, 100)
 
 
 class Run:
@@ -97,7 +96,8 @@ class Run:
         player.image.clip_draw(int(player.frame) * 100, player.action * 100, 100, 100, player.x, player.y)
 
 
-animation_names = ['alienPink_stand']
+animation_stand = ['alienPink_stand']
+
 
 class Player:
     images = None
@@ -105,21 +105,21 @@ class Player:
     def load_images(self):
         if Player.images == None:
             Player.images = {}
-            for name in animation_names:
-                Player.images[name] = [load_image("./src/asset/mode/play/player_character/pink/"+ name + " (%d)" % i + ".png") for i in range(1, 2)]
-
+            Player.images['alienPink_stand'] = [
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_stand{i}.png") for i in range(1, 3)]
 
     def __init__(self):
-        self.x, self.y = 400, 90
+        self.x, self.y = 400, 400
         self.face_dir = 1
         self.ball_count = 10
+        self.frame = 0
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
-        self.image = load_image()
+        self.image = self.load_images()
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
             {
-                 Idle: {},
+                Idle: {},
                 # Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, space_down: Run},
                 # Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle}
             }

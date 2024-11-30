@@ -5,6 +5,7 @@ import src.config.game_framework as game_framework
 import src.config.config as config
 from src.object.tile import Tile
 
+import src.object.player as player
 import src.config.game_world as game_world
 
 load_tiles = []
@@ -46,6 +47,11 @@ def init():
             tiles.append(None)  # 로드 실패 시 None 추가
 
     game_world.add_objects(tiles, 2)
+
+    global player
+    player = player.Player()
+    game_world.add_object(player, 1)
+
     pass
 
 def finish():
