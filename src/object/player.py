@@ -72,8 +72,10 @@ class Run:
 class Jump:
     @staticmethod
     def enter(player, e):
-        if start_event(e):
-            player.face_dir = 1
+        if right_down(e) or left_up(e):  # 오른쪽으로 RUN
+            player.dir = 1
+        elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
+            player.dir = -1
 
         player.jump_time = get_time()
 
@@ -84,7 +86,11 @@ class Jump:
     @staticmethod
     def do(player):
         player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
-        player.y += player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2
+
+        if player.dir == -1:
+            player.y -= player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2
+        else:
+            player.y += player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2
         player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
 
         if get_time() - player.jump_time > 0.5:
