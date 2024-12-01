@@ -44,33 +44,6 @@ class Idle:
             player.images['alienPink_stand'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
-class Sleep:
-    @staticmethod
-    def enter(player, e):
-        if start_event(e):
-            player.face_dir = 1
-            player.action = 3
-        player.frame = 0
-
-    @staticmethod
-    def exit(player, e):
-        pass
-
-    @staticmethod
-    def do(player):
-        # player.frame = (player.frame + 1) % 8
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-
-    @staticmethod
-    def draw(player):
-        if player.face_dir == 1:
-            player.image.clip_composite_draw(int(player.frame) * 100, 300, 100, 100,
-                                             3.141592 / 2, '', player.x - 25, player.y - 25, 100, 100)
-        else:
-            player.image.clip_composite_draw(int(player.frame) * 100, 200, 100, 100,
-                                             -3.141592 / 2, '', player.x + 25, player.y - 25, 100, 100)
-
-
 class Run:
     @staticmethod
     def enter(player, e):
@@ -114,6 +87,8 @@ class Player:
         self.ball_count = 10
         self.frame = 0
         self.dir = 1
+        self.jump = False
+        self._gravity = 0.3
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()
         self.state_machine = StateMachine(self)
@@ -122,13 +97,12 @@ class Player:
             {
                 Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
-                # Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle}
             }
         )
 
     # 중력
     def gravity(self):
-        self.y -= 0.1
+        self.y -= self._gravity
 
     def update(self):
         self.gravity()
@@ -149,5 +123,5 @@ class Player:
 
     def handle_collision(self, group, other):
         if group == 'player:tile':
-            self.y += 0.1
+            self.y += self._gravity
         pass
