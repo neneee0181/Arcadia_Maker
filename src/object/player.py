@@ -2,6 +2,7 @@
 
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
+from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
 
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
@@ -78,7 +79,6 @@ class Jump:
 
     @staticmethod
     def exit(player, e):
-        print(1)
         pass
 
     @staticmethod
@@ -87,7 +87,6 @@ class Jump:
         player.y += player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2
         player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
 
-        print(get_time() - player.jump_time)
         if get_time() - player.jump_time > 0.5:
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
 
@@ -121,6 +120,7 @@ class Player:
         self.dir = 1
         self._gravity = 0.3
         self.jump_time = 0
+        self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()
         self.state_machine = StateMachine(self)
@@ -129,7 +129,7 @@ class Player:
             {
                 Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, jump_down: Jump, jump_up: Jump},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_down: Jump, jump_up: Jump},
-                Jump: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_time_out: Run}
+                Jump: {jump_time_out: self.decide_next_state}
             }
         )
 
@@ -142,9 +142,25 @@ class Player:
         self.state_machine.update()
 
     def handle_event(self, event):
-        # 여기서 받을 수 있는 것만 걸러야 함. right left  등등..
+        # 키 입력 상태 업데이트
+        if event.type == SDL_KEYDOWN:
+            self.current_keys.add(event.key)  # 눌린 키를 추가
+        elif event.type == SDL_KEYUP:
+            self.current_keys.discard(event.key)  # 뗀 키를 제거
+
         self.state_machine.add_event(('INPUT', event))
         pass
+
+    def decide_next_state(self, e):
+        # 눌린 키 상태에 따라 다음 상태 결정
+        if SDLK_RIGHT in self.current_keys:  # 오른쪽 키가 눌려 있는 경우
+            self.dir = 1
+            return Run
+        elif SDLK_LEFT in self.current_keys:  # 왼쪽 키가 눌려 있는 경우
+            self.dir = -1
+            return Run
+        else:
+            return Idle
 
     def draw(self):
         self.state_machine.draw()
@@ -156,5 +172,5 @@ class Player:
 
     def handle_collision(self, group, other):
         if group == 'player:tile':
-            self.y += self._gravity
+            self.y += self._gravity + 0.1
         pass

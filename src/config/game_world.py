@@ -77,6 +77,6 @@ def handle_collisions():
         for a in pairs[0]:  # a 리스트에서 하나 뽑고,
             for b in pairs[1]:  # b 리스트에서 하나 뽑고,
                 if collide(a, b):
-                    print(f'{group} collide')
+                    # print(f'{group} collide')
                     a.handle_collision(group, b)
                     b.handle_collision(group, a)
