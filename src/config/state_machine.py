@@ -1,8 +1,10 @@
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, \
+    SDLK_UP
 
 
 def start_event(e):
     return e[0] == 'START'
+
 
 def right_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
@@ -20,11 +22,20 @@ def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
 
+def jump_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_UP
+
+
+def jump_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_UP
+
+
 def space_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
-def time_out(e):
-    return e[0] == 'TIME_OUT'
+
+def jump_time_out(e):
+    return e[0] == 'JUMP_TIME_OUT'
 
 
 class StateMachine:
@@ -39,7 +50,7 @@ class StateMachine:
         self.cur_state.enter(self.o, ('START', 0))
 
     def add_event(self, e):
-        print(f'    DEBUG: New event {e} added to event Que')
+        # print(f'    DEBUG: New event {e} added to event Que')
         self.event_que.append(e)
 
     def set_transitions(self, transitions):

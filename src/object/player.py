@@ -3,11 +3,9 @@
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 
-from src.object.ball import Ball
-import src.config.game_world as game_world
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
-    time_out
+    jump_down, jump_up, jump_time_out
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -26,7 +24,6 @@ class Idle:
     @staticmethod
     def enter(player, e):
         player.frame = 0
-        player.wait_time = get_time()
 
     @staticmethod
     def exit(player, e):
@@ -71,6 +68,39 @@ class Run:
             player.images['alienPink_walk'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
+class Jump:
+    @staticmethod
+    def enter(player, e):
+        if start_event(e):
+            player.face_dir = 1
+
+        player.jump_time = get_time()
+
+    @staticmethod
+    def exit(player, e):
+        print(1)
+        pass
+
+    @staticmethod
+    def do(player):
+        player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
+        player.y += player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2
+        player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
+
+        print(get_time() - player.jump_time)
+        if get_time() - player.jump_time > 0.5:
+            player.state_machine.add_event(('JUMP_TIME_OUT', 0))
+
+        pass
+
+    @staticmethod
+    def draw(player):
+        if player.dir < 0:
+            player.images['alienPink_jump'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+        else:
+            player.images['alienPink_jump'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
+
+
 class Player:
     images = None
 
@@ -81,22 +111,25 @@ class Player:
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_stand{i}.png") for i in range(1, 3)]
             Player.images['alienPink_walk'] = [
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_walk{i}.png") for i in range(1, 4)]
+            Player.images['alienPink_jump'] = [
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_jump{i}.png") for i in range(1, 4)]
 
     def __init__(self):
         self.x, self.y = 400, 400
         self.ball_count = 10
         self.frame = 0
         self.dir = 1
-        self.jump = False
         self._gravity = 0.3
+        self.jump_time = 0
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
             {
-                Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run},
-                Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
+                Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, jump_down: Jump, jump_up: Jump},
+                Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_down: Jump, jump_up: Jump},
+                Jump: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_time_out: Run}
             }
         )
 
