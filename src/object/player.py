@@ -95,7 +95,6 @@ class Jump:
 
         if get_time() - player.jump_time > 0.5:
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
-
         pass
 
     @staticmethod
@@ -124,7 +123,7 @@ class Player:
         self.ball_count = 10
         self.frame = 0
         self.dir = 1
-        self._gravity = 0.3
+        self._gravity = 0.4
         self.jump_time = 0
         self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
@@ -178,5 +177,5 @@ class Player:
 
     def handle_collision(self, group, other):
         if group == 'player:tile':
-            self.y += self._gravity + 0.1
+            self.y += self._gravity + 0.05
         pass
