@@ -8,6 +8,7 @@ from src.object.tile import Tile
 import src.object.player as player
 import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
+import src.object.monster as monster
 
 load_tiles = []
 
@@ -31,12 +32,29 @@ def init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
+    global monsters
+    monsters = []
     global tiles
     tiles = []
+
     for make_tile in load_tiles:
         try:
-            if make_tile['type'] == "fly_monster_bee":
-                print("몬스터추가!!!")
+            if make_tile['type'] in monster.monster_types:  # 몬스터 생성
+                new_monster = monster.Monster(
+                    id=make_tile['id'],
+                    x=make_tile['x'],
+                    y=make_tile['y'] - 200,
+                    tile_type=make_tile['tile_type'],
+                    num_tiles_x=make_tile['num_tiles_x'],
+                    margin=make_tile['margin'],
+                    image=f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
+                    tile_size=make_tile['tile_size'],
+                    select_num=make_tile['select_num'],
+                    tt_line=make_tile['tt_line'],
+                    type=make_tile['type']
+                )
+                monsters.append(new_monster)
+                continue
             tile = Tile(
                 id=make_tile['id'],
                 x=make_tile['x'],

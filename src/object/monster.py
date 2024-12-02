@@ -18,51 +18,59 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-class Idle:
-    @staticmethod
-    def enter(player, e):
-        player.frame = 0
-
-    @staticmethod
-    def exit(player, e):
-        pass
-
-    @staticmethod
-    def do(player):
-        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
-
-    @staticmethod
-    def draw(player):
-        if player.dir < 0:
-            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
-        else:
-            player.images['alienPink_stand'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
+monster_types = ["fly_monster_bee"]
 
 class Monster:
     images = None
 
-    def load_images(self):
+    def load_images(self, image):
         pass
 
-    def __init__(self):
-        self.x, self.y = 40, 200
+    def rigid_xy(self):
+        pass
+
+    def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
+                 tile_size=20, select_num=40, tt_line=0, type="Unknown"):
+        self.x, self.y = x, y
+        self.size_x, self.size_y = 0, 0
+        self.rigid_x1 = 0
+        self.rigid_x2 = 0
+        self.rigid_y1 = 0
+        self.rigid_y2 = 0
+        self.frames_per_action = 8  # 사진 개수
+        self.monsterName = None
+        self.rigid_xy()
+        self.id = id
         self.frame = 0
         self.dir = 1
+        self.tile_type = tile_type
+        self.margin = margin
+        self.num_tiles_x = num_tiles_x
+        self.load_images(image)
+        self.tile_size = tile_size
+        self.select_num = select_num
+        self.tt_line = tt_line
+        self.type = type
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
-        self.image = self.load_images()
 
     def update(self):
-        self.state_machine.update()
+        self.frame = (self.frame + self.frames_per_action
+                      * ACTION_PER_TIME * game_framework.frame_time) % self.frames_per_action
+        pass
 
     def handle_event(self, event):
         pass
 
     def draw(self):
-        self.state_machine.draw()
+        if self.dir < 0:
+            self.images[self.type][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 66, 92)
+        else:
+            self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, 66, 92)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 34, self.y - 45, self.x + 31, self.y + 47
+        return (self.x - self.rigid_x1, self.y - self.rigid_y1,
+                self.x + self.rigid_x2, self.y + self.rigid_y2)
         pass
 
     def handle_collision(self, group, other):
