@@ -26,7 +26,7 @@ __pycache__/     # Python에서 생성하는 캐시 파일
 Thumbs.db        # Windows에서 생성하는 파일
 
 
-map/
+#map/
 # 로그 파일들
 *.log
 *.out
