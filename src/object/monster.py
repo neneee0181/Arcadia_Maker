@@ -4,7 +4,8 @@ from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 
 import src.config.game_framework as game_framework
-import src.config.config as config
+from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
+import src.mode.play_mode as play_mode
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -71,11 +72,12 @@ class Monster:
         self.tile_size = tile_size
         self.select_num = select_num
         self.tt_line = tt_line
-        self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
+        self.build_behavior_tree()  # ai
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action
                       * ACTION_PER_TIME * game_framework.frame_time) % self.frames_per_action
+        self.bt.run()
         pass
 
     def handle_event(self, event):
@@ -94,4 +96,28 @@ class Monster:
         pass
 
     def handle_collision(self, group, other):
+        pass
+
+    def move_to(self, r=0.5):
+        print(1)
+        pass
+
+    def distance_less_than(self, x1, y1, x2, y2, r):
+        distance2 = (x1 - x2) ** 2 + (y1 - y2) ** 2
+        return distance2 < (PIXEL_PER_METER * r) ** 2
+        pass
+
+    def is_player_nearby(self, distance):
+        if self.distance_less_than(play_mode.new_player.x, play_mode.new_player.y, self.x, self.y, distance):
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+        pass
+
+    def build_behavior_tree(self):
+        if self.type == monster_types[0]['name']: # bee 일때
+            c1 = Condition('소년이 근처에 있는가?', self.is_player_nearby, 5)
+            root = chase_boy = Sequence('소년을 추적', c1)
+
+        self.bt = BehaviorTree(root)
         pass
