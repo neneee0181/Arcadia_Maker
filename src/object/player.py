@@ -6,7 +6,7 @@ from pico2d import get_time, load_image, load_font, \
 from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
 
 import src.mode.complate_mode as complate_mode
-
+import src.config.game_world as game_world
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
     jump_down, jump_up, jump_time_out, jump_denied
@@ -92,6 +92,7 @@ class Jump:
     @staticmethod
     def enter(player, e):
         if player.jump_count < 1:  # 2단 점프까지만 허용
+            player.jump_status = False
             if right_down(e) or left_up(e):  # 오른쪽으로 RUN
                 player.dir = 1
             elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
@@ -115,6 +116,7 @@ class Jump:
             player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
 
         if get_time() - player.jump_time > 0.5:
+            player.jump_status = True
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
         collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
         pass
@@ -149,6 +151,7 @@ class Player:
         self.jump_time = 0
         self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.jump_count = 0  # 점프 횟수를 추적
+        self.jump_status = False  # 점프 상태 false = up, true = down
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()
         self.state_machine = StateMachine(self)
@@ -203,10 +206,16 @@ class Player:
             if other.type == "ground":  # 땅
                 self.y += self._gravity + 0.05
                 self.jump_count = 0  # 충돌 시 점프 횟수 초기화
+                self.jump_status = False
             if other.type == "finish":  # 게임 종료 (성공)
                 game_framework.change_mode(complate_mode)
                 pass
-        if group == "player:monster": # 게임 종료 (실패)
-            #game_framework.change_mode(fail_mode)
-            pass
+        if group == "player:monster":  # 게임 종료 (실패)
+            if self.jump_status:
+                self.jump_count = 0
+                self.state_machine.start(Jump)
+                game_world.remove_object(other)
+            else:
+                game_framework.change_mode(fail_mode)
+
         pass
