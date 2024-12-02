@@ -1,5 +1,6 @@
 # 이것은 각 상태들을 객체로 구현한 것임.
 
+
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
@@ -10,6 +11,11 @@ import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
     jump_down, jump_up, jump_time_out, jump_denied
 import src.config.config as config
+
+# 점프 크기 상수 추가
+SCREEN_HEIGHT = config.screen_height
+PIXEL_PER_METER = SCREEN_HEIGHT / 30  # 30m 기준
+JUMP_FORCE = 18 * PIXEL_PER_METER  # 점프 높이 (15m)
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -102,16 +108,14 @@ class Jump:
     def do(player):
         player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
 
-        if player.dir == -1:
-            player.y -= player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2.5
-        else:
-            player.y += player.dir * RUN_SPEED_PPS * game_framework.frame_time * 2.5
+        player.y += JUMP_FORCE * game_framework.frame_time
 
         if SDLK_RIGHT in player.current_keys or SDLK_LEFT in player.current_keys:  # 오른쪽 키가 눌려 있는 경우
             player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
 
         if get_time() - player.jump_time > 0.5:
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
+        collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
         pass
 
     @staticmethod
