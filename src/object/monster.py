@@ -98,17 +98,6 @@ class Monster:
         pass
 
     def handle_collision(self, group, other):
-        # if group == "player:monster":  # player -> 점프상태 -> 몬스터 충돌
-        #     #if other.state_machine.cur_state == Jump:
-        #     if other.jump_status:
-        #         other.jump_count = 0
-        #         other.state_machine.start(Jump)
-        #         game_world.remove_object(self)
-        #     pass
-        pass
-
-    def move_to(self, r=0.5):
-        print(1)
         pass
 
     def distance_less_than(self, x1, y1, x2, y2, r):

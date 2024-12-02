@@ -55,6 +55,9 @@ def init():
                 )
                 monsters.append(new_monster)
                 continue
+            if make_tile['type'] == 'jump_object': # 점프패드
+                print("!!!!")
+                continue
             tile = Tile(
                 id=make_tile['id'],
                 x=make_tile['x'],
@@ -80,7 +83,6 @@ def init():
     for monster_c in monsters:
         game_world.add_collision_pair('player:monster', None, monster_c)
 
-
     global new_player
     try:
         new_player = player.Player()
@@ -96,7 +98,6 @@ def init():
         print(f"Error adding Player to game_world: {e}")
     game_world.add_collision_pair('player:tile', new_player, None)
     game_world.add_collision_pair('player:monster', new_player, None)
-
     pass
 
 

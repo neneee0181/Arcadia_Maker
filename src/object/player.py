@@ -210,12 +210,12 @@ class Player:
             if other.type == "finish":  # 게임 종료 (성공)
                 game_framework.change_mode(complate_mode)
                 pass
-        if group == "player:monster":  # 게임 종료 (실패)
-            if self.jump_status:
+        if group == "player:monster":
+            if self.jump_status:  # 점프 -> 착지 -> 충돌
                 self.jump_count = 0
                 self.state_machine.start(Jump)
                 game_world.remove_object(other)
-            else:
+            else:  # 게임 종료 (실패)
                 game_framework.change_mode(fail_mode)
 
         pass
