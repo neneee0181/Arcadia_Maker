@@ -2,7 +2,7 @@
 
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
-
+import math
 import src.config.game_framework as game_framework
 from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 import src.mode.play_mode as play_mode
@@ -114,10 +114,26 @@ class Monster:
             return BehaviorTree.FAIL
         pass
 
+    def move_slightly_to(self, tx, ty):
+        self.dir = math.atan2(ty - self.y, tx - self.x)
+        distance = RUN_SPEED_PPS * game_framework.frame_time
+        self.x += distance * math.cos(self.dir)
+        self.y += distance * math.sin(self.dir)
+        pass
+
+    def move_to_boy(self, r=0.5):  # monster -> player
+        self.move_slightly_to(play_mode.new_player.x, play_mode.new_player.y)
+        if (self.distance_less_than(play_mode.new_player.x, play_mode.new_player.y, self.x, self.y, r)):
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.RUNNING
+        pass
+
     def build_behavior_tree(self):
-        if self.type == monster_types[0]['name']: # bee 일때
+        if self.type == monster_types[0]['name']:  # bee 일때
             c1 = Condition('소년이 근처에 있는가?', self.is_player_nearby, 5)
-            root = chase_boy = Sequence('소년을 추적', c1)
+            a4 = Action('소년한테 접근', self.move_to_boy)
+            root = chase_boy = Sequence('소년을 추적', c1, a4)
 
         self.bt = BehaviorTree(root)
         pass
