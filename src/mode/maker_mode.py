@@ -13,6 +13,7 @@ import os
 
 maker_tiles = []
 
+
 def load_tiles_with_metadata(folder_path):
     tiles_ = []
     i = 0  # 직접 관리할 인덱스 변수
@@ -51,7 +52,7 @@ def load_tiles_with_metadata(folder_path):
             tile.y = 200 - ((i // tile.num_tiles_x) * (tile.tile_size + tile.margin)) - (
                     tile.tile_size // 2) - tile.margin
             tiles_.append(tile)
-            print(f"Loaded tile ID {tile.id} with type '{tile_type}'")
+            # print(f"Loaded tile ID {tile.id} with type '{tile_type}'")
             i += 1  # 타일을 성공적으로 추가했을 때만 i 증가
         except Exception as e:
             print(f"Error processing {file_name}: {e}")

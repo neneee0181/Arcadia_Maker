@@ -35,6 +35,8 @@ def init():
     tiles = []
     for make_tile in load_tiles:
         try:
+            if make_tile['type'] == "fly_monster_bee":
+                print("몬스터추가!!!")
             tile = Tile(
                 id=make_tile['id'],
                 x=make_tile['x'],
