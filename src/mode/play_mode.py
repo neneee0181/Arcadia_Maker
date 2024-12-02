@@ -18,13 +18,15 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_world.clear_collision_pairs()
             game_world.clear()
             game_framework.push_mode(select_mode)
         else:
-            player.handle_event(event)
+            new_player.handle_event(event)
 
 
 def init():
+    game_world.clear_collision_pairs()
     game_world.clear()
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
@@ -54,10 +56,20 @@ def init():
     for tile in tiles:
         game_world.add_collision_pair('player:tile', None, tile)
 
-    global player
-    player = player.Player()
-    game_world.add_object(player, 1)
-    game_world.add_collision_pair('player:tile', player, None)
+    global new_player
+    try:
+        new_player = player.Player()
+        print("Player initialized successfully.")  # 디버깅 로그
+    except Exception as e:
+        print(f"Error during Player initialization: {e}")  # 예외 내용 출력
+        return  # 예외 발생 시 초기화 중단
+
+    try:
+        game_world.add_object(new_player, 1)
+        print("Player added to game_world.")
+    except Exception as e:
+        print(f"Error adding Player to game_world: {e}")
+    game_world.add_collision_pair('player:tile', new_player, None)
 
     pass
 
