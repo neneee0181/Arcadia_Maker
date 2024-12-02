@@ -38,6 +38,10 @@ def jump_time_out(e):
     return e[0] == 'JUMP_TIME_OUT'
 
 
+def jump_denied(e):  # 일단 추가 사용은 안함
+    return e[0] == 'JUMP_DENIED'
+
+
 class StateMachine:
     def __init__(self, o):
         self.o = o
@@ -73,7 +77,7 @@ class StateMachine:
                 self.cur_state.exit(self.o, e)
 
                 if callable(next_state) and not isinstance(next_state, type):
-                    print("Calling next_state as function.")
+                    # print("Calling next_state as function.")
                     next_state = next_state(e)
 
                 self.cur_state = next_state
