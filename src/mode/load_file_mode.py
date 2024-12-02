@@ -1,6 +1,6 @@
 from pico2d import *
 import src.config.game_framework as game_framework
-import src.mode.maker_mode as maker_mode
+import src.mode.select_mode as select_mode
 import src.config.game_world as game_world
 import src.config.config as config
 import src.mode.play_mode as play_mode
@@ -48,7 +48,7 @@ def handle_events():
                 continue
             if event.key == SDLK_ESCAPE:
                 game_world.clear()
-                game_framework.change_mode(maker_mode)
+                game_framework.change_mode(select_mode)
             elif event.key == SDLK_RETURN:
                 load_file()
             elif event.key == SDLK_BACKSPACE or event.key == 8:  # Backspace 처리
