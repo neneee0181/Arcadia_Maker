@@ -23,6 +23,8 @@ monster_types = [{
     'size': 3
 }]
 
+monster_img_path = "./src/asset/mode/play/monster/"
+
 
 class Monster:
     images = None
@@ -30,8 +32,9 @@ class Monster:
     def load_images(self, image):
         for monster_type in monster_types:
             if self.type == monster_type['name']:
-                pass
-        pass
+                self.images[monster_type['name']] = [
+                    load_image(f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png") for i in
+                    range(1, monster_type['size'] + 1)]
 
     def rigid_xy(self):
         pass
@@ -58,7 +61,6 @@ class Monster:
         self.select_num = select_num
         self.tt_line = tt_line
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
-
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action

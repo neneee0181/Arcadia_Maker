@@ -40,7 +40,6 @@ def init():
     for make_tile in load_tiles:
         try:
             if any(monster_type['name'] == make_tile['type'] for monster_type in monster.monster_types):  # 몬스터 생성
-                print(f"{make_tile['type']} already loaded")
                 new_monster = monster.Monster(
                     id=make_tile['id'],
                     x=make_tile['x'],
