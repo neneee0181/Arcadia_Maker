@@ -7,6 +7,7 @@ from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
     jump_down, jump_up, jump_time_out, jump_denied
+import src.config.config as config
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -19,6 +20,14 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
+
+
+def collision_hide_box(player, xy):
+    if player.x <= 0:
+        player.x -= xy
+    elif player.x >= config.screen_width:
+        player.x -= xy
+    pass
 
 
 class Idle:
@@ -59,6 +68,7 @@ class Run:
     def do(player):
         player.frame = (player.frame + 3 * ACTION_PER_TIME * game_framework.frame_time) % 3
         player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
+        collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
         pass
 
     @staticmethod
