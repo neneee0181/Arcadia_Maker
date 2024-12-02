@@ -46,6 +46,7 @@ def init():
                 tile_size=make_tile['tile_size'],
                 select_num=make_tile['select_num'],
                 tt_line=make_tile['tt_line'],
+                type=make_tile['type']
             )
             tiles.append(tile)  # Tile 객체를 리스트에 추가
         except OSError:

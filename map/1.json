@@ -1,123 +1,74 @@
 [
     {
         "id": 2,
-        "x": 27,
-        "y": 230,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 83,
-        "y": 229,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 141,
-        "y": 228,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 195,
-        "y": 227,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 253,
-        "y": 226,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 309,
-        "y": 230,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 2,
-        "x": 364,
+        "x": 36,
         "y": 232,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
         "select_num": 40,
-        "tt_line": 9
+        "tt_line": 9,
+        "type": "ground"
     },
     {
         "id": 2,
-        "x": 419,
-        "y": 228,
+        "x": 87,
+        "y": 231,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
         "select_num": 40,
-        "tt_line": 9
+        "tt_line": 9,
+        "type": "ground"
     },
     {
         "id": 2,
-        "x": 477,
+        "x": 141,
+        "y": 229,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 59,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 196,
+        "y": 229,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 59,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 33,
+        "x": 275,
+        "y": 231,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 59,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "water"
+    },
+    {
+        "id": 33,
+        "x": 330,
         "y": 230,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
         "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 6,
-        "x": 535,
-        "y": 228,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
-    },
-    {
-        "id": 6,
-        "x": 593,
-        "y": 228,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
+        "tt_line": 9,
+        "type": "water"
     }
 ]

@@ -193,6 +193,7 @@ class Player:
 
     def handle_collision(self, group, other):
         if group == 'player:tile':
-            self.y += self._gravity + 0.05
-            self.jump_count = 0  # 충돌 시 점프 횟수 초기화
+            if other.type == "ground":
+                self.y += self._gravity + 0.05
+                self.jump_count = 0  # 충돌 시 점프 횟수 초기화
         pass
