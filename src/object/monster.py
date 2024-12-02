@@ -101,6 +101,8 @@ class Monster:
         if group == "player:monster":  # player -> 점프상태 -> 몬스터 충돌
             print(f"Current state: {other.state_machine.cur_state}")
             if other.state_machine.cur_state == Jump:
+                other.jump_count = 0
+                other.state_machine.start(Jump)
                 game_world.remove_object(self)
         pass
 
