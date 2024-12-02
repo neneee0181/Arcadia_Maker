@@ -39,11 +39,11 @@ class Monster:
             if self.type == monster_type['name']:
                 print([
                     f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png"
-                    for i in range(0, monster_type['size'])
+                    for i in range(1, monster_type['size'] + 1)
                 ])
                 self.images[monster_type['name']] = [
                     load_image(f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png") for i in
-                    range(0, monster_type['size'])]
+                    range(1, monster_type['size'] + 1)]
                 self.frames_per_action = monster_type['size']  # 이미지 개수
                 self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
                 self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
