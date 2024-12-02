@@ -1,14 +1,16 @@
 import random
 
 from pico2d import *
+
 import src.config.game_framework as game_framework
 import src.config.config as config
 from src.object.tile import Tile
-
 import src.object.player as player
 import src.config.game_world as game_world
+import src.mode.select_mode as select_mode
 
 load_tiles = []
+
 
 def handle_events():
     events = get_events()
@@ -16,9 +18,11 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
+            game_world.clear()
+            game_framework.push_mode(select_mode)
         else:
             player.handle_event(event)
+
 
 def init():
     game_world.clear()
@@ -57,6 +61,7 @@ def init():
 
     pass
 
+
 def finish():
     game_world.clear()
     pass
@@ -65,6 +70,7 @@ def finish():
 def update():
     game_world.update()
     game_world.handle_collisions()
+
 
 def draw():
     clear_canvas()
