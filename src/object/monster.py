@@ -40,6 +40,7 @@ class Monster:
                 self.images[monster_type['name']] = [
                     load_image(f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png") for i in
                     range(0, monster_type['size'])]
+                self.frames_per_action = monster_type['size']  # 이미지 개수
 
     def rigid_xy(self):
         pass
@@ -70,6 +71,11 @@ class Monster:
     def update(self):
         self.frame = (self.frame + self.frames_per_action
                       * ACTION_PER_TIME * game_framework.frame_time) % self.frames_per_action
+        current_image = self.images[self.type][int(self.frame)]  # 현재 프레임 이미지
+        self.rigid_x1 = current_image.w
+        self.rigid_x2 = current_image.w
+        self.rigid_y1 = current_image.h
+        self.rigid_y2 = current_image.h
         pass
 
     def handle_event(self, event):
