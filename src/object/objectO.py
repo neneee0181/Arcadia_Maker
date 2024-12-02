@@ -38,15 +38,12 @@ class ObjectO:
             if self.type == monster_type['name']:
                 self.images[monster_type['name']] = [
                     load_image(f"{monster_img_path}/tile_{(self.id + i):04}.png") for i in
-                    range(1, monster_type['size'] + 1)]
+                    range(0, monster_type['size'])]
                 self.frames_per_action = monster_type['size']  # 이미지 개수
                 self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
                 self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
                 self.rigid_y1 = self.images[monster_type['name']][0].h + monster_type['rigid_']
                 self.rigid_y2 = self.images[monster_type['name']][0].h + monster_type['rigid_']
-
-    def rigid_xy(self):
-        pass
 
     def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
                  tile_size=20, select_num=40, tt_line=0, type="Unknown"):
@@ -71,6 +68,8 @@ class ObjectO:
         self.tt_line = tt_line
 
     def update(self):
+        self.frame = (self.frame + self.frames_per_action
+                      * ACTION_PER_TIME * game_framework.frame_time) % self.frames_per_action
         pass
 
     def handle_event(self, event):

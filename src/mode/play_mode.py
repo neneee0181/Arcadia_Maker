@@ -91,6 +91,8 @@ def init():
         except OSError:
             print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
             tiles.append(None)  # 로드 실패 시 None 추가
+        
+    game_world.add_objects(objects, 1)
     game_world.add_objects(tiles, 2)
     game_world.add_objects(monsters, 1)
 
