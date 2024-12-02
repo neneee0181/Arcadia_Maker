@@ -4,10 +4,6 @@ from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 import math
 import src.config.game_framework as game_framework
-from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-import src.mode.play_mode as play_mode
-from src.object.player import Jump
-import src.config.game_world as game_world
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -25,9 +21,12 @@ object_types = [{
     'name': "jump_object",
     'size': 2,
     'rigid_': 5,
-    'onCollision': lambda self_o, other_o: print(
+    'onCollision_object': lambda self_o, other_o: print(
         f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
-    )
+    ),
+    'onCollision_player': lambda other_o, self_o: print(
+        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
+    ),
 }]
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
@@ -93,7 +92,7 @@ class ObjectO:
     def handle_collision(self, group, other):
         if group == "player:Object":
             for object_type in object_types:
-                if self.type == object_type['name'] and 'onCollision' in object_type:
+                if self.type == object_type['name'] and 'onCollision_object' in object_type:
                     # onCollision 함수 호출
-                    object_type['onCollision'](self, other)
+                    # object_type['onCollision_object'](self, other)
                     break

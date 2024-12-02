@@ -12,6 +12,7 @@ from src.config.state_machine import start_event, right_down, left_up, left_down
     jump_down, jump_up, jump_time_out, jump_denied
 import src.config.config as config
 import src.mode.fail_mode as fail_mode
+import src.object.objectO as objectO
 
 # 점프 크기 상수 추가
 SCREEN_HEIGHT = config.screen_height
@@ -218,5 +219,9 @@ class Player:
                 game_world.remove_object(other)
             else:  # 게임 종료 (실패)
                 game_framework.change_mode(fail_mode)
-
+        if group == "player:Object":
+            for object_type in objectO.object_types:
+                if other.type == object_type['name'] and 'onCollision_player' in object_type:
+                    # onCollision 함수 호출
+                    object_type['onCollision_player'](self, other)
         pass
