@@ -124,7 +124,7 @@ class Player:
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_jump{i}.png") for i in range(1, 4)]
 
     def __init__(self):
-        self.x, self.y = 400, 400
+        self.x, self.y = 40, 200
         self.ball_count = 10
         self.frame = 0
         self.dir = 1
