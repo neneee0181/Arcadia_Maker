@@ -18,12 +18,19 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-monster_types = ["fly_monster_bee"]
+monster_types = [{
+    'name': "fly_monster_bee",
+    'size': 3
+}]
+
 
 class Monster:
     images = None
 
     def load_images(self, image):
+        for monster_type in monster_types:
+            if self.type == monster_type['name']:
+                pass
         pass
 
     def rigid_xy(self):
@@ -39,19 +46,19 @@ class Monster:
         self.rigid_y2 = 0
         self.frames_per_action = 8  # 사진 개수
         self.monsterName = None
-        self.rigid_xy()
         self.id = id
         self.frame = 0
         self.dir = 1
         self.tile_type = tile_type
         self.margin = margin
         self.num_tiles_x = num_tiles_x
+        self.type = type
         self.load_images(image)
         self.tile_size = tile_size
         self.select_num = select_num
         self.tt_line = tt_line
-        self.type = type
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
+
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action
