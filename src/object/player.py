@@ -149,6 +149,7 @@ class Player:
         self.dir = 1
         self._gravity = 0.9
         self.jump_time = 0
+        self.type = "player"
         self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.jump_count = 0  # 점프 횟수를 추적
         self.jump_status = False  # 점프 상태 false = up, true = down

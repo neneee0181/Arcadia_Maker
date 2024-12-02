@@ -21,10 +21,13 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-monster_types = [{
+object_types = [{
     'name': "jump_object",
     'size': 2,
-    'rigid_': 5
+    'rigid_': 5,
+    'onCollision': lambda self_o, other_o: print(
+        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
+    )
 }]
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
@@ -34,16 +37,16 @@ class ObjectO:
 
     def load_images(self, image):
         self.images = {}
-        for monster_type in monster_types:
-            if self.type == monster_type['name']:
-                self.images[monster_type['name']] = [
+        for object_type in object_types:
+            if self.type == object_type['name']:
+                self.images[object_type['name']] = [
                     load_image(f"{monster_img_path}/tile_{(self.id + i):04}.png") for i in
-                    range(0, monster_type['size'])]
-                self.frames_per_action = monster_type['size']  # 이미지 개수
-                self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
-                self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
-                self.rigid_y1 = self.images[monster_type['name']][0].h + monster_type['rigid_']
-                self.rigid_y2 = self.images[monster_type['name']][0].h + monster_type['rigid_']
+                    range(0, object_type['size'])]
+                self.frames_per_action = object_type['size']  # 이미지 개수
+                self.rigid_x1 = self.images[object_type['name']][0].w + object_type['rigid_']
+                self.rigid_x2 = self.images[object_type['name']][0].w + object_type['rigid_']
+                self.rigid_y1 = self.images[object_type['name']][0].h + object_type['rigid_']
+                self.rigid_y2 = self.images[object_type['name']][0].h + object_type['rigid_']
 
     def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
                  tile_size=20, select_num=40, tt_line=0, type="Unknown"):
@@ -88,4 +91,9 @@ class ObjectO:
         pass
 
     def handle_collision(self, group, other):
-        pass
+        if group == "player:Object":
+            for object_type in object_types:
+                if self.type == object_type['name'] and 'onCollision' in object_type:
+                    # onCollision 함수 호출
+                    object_type['onCollision'](self, other)
+                    break
