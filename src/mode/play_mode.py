@@ -77,6 +77,9 @@ def init():
 
     for tile in tiles:
         game_world.add_collision_pair('player:tile', None, tile)
+    for monster_c in monsters:
+        game_world.add_collision_pair('player:monster', None, monster_c)
+
 
     global new_player
     try:
