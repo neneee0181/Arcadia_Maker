@@ -8,35 +8,63 @@ import src.mode.maker_fileName_mode as maker_fileName_mode
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 
+from PIL import Image, PngImagePlugin
+import os
+
 maker_tiles = []
 
-def ui_init():
-    global bottom_line_ui
-    bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
 
-    global tiles
-    tiles = []
-    for i in range(179):
+def load_tiles_with_metadata(folder_path):
+    tiles_ = []
+    i = 0  # 직접 관리할 인덱스 변수
+    for file_name in os.listdir(folder_path):
         try:
-            image = load_image(f"./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
+            # 폴더인지 확인 (폴더는 무시)
+            full_path = os.path.join(folder_path, file_name)
+            if not os.path.isfile(full_path):  # 폴더는 무시
+                print(f"Skipping folder: {file_name}")
+                continue  # 폴더는 스킵
+
+            # 파일 열기
+            image = Image.open(full_path)
+
+            # 메타데이터에서 태그 읽기
+            metadata = image.info
+            tile_type = metadata.get("type", "unknown")  # 'type' 메타데이터가 없으면 기본값 'unknown'
+
+            # 이미지를 Pico2d용으로 로드
+            pico2d_image = load_image(full_path)
+
+            # Tile 객체 생성
             tile = Tile(
                 id=i,
-                x=-100,  # 초기 X 좌표
-                y=-100,  # 초기 Y 좌표
+                x=-100,  # 초기 좌표
+                y=-100,  # 초기 좌표
                 tile_type="kenney_pixel-platformer",
                 margin=5,
                 num_tiles_x=20,
-                image = image,
+                image=pico2d_image,
+                type=tile_type,
             )
             tile.tt_line = 9
             tile.tile_size = (config.screen_width - (tile.num_tiles_x - 1) * tile.margin) // tile.num_tiles_x
             tile.x = (i % tile.num_tiles_x) * (tile.tile_size + tile.margin) + tile.tile_size // 2
             tile.y = 200 - ((i // tile.num_tiles_x) * (tile.tile_size + tile.margin)) - (
                     tile.tile_size // 2) - tile.margin
-            tiles.append(tile)  # 배열에 추가
-        except OSError:
-            print(f"Cannot load image: ./src/asset/kenney_pixel-platformer/Tiles/tile_{i:04}.png")
-            tiles.append(None)  # 로드 실패 시 None 추가
+            tiles_.append(tile)
+            print(f"Loaded tile ID {tile.id} with type '{tile_type}'")
+            i += 1  # 타일을 성공적으로 추가했을 때만 i 증가
+        except Exception as e:
+            print(f"Error processing {file_name}: {e}")
+    return tiles_
+
+
+def ui_init():
+    global bottom_line_ui
+    bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
+
+    global tiles
+    tiles = load_tiles_with_metadata("./src/asset/kenney_pixel-platformer/Tiles")  # 경로 수정
     game_world.add_objects(tiles, 1)
 
     for tile in tiles:
