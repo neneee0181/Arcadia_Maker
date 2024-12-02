@@ -112,6 +112,7 @@ def handle_events():
 
 
 def init():
+    maker_tiles.clear()
     ui_init()
     global mouse
     mouse = Mouse()

@@ -7,21 +7,26 @@ import src.mode.select_mode as select_mode
 
 maker_tiles = []
 
-
 def make_file():
     # Tile 객체를 딕셔너리로 변환
     if file_name == '':
         print("파일 이름이 비어있습니다.")
         return
 
-    data = [tile.to_dict() for tile in maker_tiles]
+    # 파일 경로 설정
+    file_path = f"map/{file_name}.json"
 
-    # JSON 파일로 저장
-    with open(f"map/{file_name}.json", "w", encoding="utf-8") as f:
+    # 파일이 존재하면 삭제
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"기존 파일 '{file_path}'을 삭제했습니다.")
+
+    # 데이터를 JSON 파일로 저장
+    data = [tile.to_dict() for tile in maker_tiles]
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-    print("Data exported to maker_tiles.json")
-    pass
+    print(f"새 파일 '{file_path}'을 생성했습니다.")
 
 
 def handle_events():
