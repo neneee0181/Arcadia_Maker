@@ -11,6 +11,7 @@ import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
     jump_down, jump_up, jump_time_out, jump_denied
 import src.config.config as config
+import src.mode.fail_mode as fail_mode
 
 # 점프 크기 상수 추가
 SCREEN_HEIGHT = config.screen_height
@@ -205,4 +206,6 @@ class Player:
             if other.type == "finish":  # 게임 종료
                 game_framework.change_mode(complate_mode)
                 pass
+        if group == "player:monster":
+            game_framework.change_mode(fail_mode)
         pass

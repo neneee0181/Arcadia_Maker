@@ -95,6 +95,7 @@ def init():
     except Exception as e:
         print(f"Error adding Player to game_world: {e}")
     game_world.add_collision_pair('player:tile', new_player, None)
+    game_world.add_collision_pair('player:monster', new_player, None)
 
     pass
 

@@ -131,9 +131,9 @@ class Monster:
 
     def build_behavior_tree(self):
         if self.type == monster_types[0]['name']:  # bee 일때
-            c1 = Condition('소년이 근처에 있는가?', self.is_player_nearby, 5)
-            a4 = Action('소년한테 접근', self.move_to_boy)
-            root = chase_boy = Sequence('소년을 추적', c1, a4)
+            c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 5)
+            a4 = Action('player에게 접근', self.move_to_boy)
+            root = chase_boy = Sequence('player 추적', c1, a4)
 
         self.bt = BehaviorTree(root)
         pass
