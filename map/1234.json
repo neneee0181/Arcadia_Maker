@@ -1,79 +1,38 @@
 [
     {
-        "id": 7,
-        "x": 403,
-        "y": 258,
+        "id": 180,
+        "x": 427,
+        "y": 437,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
+        "select_num": 200,
+        "tt_line": 9,
+        "type": "fly_monster_bee"
     },
     {
-        "id": 6,
-        "x": 472,
-        "y": 284,
+        "id": 163,
+        "x": 238,
+        "y": 410,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9
+        "select_num": 200,
+        "tt_line": 9,
+        "type": "ui_number"
     },
     {
-        "id": 67,
-        "x": 597,
-        "y": 345,
+        "id": 166,
+        "x": 675,
+        "y": 413,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 80,
-        "tt_line": 9
-    },
-    {
-        "id": 48,
-        "x": 578,
-        "y": 192,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 80,
-        "tt_line": 9
-    },
-    {
-        "id": 48,
-        "x": 731,
-        "y": 337,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 80,
-        "tt_line": 9
-    },
-    {
-        "id": 49,
-        "x": 905,
-        "y": 360,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 80,
-        "tt_line": 9
-    },
-    {
-        "id": 53,
-        "x": 831,
-        "y": 280,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 80,
-        "tt_line": 9
+        "select_num": 200,
+        "tt_line": 9,
+        "type": "ui_number"
     }
 ]

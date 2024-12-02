@@ -538,5 +538,8 @@
   },
   "tile_0179.png": {
     "type": "ui_number"
+  },
+   "tile_0180.png": {
+    "type": "fly_monster_bee"
   }
 }
