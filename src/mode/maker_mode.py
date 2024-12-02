@@ -13,7 +13,6 @@ import os
 
 maker_tiles = []
 
-
 def load_tiles_with_metadata(folder_path):
     tiles_ = []
     i = 0  # 직접 관리할 인덱스 변수

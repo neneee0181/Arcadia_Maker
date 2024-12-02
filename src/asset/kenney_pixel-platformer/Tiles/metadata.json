@@ -1,0 +1,11 @@
+{
+    "tile_0000.png": {
+        "type": "ground"
+    },
+    "tile_0001.png": {
+        "type": "ground"
+    },
+    "tile_0002.png": {
+        "type": "ground"
+    }
+}
