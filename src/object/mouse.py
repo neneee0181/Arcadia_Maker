@@ -4,10 +4,6 @@ import src.mode.maker_mode as maker_mode
 from src.object.tile import Tile
 import src.config.game_world as game_world
 
-
-def check_tile_type(id):
-    pass
-
 class Mouse:
     image_down = None
     image_up = None

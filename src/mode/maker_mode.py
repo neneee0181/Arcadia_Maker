@@ -10,7 +10,6 @@ from src.object.tile import Tile
 
 maker_tiles = []
 
-
 def ui_init():
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
