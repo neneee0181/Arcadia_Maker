@@ -9,7 +9,8 @@ class Tile:
     tt_line = 0  # 타일 전체 줄수 -> ex 9개
     selected = False
 
-    def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None, tile_size=20, select_num=40, tt_line=0):
+    def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None, tile_size=20, select_num=40, tt_line=0,
+                 type=""):
         self.id = id
         self.x = x
         self.y = y
@@ -20,6 +21,7 @@ class Tile:
         self.tile_size = tile_size
         self.select_num = select_num
         self.tt_line = tt_line
+        self.type = type
 
     def update(self):
         pass
@@ -65,5 +67,6 @@ class Tile:
             "num_tiles_x": self.num_tiles_x,
             "tile_size": self.tile_size,
             "select_num": self.select_num,
-            "tt_line": self.tt_line
+            "tt_line": self.tt_line,
+            "type": self.type
         }

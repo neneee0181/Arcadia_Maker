@@ -5,6 +5,9 @@ from src.object.tile import Tile
 import src.config.game_world as game_world
 
 
+def check_tile_type(id):
+    pass
+
 class Mouse:
     image_down = None
     image_up = None
@@ -62,6 +65,7 @@ class Mouse:
                     tile_size=other.tile_size,
                     select_num=other.select_num,
                     tt_line=other.tt_line,
+                    type=other.type
                 )
                 self.tile.selected = True
                 game_world.add_object(self.tile, 1)
