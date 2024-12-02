@@ -203,9 +203,10 @@ class Player:
             if other.type == "ground":  # 땅
                 self.y += self._gravity + 0.05
                 self.jump_count = 0  # 충돌 시 점프 횟수 초기화
-            if other.type == "finish":  # 게임 종료
+            if other.type == "finish":  # 게임 종료 (성공)
                 game_framework.change_mode(complate_mode)
                 pass
-        if group == "player:monster":
-            game_framework.change_mode(fail_mode)
+        if group == "player:monster": # 게임 종료 (실패)
+            #game_framework.change_mode(fail_mode)
+            pass
         pass

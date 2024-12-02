@@ -6,6 +6,8 @@ import math
 import src.config.game_framework as game_framework
 from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 import src.mode.play_mode as play_mode
+from src.object.player import Jump
+import src.config.game_world as game_world
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -96,6 +98,10 @@ class Monster:
         pass
 
     def handle_collision(self, group, other):
+        if group == "player:monster":  # player -> 점프상태 -> 몬스터 충돌
+            print(f"Current state: {other.state_machine.cur_state}")
+            if other.state_machine.cur_state == Jump:
+                game_world.remove_object(self)
         pass
 
     def move_to(self, r=0.5):
