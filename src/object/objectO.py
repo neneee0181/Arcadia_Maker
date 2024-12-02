@@ -21,13 +21,29 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-monster_img_path = "./src/asset/mode/play/monster/"
+monster_types = [{
+    'name': "jump_object",
+    'size': 2,
+    'rigid_': 5
+}]
+monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
-class JumpO:
+
+class ObjectO:
     images = None
 
     def load_images(self, image):
         self.images = {}
+        for monster_type in monster_types:
+            if self.type == monster_type['name']:
+                self.images[monster_type['name']] = [
+                    load_image(f"{monster_img_path}/tile_{(self.id + i):04}.png") for i in
+                    range(1, monster_type['size'] + 1)]
+                self.frames_per_action = monster_type['size']  # 이미지 개수
+                self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
+                self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
+                self.rigid_y1 = self.images[monster_type['name']][0].h + monster_type['rigid_']
+                self.rigid_y2 = self.images[monster_type['name']][0].h + monster_type['rigid_']
 
     def rigid_xy(self):
         pass

@@ -9,6 +9,7 @@ import src.object.player as player
 import src.config.game_world as game_world
 import src.mode.select_mode as select_mode
 import src.object.monster as monster
+import src.object.objectO as objectO
 
 load_tiles = []
 
@@ -36,6 +37,8 @@ def init():
     monsters = []
     global tiles
     tiles = []
+    global objects
+    objects = []
 
     for make_tile in load_tiles:
         try:
@@ -55,8 +58,21 @@ def init():
                 )
                 monsters.append(new_monster)
                 continue
-            if make_tile['type'] == 'jump_object': # 점프패드
-                print("!!!!")
+            if make_tile['type'] == 'jump_object':  # 점프패드
+                new_jump = objectO.ObjectO(
+                    id=make_tile['id'],
+                    x=make_tile['x'],
+                    y=make_tile['y'] - 200,
+                    tile_type=make_tile['tile_type'],
+                    num_tiles_x=make_tile['num_tiles_x'],
+                    margin=make_tile['margin'],
+                    image=f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
+                    tile_size=make_tile['tile_size'],
+                    select_num=make_tile['select_num'],
+                    tt_line=make_tile['tt_line'],
+                    type=make_tile['type']
+                )
+                objects.append(new_jump)
                 continue
             tile = Tile(
                 id=make_tile['id'],
@@ -82,6 +98,8 @@ def init():
         game_world.add_collision_pair('player:tile', None, tile)
     for monster_c in monsters:
         game_world.add_collision_pair('player:monster', None, monster_c)
+    for object_c in objects:
+        game_world.add_collision_pair('player:Object', None, object_c)
 
     global new_player
     try:
@@ -98,6 +116,7 @@ def init():
         print(f"Error adding Player to game_world: {e}")
     game_world.add_collision_pair('player:tile', new_player, None)
     game_world.add_collision_pair('player:monster', new_player, None)
+    game_world.add_collision_pair('player:Object', new_player, None)
     pass
 
 
