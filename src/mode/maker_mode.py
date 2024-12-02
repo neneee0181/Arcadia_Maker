@@ -8,7 +8,6 @@ import src.mode.maker_fileName_mode as maker_fileName_mode
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 
-from PIL import Image, PngImagePlugin
 import os
 
 maker_tiles = []
