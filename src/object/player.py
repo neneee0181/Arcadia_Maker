@@ -16,7 +16,7 @@ import src.mode.fail_mode as fail_mode
 # 점프 크기 상수 추가
 SCREEN_HEIGHT = config.screen_height
 PIXEL_PER_METER = SCREEN_HEIGHT / 30  # 30m 기준
-JUMP_FORCE = 18 * PIXEL_PER_METER  # 점프 높이 (15m)
+JUMP_FORCE = 20 * PIXEL_PER_METER  # 점프 높이 (15m)
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
