@@ -97,6 +97,7 @@ class Monster:
         self.margin = margin
         self.num_tiles_x = num_tiles_x
         self.type = type
+        self.inversion = 'h'
         self.load_images(image)
         self.tile_size = tile_size
         self.select_num = select_num
@@ -108,7 +109,7 @@ class Monster:
         else:
             self.bt = None  # AI가 없을 경우 bt를 None으로 설정
         self.initial_y = self.y  # 초기 위치 저장 (물고기 이동)
-        self.inversion = 'h'
+        self.target_y = self.initial_y + random.randint(200, 400)  # 랜덤 이동 높이 설정
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action
@@ -164,20 +165,19 @@ class Monster:
             return BehaviorTree.RUNNING
         pass
 
-    def move_h(self):
-        # h 값을 랜덤으로 설정 (최초 또는 방향 변경 시)
-        if not hasattr(self,
-                       'h') or self.dir == 1 and self.y >= self.initial_y + self.h or self.dir == -1 and self.y <= self.initial_y:
-            self.h = random.randint(200, 400)
-
-        # dir 값에 따라 y 위치 업데이트
-        self.y += self.dir * RUN_SPEED_PPS * game_framework.frame_time
-
-        # y가 h만큼 위로 이동했을 때와 제자리로 돌아왔을 때 방향 반전
-        if self.dir == 1 and self.y >= self.initial_y + self.h:  # 위로 h만큼 이동
-            self.dir = -1  # 아래로 이동
-        elif self.dir == -1 and self.y <= self.initial_y:  # 제자리로 돌아옴
-            self.dir = 1  # 위로 이동
+    def move_h(self, h=400):
+        # 방향에 따라 이동
+        if self.dir == -1:  # 아래로 이동
+            if self.y > self.initial_y:
+                self.y -= RUN_SPEED_PPS * game_framework.frame_time
+            else:  # 제자리로 돌아왔으면 방향 전환
+                self.dir = 1
+                self.target_y = self.initial_y + random.randint(200, 400)  # 새로운 랜덤 높이 설정
+        elif self.dir == 1:  # 위로 이동
+            if self.y < self.target_y:
+                self.y += RUN_SPEED_PPS * game_framework.frame_time
+            else:  # 목표 지점에 도달했으면 방향 전환
+                self.dir = -1
 
         return BehaviorTree.RUNNING
 
