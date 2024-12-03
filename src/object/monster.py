@@ -35,6 +35,16 @@ monster_types = [{
         f"{monster_img_path}/fly_monster_bee/tile_0181.png",
         f"{monster_img_path}/fly_monster_bee/tile_0182.png"
     ]
+}, {
+    'name': "water_monster_fishi",
+    'size': 2,
+    'rigid_': 5,
+    '_fishiO_object': None,
+    '_fishiO_player': None,
+    'load_images': [
+        f"{monster_img_path}/water_monster_fishi/tile_014.png",
+        f"{monster_img_path}/water_monster_fishi/tile_013.png",
+    ]
 }]
 
 

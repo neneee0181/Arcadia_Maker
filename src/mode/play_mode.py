@@ -58,7 +58,7 @@ def init():
                 )
                 monsters.append(new_monster)
                 continue
-            if make_tile['type'] == 'jump_object' or make_tile['type'] == 'water':  # 점프패드, water
+            if any(object_type['name'] == make_tile['type'] for object_type in objectO.object_types):  # 점프패드, water
                 new_object = objectO.ObjectO(
                     id=make_tile['id'],
                     x=make_tile['x'],
