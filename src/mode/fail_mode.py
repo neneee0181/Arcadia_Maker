@@ -42,7 +42,7 @@ def update():
 
 def draw():
     clear_canvas()
-    success_font.draw(config.screen_width / 2 - 120, config.screen_height / 2,
+    success_font.draw(config.screen_width / 2 - 70, config.screen_height / 2,
                       f'Fail!!', (255, 100, 100))
     keyboard_img_return.draw(config.screen_width - 100, 105, keyboard_img_return.w - 30, keyboard_img_return.h - 30)
     update_canvas()
