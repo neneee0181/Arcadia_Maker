@@ -80,6 +80,11 @@ def sticky_blockO_player(self_o, other_o):
         self_o.x += self_o.dir * RUN_SPEED_PPS * game_framework.frame_time
 
 
+def spikeO_player(self_o, other_o):
+    print(1111)
+    pass
+
+
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 object_types = [{
@@ -110,7 +115,14 @@ object_types = [{
     'rigid_': 28,
     '_sticky_blockO_object': None,
     '_sticky_blockO_player': sticky_blockO_player,
-}
+},
+    {
+        'name': "spike",
+        'size': 1,
+        'rigid_': 28,
+        '_spikeO_object': None,
+        '_spikeO_player': spikeO_player,
+    }
 ]
 
 

@@ -292,4 +292,8 @@ class Player:
                     object_type['_sticky_blockO_player'](self, other)
                     self.is_fast_falling = False
                     return
+                if other.type == object_type['name'] and '_spikeO_player' in object_type:
+                    object_type['_spikeO_player'](self, other)
+                    self.is_fast_falling = False
+                    return
         pass

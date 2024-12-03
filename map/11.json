@@ -1,8 +1,8 @@
 [
     {
         "id": 2,
-        "x": 48,
-        "y": 248,
+        "x": 68,
+        "y": 265,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -13,8 +13,8 @@
     },
     {
         "id": 2,
-        "x": 139,
-        "y": 248,
+        "x": 156,
+        "y": 253,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -25,55 +25,7 @@
     },
     {
         "id": 2,
-        "x": 230,
-        "y": 250,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 322,
-        "y": 243,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 413,
-        "y": 240,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 504,
-        "y": 246,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 596,
+        "x": 253,
         "y": 249,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
@@ -84,75 +36,15 @@
         "type": "ground"
     },
     {
-        "id": 57,
-        "x": 455,
-        "y": 428,
+        "id": 68,
+        "x": 277,
+        "y": 346,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 91,
         "select_num": 80,
         "tt_line": 9,
-        "type": "sticky_block"
-    },
-    {
-        "id": 58,
-        "x": 546,
-        "y": 427,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 80,
-        "tt_line": 9,
-        "type": "sticky_block"
-    },
-    {
-        "id": 59,
-        "x": 636,
-        "y": 428,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 80,
-        "tt_line": 9,
-        "type": "sticky_block"
-    },
-    {
-        "id": 17,
-        "x": 458,
-        "y": 519,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "sticky_block"
-    },
-    {
-        "id": 18,
-        "x": 550,
-        "y": 518,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "sticky_block"
-    },
-    {
-        "id": 19,
-        "x": 638,
-        "y": 519,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "sticky_block"
+        "type": "spike"
     }
 ]
