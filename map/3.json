@@ -1,67 +1,7 @@
 [
     {
         "id": 2,
-        "x": 31,
-        "y": 224,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 92,
-        "y": 228,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 146,
-        "y": 226,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 204,
-        "y": 227,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 2,
-        "x": 257,
-        "y": 230,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 22,
-        "x": 315,
+        "x": 27,
         "y": 232,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
@@ -72,9 +12,9 @@
         "type": "ground"
     },
     {
-        "id": 23,
-        "x": 369,
-        "y": 234,
+        "id": 2,
+        "x": 84,
+        "y": 230,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -84,27 +24,39 @@
         "type": "ground"
     },
     {
-        "id": 180,
-        "x": 182,
-        "y": 305,
+        "id": 2,
+        "x": 139,
+        "y": 228,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 200,
+        "select_num": 40,
         "tt_line": 9,
-        "type": "fly_monster_bee"
+        "type": "ground"
     },
     {
-        "id": 107,
-        "x": 314,
-        "y": 287,
+        "id": 33,
+        "x": 193,
+        "y": 231,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 140,
+        "select_num": 40,
         "tt_line": 9,
-        "type": "jump_object"
+        "type": "water"
+    },
+    {
+        "id": 33,
+        "x": 250,
+        "y": 233,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 59,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "water"
     }
 ]

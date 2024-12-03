@@ -185,6 +185,7 @@ class Player:
     def update(self):
         self.gravity()
         self.state_machine.update()
+        self._gravity = 0.9
 
     def handle_event(self, event):
         # 키 입력 상태 업데이트
@@ -232,9 +233,12 @@ class Player:
                 game_world.remove_object(other)
             else:  # 게임 종료 (실패)
                 game_framework.change_mode(fail_mode)
-        if group == "player:Object": # 오브 젝트 충돌 처리
+        if group == "player:Object":  # 오브 젝트 충돌 처리
             for object_type in objectO.object_types:
-                if other.type == object_type['name'] and '_jumpO_player' in object_type: # 점프패드
+                if other.type == object_type['name'] and '_jumpO_player' in object_type:  # 점프패드
                     object_type['_jumpO_player'](self, other)
-                #if other.type == object_type['name']
+                    return
+                if other.type == object_type['name'] and '_waterO_player' in object_type:
+                    object_type['_waterO_player'](self, other)
+                    return
         pass

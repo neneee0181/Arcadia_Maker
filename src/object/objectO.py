@@ -20,7 +20,6 @@ FRAMES_PER_ACTION = 8
 
 
 def jumpO_player(self_o, other_o):  # 점프패드 - player
-    print(self_o.type)
     if self_o.jump_status:
         self_o.jump_count = 0
         self_o.jump_h_force = self_o.jump_h_force * 1.5
@@ -28,6 +27,15 @@ def jumpO_player(self_o, other_o):  # 점프패드 - player
         self_o.state_machine.start(Jump)
 
     pass
+
+
+def waterO_player(self_o, other_o):
+    """
+    물에 닿았을 때 중력 감쇠 또는 부력을 적용하는 함수
+    """
+    # 기존 중력을 감쇠시켜 천천히 내려가게 만듦
+    self_o._gravity = 0.2  # 물 속에서의 중력 감쇠
+    self_o.y += 0.05  # 부력을 적용해 살짝 떠오르게 함
 
 
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
@@ -47,7 +55,7 @@ object_types = [{
     'size': 1,
     'rigid_': 15,
     '_waterO_object': None,
-    '_waterO_player': jumpO_player,
+    '_waterO_player': waterO_player,
 }
 ]
 
