@@ -53,6 +53,11 @@ def itemO_jump_time_up_player(self_o, other_o):
     pass
 
 
+def blockO_player(self_o, other_o):
+    print(111111)
+    pass
+
+
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 object_types = [{
@@ -77,6 +82,12 @@ object_types = [{
     'rigid_': 15,
     '_itemO_jump_time_up_object': None,
     '_itemO_jump_time_up_player': itemO_jump_time_up_player,
+}, {
+    'name': "block",
+    'size': 1,
+    'rigid_': 28,
+    '_blockO_object': None,
+    '_blockO_player': blockO_player,
 }
 ]
 
@@ -135,9 +146,11 @@ class ObjectO:
 
     def draw(self):
         if self.dir < 0:
-            self.images[self.type][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 66, 92)
+            self.images[self.type][int(self.frame)].composite_draw(0, 'h', self.x, self.y, self.tile_size,
+                                                                   self.tile_size)
         else:
-            self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, 66, 92)
+            self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, self.tile_size,
+                                                                   self.tile_size)
         if status_.is_bb:
             draw_rectangle(*self.get_bb())
 

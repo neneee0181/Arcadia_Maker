@@ -78,7 +78,7 @@
     "type": "ground"
   },
   "tile_0026.png": {
-    "type": "object"
+    "type": "block"
   },
   "tile_0027.png": {
     "type": "key"
@@ -87,7 +87,7 @@
     "type": "key_tool"
   },
   "tile_0029.png": {
-    "type": "object"
+    "type": "block"
   },
   "tile_0030.png": {
     "type": "object"
