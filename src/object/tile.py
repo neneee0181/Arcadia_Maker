@@ -1,7 +1,7 @@
 from pico2d import *
 
 import src.config.game_world as game_world
-
+import src.config.status as status_
 
 class Tile:
     tile_size = 20  # 기본 타일 사이즈
@@ -29,7 +29,8 @@ class Tile:
     def draw(self):
         if self.select_num > self.id >= self.select_num - 40:
             self.image.draw(self.x, self.y, self.tile_size, self.tile_size)
-        draw_rectangle(*self.get_bb())
+        if status_.is_bb:
+            draw_rectangle(*self.get_bb())
         pass
 
     def handle_event(self, event):

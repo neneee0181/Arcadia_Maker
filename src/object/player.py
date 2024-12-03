@@ -13,6 +13,7 @@ from src.config.state_machine import start_event, right_down, left_up, left_down
 import src.config.config as config
 import src.mode.fail_mode as fail_mode
 import src.object.objectO as objectO
+import src.config.status as status_
 
 # 점프 크기 상수 추가
 SCREEN_HEIGHT = config.screen_height
@@ -208,7 +209,8 @@ class Player:
 
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())
+        if status_.is_bb:
+            draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 34, self.y - 45, self.x + 31, self.y + 47
@@ -230,9 +232,9 @@ class Player:
                 game_world.remove_object(other)
             else:  # 게임 종료 (실패)
                 game_framework.change_mode(fail_mode)
-        if group == "player:Object":
+        if group == "player:Object": # 오브 젝트 충돌 처리
             for object_type in objectO.object_types:
-                if other.type == object_type['name'] and '_jumpO_player' in object_type:
-                    # onCollision 함수 호출
+                if other.type == object_type['name'] and '_jumpO_player' in object_type: # 점프패드
                     object_type['_jumpO_player'](self, other)
+                #if other.type == object_type['name']
         pass

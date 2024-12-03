@@ -6,6 +6,7 @@ import src.config.config as config
 from ctypes import c_int
 from pico2d import SDL_ShowCursor, SDL_DISABLE
 
+is_bb = True
 
 open_canvas(config.screen_width, config.screen_height)
 SDL_ShowCursor(c_int(SDL_DISABLE))
