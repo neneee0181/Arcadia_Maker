@@ -39,10 +39,17 @@ def waterO_player(self_o, other_o):
 
 
 def itemO_jump_time_up_player(self_o, other_o):
-    self_o.jump_status = True
-    self_o.jump_time = 2
-    self_o.jump_count_limit = 2
-    self_o.jump_time_limit = 0.7
+    from src.object.player import Jump
+    if self_o.state_machine.cur_state == Jump:
+        self_o.y -= self_o._gravity * 1.2
+        self_o.jump_status = True
+        self_o.jump_time = 2
+        self_o.jump_count_limit = 2
+        self_o.jump_time_limit = 0.7
+    else:
+        self_o.jump_status = False
+        self_o.y += self_o._gravity * 1.2
+        self_o.jump_count = 0
     pass
 
 
