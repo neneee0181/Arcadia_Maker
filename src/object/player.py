@@ -9,7 +9,7 @@ import src.mode.complate_mode as complate_mode
 import src.config.game_world as game_world
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
-    jump_down, jump_up, jump_time_out, jump_denied
+    jump_down, jump_up, jump_time_out, jump_denied, down_release, down_press
 import src.config.config as config
 import src.mode.fail_mode as fail_mode
 import src.object.objectO as objectO
@@ -156,14 +156,15 @@ class Down:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
+        player.jump_status = True
+        pass
 
     @staticmethod
     def draw(player):
         if player.dir < 0:
-            player.images['alienPink_down'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+            player.images['alienPink_down'][0].composite_draw(0, 'h', player.x, player.y, 66, 92)
         else:
-            player.images['alienPink_down'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
+            player.images['alienPink_down'][0].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
 class Player:
@@ -179,7 +180,7 @@ class Player:
             Player.images['alienPink_jump'] = [
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_jump{i}.png") for i in range(1, 4)]
             Player.images['alienPink_down'] = [
-                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_down{i}.png") for i in range(1, 1)]
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_down1.png")]
 
     def __init__(self):
         self.x, self.y = 40, 200
@@ -202,8 +203,7 @@ class Player:
             {
                 Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, jump_down: Jump, jump_up: Jump},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_down: Jump, jump_up: Jump},
-                Jump: {jump_time_out: self.decide_next_state, ('DOWN_PRESS', None): Down},
-                Down: {('DOWN_RELEASE', None): self.decide_next_state},
+                Jump: {jump_time_out: self.decide_next_state},
             }
         )
 

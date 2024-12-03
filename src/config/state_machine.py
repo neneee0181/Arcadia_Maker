@@ -1,5 +1,5 @@
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, \
-    SDLK_UP
+    SDLK_UP, SDLK_DOWN
 
 
 def start_event(e):
@@ -40,6 +40,14 @@ def jump_time_out(e):
 
 def jump_denied(e):  # 일단 추가 사용은 안함
     return e[0] == 'JUMP_DENIED'
+
+
+def down_press(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_DOWN
+
+
+def down_release(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_DOWN
 
 
 class StateMachine:
