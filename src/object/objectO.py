@@ -19,9 +19,13 @@ FRAMES_PER_ACTION = 8
 
 
 def jumpO_player(self_o, other_o):  # 점프패드 - player
-    print(
-        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
-    )
+    print(self_o.type)
+    if self_o.jump_status:
+        self_o.jump_count = 0
+        self_o.jump_h_force = self_o.jump_h_force * 1.2
+        from src.object.player import Jump  # 지연 Import
+        self_o.state_machine.start(Jump)
+
     pass
 
 

@@ -111,7 +111,7 @@ class Jump:
     def do(player):
         player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
 
-        player.y += JUMP_FORCE * game_framework.frame_time
+        player.y += player.jump_h_force * game_framework.frame_time
 
         if SDLK_RIGHT in player.current_keys or SDLK_LEFT in player.current_keys:  # 오른쪽 키가 눌려 있는 경우
             player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
@@ -119,6 +119,8 @@ class Jump:
         if get_time() - player.jump_time > 0.5:
             player.jump_status = True
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
+            player.jump_h_force = JUMP_FORCE # 점프 높이 초기화 (점프 패드를 밟고 증가된 값을 초기화 시켜주는 부분)
+
         collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
         pass
 
@@ -151,6 +153,7 @@ class Player:
         self._gravity = 0.9
         self.jump_time = 0
         self.type = "player"
+        self.jump_h_force = JUMP_FORCE
         self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.jump_count = 0  # 점프 횟수를 추적
         self.jump_status = False  # 점프 상태 false = up, true = down
