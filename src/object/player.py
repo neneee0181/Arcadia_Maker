@@ -277,9 +277,10 @@ class Player:
             for object_type in objectO.object_types:
                 if other.type == object_type['name'] and '_jumpO_player' in object_type:  # 점프패드
                     object_type['_jumpO_player'](self, other)
+                    self.is_fast_falling = False
+                    return
                 if other.type == object_type['name'] and '_waterO_player' in object_type:
                     object_type['_waterO_player'](self, other)
-
-                self.is_fast_falling = False
-                return
+                    self.is_fast_falling = False
+                    return
         pass

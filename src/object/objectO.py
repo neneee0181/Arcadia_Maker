@@ -5,6 +5,7 @@ from pico2d import get_time, load_image, load_font, \
 import math
 import src.config.game_framework as game_framework
 import src.config.status as status_
+import src.config.config as config
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -33,9 +34,8 @@ def waterO_player(self_o, other_o):
     """
     물에 닿았을 때 중력 감쇠 또는 부력을 적용하는 함수
     """
-    # 기존 중력을 감쇠시켜 천천히 내려가게 만듦
-    self_o._gravity = 0.2  # 물 속에서의 중력 감쇠
-    self_o.y += 0.05  # 부력을 적용해 살짝 떠오르게 함
+    self_o.y +=  -0.1  # 부력을 적용해 살짝 떠오르게 함
+    self_o.jump_count = 0
 
 
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
