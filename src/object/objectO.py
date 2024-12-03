@@ -3,6 +3,9 @@
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 import math
+
+from sdl2 import SDLK_RIGHT, SDLK_LEFT
+
 import src.config.game_framework as game_framework
 import src.config.status as status_
 import src.config.config as config
@@ -53,9 +56,28 @@ def itemO_jump_time_up_player(self_o, other_o):
     pass
 
 
-def blockO_player(self_o, other_o):
-    print(111111)
-    pass
+def sticky_blockO_player(self_o, other_o):
+    # 플레이어와 블록의 충돌 영역 확인
+    player_bb = self_o.get_bb()
+    block_bb = other_o.get_bb()
+
+    # 아래로 내려가는 중력 막기: 플레이어 바닥이 블록 윗면에 접촉한 경우
+    if player_bb[1] <= block_bb[3] and player_bb[3] > block_bb[3]:
+        # 블록 위에 자연스럽게 서 있게 조정
+        self_o.y = block_bb[3] + (player_bb[3] - player_bb[1]) / 2
+        self_o.jump_status = False  # 점프 상태 초기화
+        self_o.jump_count = 0  # 점프 횟수 초기화
+
+    # 위로 올라가는 경우 막기: 플레이어 머리가 블록 아래면에 접촉한 경우
+    if player_bb[3] >= block_bb[1] and player_bb[1] < block_bb[1]:
+        # 플레이어를 블록 아래로 밀어냄
+        self_o.y = block_bb[1] - (player_bb[3] - player_bb[1]) / 2
+
+    # 좌우 움직임 막기
+    if SDLK_RIGHT in self_o.current_keys:
+        self_o.x -= self_o.dir * RUN_SPEED_PPS * game_framework.frame_time
+    if SDLK_LEFT in self_o.current_keys:
+        self_o.x += self_o.dir * RUN_SPEED_PPS * game_framework.frame_time
 
 
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
@@ -83,11 +105,11 @@ object_types = [{
     '_itemO_jump_time_up_object': None,
     '_itemO_jump_time_up_player': itemO_jump_time_up_player,
 }, {
-    'name': "block",
+    'name': "sticky_block",
     'size': 1,
     'rigid_': 28,
-    '_blockO_object': None,
-    '_blockO_player': blockO_player,
+    '_sticky_blockO_object': None,
+    '_sticky_blockO_player': sticky_blockO_player,
 }
 ]
 
