@@ -1,4 +1,4 @@
-# 이것은 각 상태들을 객체로 구현한 것임.
+import random
 
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
@@ -6,8 +6,6 @@ import math
 import src.config.game_framework as game_framework
 from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 import src.mode.play_mode as play_mode
-from src.object.player import Jump
-import src.config.game_world as game_world
 import src.config.status as status_
 
 # player Run Speed
@@ -35,7 +33,8 @@ monster_types = [{
         f"{monster_img_path}/fly_monster_bee/tile_0181.png",
         f"{monster_img_path}/fly_monster_bee/tile_0182.png"
     ],
-    'ai_status': True
+    'ai_status': True,
+    'inversion': 'h'
 }, {
     'name': "water_monster_fishi",
     'size': 2,
@@ -46,7 +45,8 @@ monster_types = [{
         f"{monster_img_path}/water_monster_fishi/tile_0014.png",
         f"{monster_img_path}/water_monster_fishi/tile_0013.png",
     ],
-    'ai_status': True
+    'ai_status': True,
+    'inversion': 'v'
 }]
 
 
@@ -66,10 +66,19 @@ class Monster:
                     # load_images가 없으면 단일 이미지로 로드
                     self.images[monster_type['name']] = [load_image(image)]
                 self.frames_per_action = monster_type['size']  # 이미지 개수
-                self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
-                self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
-                self.rigid_y1 = self.images[monster_type['name']][0].h + monster_type['rigid_']
-                self.rigid_y2 = self.images[monster_type['name']][0].h + monster_type['rigid_']
+                self.inversion = monster_type['inversion']
+                # 모든 이미지의 크기를 확인하고 가장 큰 크기를 기준으로 설정
+                max_width = 0
+                max_height = 0
+                for img in self.images[monster_type['name']]:
+                    max_width = max(max_width, img.w)
+                    max_height = max(max_height, img.h)
+
+                self.frames_per_action = monster_type['size']  # 이미지 개수
+                self.rigid_x1 = max_width + monster_type['rigid_']
+                self.rigid_x2 = max_width + monster_type['rigid_']
+                self.rigid_y1 = max_height + monster_type['rigid_']
+                self.rigid_y2 = max_height + monster_type['rigid_']
 
     def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
                  tile_size=20, select_num=40, tt_line=0, type="Unknown"):
@@ -98,6 +107,8 @@ class Monster:
             self.build_behavior_tree()  # AI 초기화
         else:
             self.bt = None  # AI가 없을 경우 bt를 None으로 설정
+        self.initial_y = self.y  # 초기 위치 저장 (물고기 이동)
+        self.inversion = 'h'
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action
@@ -112,7 +123,7 @@ class Monster:
 
     def draw(self):
         if self.dir < 0:
-            self.images[self.type][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 66, 92)
+            self.images[self.type][int(self.frame)].composite_draw(0, self.inversion, self.x, self.y, 66, 92)
         else:
             self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, 66, 92)
         if status_.is_bb:
@@ -153,9 +164,22 @@ class Monster:
             return BehaviorTree.RUNNING
         pass
 
-    def move_h(self, h=8):
-        print("물고기!!!!!!!!!!!!!!!!")
-        pass
+    def move_h(self):
+        # h 값을 랜덤으로 설정 (최초 또는 방향 변경 시)
+        if not hasattr(self,
+                       'h') or self.dir == 1 and self.y >= self.initial_y + self.h or self.dir == -1 and self.y <= self.initial_y:
+            self.h = random.randint(200, 400)
+
+        # dir 값에 따라 y 위치 업데이트
+        self.y += self.dir * RUN_SPEED_PPS * game_framework.frame_time
+
+        # y가 h만큼 위로 이동했을 때와 제자리로 돌아왔을 때 방향 반전
+        if self.dir == 1 and self.y >= self.initial_y + self.h:  # 위로 h만큼 이동
+            self.dir = -1  # 아래로 이동
+        elif self.dir == -1 and self.y <= self.initial_y:  # 제자리로 돌아옴
+            self.dir = 1  # 위로 이동
+
+        return BehaviorTree.RUNNING
 
     def build_behavior_tree(self):
         if self.type == monster_types[0]['name']:  # bee 일때
