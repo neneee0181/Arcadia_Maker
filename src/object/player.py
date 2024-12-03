@@ -206,10 +206,14 @@ class Player:
                 Jump: {jump_time_out: self.decide_next_state},
             }
         )
+        self.is_fast_falling = False  # 빠른 낙하 상태 플래그 추가
 
     # 중력
     def gravity(self):
-        self.y -= self._gravity
+        if self.is_fast_falling:
+            self.y -= self._gravity * 3  # 중력을 3배로 증가시킴
+        else:
+            self.y -= self._gravity
 
     def update(self):
         self.gravity()
@@ -220,13 +224,15 @@ class Player:
         # 키 입력 상태 업데이트
         if event.type == SDL_KEYDOWN:
             self.current_keys.add(event.key)  # 눌린 키를 추가
+            if event.key == SDLK_DOWN:  # 아래 방향키 누름
+                self.is_fast_falling = True  # 빠른 낙하 활성화
+
         elif event.type == SDL_KEYUP:
             self.current_keys.discard(event.key)  # 뗀 키를 제거
-            if event.key == SDLK_DOWN:
-                self.state_machine.add_event(('DOWN_RELEASE', event))
+            if event.key == SDLK_DOWN:  # 아래 방향키 뗌
+                self.is_fast_falling = False  # 빠른 낙하 비활성화
 
         self.state_machine.add_event(('INPUT', event))
-        pass
 
     def decide_next_state(self, e):
         if SDLK_RIGHT in self.current_keys:  # 오른쪽 키가 눌려 있는 경우
@@ -255,6 +261,7 @@ class Player:
                 self.y += self._gravity + 0.05
                 self.jump_count = 0  # 충돌 시 점프 횟수 초기화
                 self.jump_status = False
+                self.is_fast_falling = False
             if other.type == "finish":  # 게임 종료 (성공)
                 game_framework.change_mode(complate_mode)
                 pass
@@ -263,14 +270,16 @@ class Player:
                 self.jump_count = 0
                 self.state_machine.start(Jump)
                 game_world.remove_object(other)
+                self.is_fast_falling = False
             else:  # 게임 종료 (실패)
                 game_framework.change_mode(fail_mode)
         if group == "player:Object":  # 오브 젝트 충돌 처리
             for object_type in objectO.object_types:
                 if other.type == object_type['name'] and '_jumpO_player' in object_type:  # 점프패드
                     object_type['_jumpO_player'](self, other)
-                    return
                 if other.type == object_type['name'] and '_waterO_player' in object_type:
                     object_type['_waterO_player'](self, other)
-                    return
+
+                self.is_fast_falling = False
+                return
         pass
