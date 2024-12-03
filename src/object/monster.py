@@ -22,13 +22,20 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
+monster_img_path = "./src/asset/mode/play/monster/"
+
 monster_types = [{
     'name': "fly_monster_bee",
     'size': 3,
-    'rigid_': 5
+    'rigid_': 5,
+    '_beeO_object': None,
+    '_beeO_player': None,
+    'load_images': [
+        f"{monster_img_path}/fly_monster_bee/tile_0180.png",
+        f"{monster_img_path}/fly_monster_bee/tile_0181.png",
+        f"{monster_img_path}/fly_monster_bee/tile_0182.png"
+    ]
 }]
-
-monster_img_path = "./src/asset/mode/play/monster/"
 
 
 class Monster:
@@ -38,13 +45,14 @@ class Monster:
         self.images = {}
         for monster_type in monster_types:
             if self.type == monster_type['name']:
-                # print([
-                #     f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png"
-                #     for i in range(1, monster_type['size'] + 1)
-                # ])
-                self.images[monster_type['name']] = [
-                    load_image(f"{monster_img_path}{monster_type['name']}/tile_{(self.id + i):04}.png") for i in
-                    range(0, monster_type['size'])]
+                # load_images 키가 없으면 기본값 처리
+                if 'load_images' in monster_type and monster_type['load_images']:
+                    self.images[monster_type['name']] = [
+                        load_image(image_path) for image_path in monster_type['load_images']
+                    ]
+                else:
+                    # load_images가 없으면 단일 이미지로 로드
+                    self.images[monster_type['name']] = [load_image(image)]
                 self.frames_per_action = monster_type['size']  # 이미지 개수
                 self.rigid_x1 = self.images[monster_type['name']][0].w + monster_type['rigid_']
                 self.rigid_x2 = self.images[monster_type['name']][0].w + monster_type['rigid_']
