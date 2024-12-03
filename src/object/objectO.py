@@ -85,6 +85,11 @@ def spikeO_player(self_o, other_o):
     pass
 
 
+def finishO_player(self_o, other_o):
+    print(2222)
+    pass
+
+
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 object_types = [{
@@ -115,14 +120,23 @@ object_types = [{
     'rigid_': 28,
     '_sticky_blockO_object': None,
     '_sticky_blockO_player': sticky_blockO_player,
-},
-    {
-        'name': "spike",
-        'size': 1,
-        'rigid_': 28,
-        '_spikeO_object': None,
-        '_spikeO_player': spikeO_player,
-    }
+}, {
+    'name': "spike",
+    'size': 1,
+    'rigid_': 28,
+    '_spikeO_object': None,
+    '_spikeO_player': spikeO_player,
+}, {
+    'name': "finish",
+    'size': 2,
+    'rigid_': 28,
+    '_finishO_object': None,
+    '_finishO_player': finishO_player,
+    'load_images': [
+        f"{monster_img_path}/tile_0111.png",
+        f"{monster_img_path}/tile_0112.png"
+    ]
+}
 ]
 
 
