@@ -66,7 +66,7 @@ def init():
                     tile_type=make_tile['tile_type'],
                     num_tiles_x=make_tile['num_tiles_x'],
                     margin=make_tile['margin'],
-                    image= f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
+                    image=f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
                     tile_size=make_tile['tile_size'],
                     select_num=make_tile['select_num'],
                     tt_line=make_tile['tt_line'],
@@ -92,9 +92,9 @@ def init():
             print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
             tiles.append(None)  # 로드 실패 시 None 추가
 
-    game_world.add_objects(objects, 1)
+    game_world.add_objects(objects, 2)
     game_world.add_objects(tiles, 2)
-    game_world.add_objects(monsters, 1)
+    game_world.add_objects(monsters, 2)
 
     for tile in tiles:
         game_world.add_collision_pair('player:tile', None, tile)
