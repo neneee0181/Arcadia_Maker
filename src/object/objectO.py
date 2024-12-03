@@ -34,8 +34,13 @@ def waterO_player(self_o, other_o):
     """
     물에 닿았을 때 중력 감쇠 또는 부력을 적용하는 함수
     """
-    self_o.y +=  -0.1  # 부력을 적용해 살짝 떠오르게 함
+    self_o.y += -0.1  # 부력을 적용해 살짝 떠오르게 함
     self_o.jump_count = 0
+
+
+def itemO_jump_time_up_player(self_o, other_o):
+    print("아이템!!!!!!!!!!!")
+    pass
 
 
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
@@ -56,6 +61,12 @@ object_types = [{
     'rigid_': 15,
     '_waterO_object': None,
     '_waterO_player': waterO_player,
+}, {
+    'name': "item_jump_time_up",
+    'size': 1,
+    'rigid_': 5,
+    '_itemO_jump_time_up_object': None,
+    '_itemO_jump_time_up_player': itemO_jump_time_up_player,
 }
 ]
 

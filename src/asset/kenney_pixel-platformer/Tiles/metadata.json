@@ -30,7 +30,7 @@
     "type": "object"
   },
   "tile_0010.png": {
-    "type": "object"
+    "type": "item_jump_time_up"
   },
   "tile_0011.png": {
     "type": "object"

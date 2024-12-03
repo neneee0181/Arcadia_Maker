@@ -1,0 +1,74 @@
+[
+    {
+        "id": 2,
+        "x": 55,
+        "y": 254,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 146,
+        "y": 249,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 236,
+        "y": 245,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 331,
+        "y": 248,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 409,
+        "y": 252,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 10,
+        "x": 448,
+        "y": 493,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "item_jump_time_up"
+    }
+]

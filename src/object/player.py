@@ -283,4 +283,8 @@ class Player:
                     object_type['_waterO_player'](self, other)
                     self.is_fast_falling = False
                     return
+                if other.type == object_type['name'] and '_itemO_jump_time_up_player' in object_type:
+                    object_type['_itemO_jump_time_up_player'](self, other)
+                    self.is_fast_falling = False
+                    return
         pass
