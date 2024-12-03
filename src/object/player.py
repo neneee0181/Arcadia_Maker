@@ -221,7 +221,7 @@ class Player:
                 game_framework.change_mode(fail_mode)
         if group == "player:Object":
             for object_type in objectO.object_types:
-                if other.type == object_type['name'] and 'onCollision_player' in object_type:
+                if other.type == object_type['name'] and '_jumpO_player' in object_type:
                     # onCollision 함수 호출
-                    object_type['onCollision_player'](self, other)
+                    object_type['_jumpO_player'](self, other)
         pass

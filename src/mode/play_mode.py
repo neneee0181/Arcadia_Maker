@@ -59,7 +59,7 @@ def init():
                 monsters.append(new_monster)
                 continue
             if make_tile['type'] == 'jump_object':  # 점프패드
-                new_jump = objectO.ObjectO(
+                new_object = objectO.ObjectO(
                     id=make_tile['id'],
                     x=make_tile['x'],
                     y=make_tile['y'] - 200,
@@ -72,7 +72,7 @@ def init():
                     tt_line=make_tile['tt_line'],
                     type=make_tile['type']
                 )
-                objects.append(new_jump)
+                objects.append(new_object)
                 continue
             tile = Tile(
                 id=make_tile['id'],
@@ -91,7 +91,7 @@ def init():
         except OSError:
             print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
             tiles.append(None)  # 로드 실패 시 None 추가
-        
+
     game_world.add_objects(objects, 1)
     game_world.add_objects(tiles, 2)
     game_world.add_objects(monsters, 1)

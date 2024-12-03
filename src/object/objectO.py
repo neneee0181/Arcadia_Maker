@@ -17,16 +17,20 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
+
+def jumpO_player(self_o, other_o):  # 점프패드 - player
+    print(
+        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
+    )
+    pass
+
+
 object_types = [{
     'name': "jump_object",
     'size': 2,
     'rigid_': 5,
-    'onCollision_object': lambda self_o, other_o: print(
-        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
-    ),
-    'onCollision_player': lambda other_o, self_o: print(
-        f"Collision: {self_o.type} at ({self_o.x}, {self_o.y}) with {other_o.type} at ({other_o.x}, {other_o.y})"
-    ),
+    '_jumpO_object': None,
+    '_jumpO_player': jumpO_player
 }]
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
@@ -92,7 +96,7 @@ class ObjectO:
     def handle_collision(self, group, other):
         if group == "player:Object":
             for object_type in object_types:
-                if self.type == object_type['name'] and 'onCollision_object' in object_type:
+                if self.type == object_type['name'] and '_jumpO_object' in object_type:
                     # onCollision 함수 호출
-                    # object_type['onCollision_object'](self, other)
+                    # object_type['_jumpO_object'](self, other)
                     break
