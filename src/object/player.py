@@ -129,7 +129,7 @@ class Jump:
             player.dir = -1
 
         # 점프 시간이 초과되면 상태 전환
-        if get_time() - player.jump_time > 0.5:
+        if get_time() - player.jump_time > player.jump_limit_time:
             player.jump_status = True
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
             player.jump_h_force = JUMP_FORCE  # 점프 높이 초기화
@@ -165,6 +165,7 @@ class Player:
         self.dir = 1
         self._gravity = 0.9
         self.jump_time = 0
+        self.jump_limit_time = 0.5  # 점프 가능 시간 (늘리면 점프 오래함)
         self.type = "player"
         self.jump_h_force = JUMP_FORCE
         self.current_keys = set()  # 눌린 키를 추적하는 집합
