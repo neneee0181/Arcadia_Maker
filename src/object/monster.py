@@ -169,13 +169,13 @@ class Monster:
         # 방향에 따라 이동
         if self.dir == -1:  # 아래로 이동
             if self.y > self.initial_y:
-                self.y -= RUN_SPEED_PPS * game_framework.frame_time
+                self.y -= RUN_SPEED_PPS * game_framework.frame_time * 1.2
             else:  # 제자리로 돌아왔으면 방향 전환
                 self.dir = 1
                 self.target_y = self.initial_y + random.randint(200, 400)  # 새로운 랜덤 높이 설정
         elif self.dir == 1:  # 위로 이동
             if self.y < self.target_y:
-                self.y += RUN_SPEED_PPS * game_framework.frame_time
+                self.y += RUN_SPEED_PPS * game_framework.frame_time * 1.3
             else:  # 목표 지점에 도달했으면 방향 전환
                 self.dir = -1
 
