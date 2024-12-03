@@ -97,7 +97,7 @@ class Run:
 class Jump:
     @staticmethod
     def enter(player, e):
-        if player.jump_count < 1:  # 2단 점프까지만 허용
+        if player.jump_count < player.jump_count_limit:  # 2단 점프까지만 허용
             player.jump_status = False
             if right_down(e) or left_up(e):  # 오른쪽으로 RUN
                 player.dir = 1
@@ -194,6 +194,7 @@ class Player:
         self.jump_h_force = JUMP_FORCE
         self.current_keys = set()  # 눌린 키를 추적하는 집합
         self.jump_count = 0  # 점프 횟수를 추적
+        self.jump_count_limit = 1
         self.jump_status = False  # 점프 상태 false = up, true = down
         self.font = load_font('./src/asset/prac/ENCR10B.TTF', 16)
         self.image = self.load_images()

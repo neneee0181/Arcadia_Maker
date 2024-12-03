@@ -39,7 +39,10 @@ def waterO_player(self_o, other_o):
 
 
 def itemO_jump_time_up_player(self_o, other_o):
-    print("아이템!!!!!!!!!!!")
+    self_o.jump_status = True
+    self_o.jump_time = 2
+    self_o.jump_count_limit = 2
+    self_o.jump_time_limit = 0.7
     pass
 
 
@@ -64,7 +67,7 @@ object_types = [{
 }, {
     'name': "item_jump_time_up",
     'size': 1,
-    'rigid_': 5,
+    'rigid_': 15,
     '_itemO_jump_time_up_object': None,
     '_itemO_jump_time_up_player': itemO_jump_time_up_player,
 }
