@@ -28,15 +28,19 @@ def jumpO_player(self_o, other_o):  # 점프패드 - player
 
     pass
 
+monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 object_types = [{
     'name': "jump_object",
     'size': 2,
     'rigid_': 5,
     '_jumpO_object': None,
-    '_jumpO_player': jumpO_player
+    '_jumpO_player': jumpO_player,
+    'load_images':[
+        f"{monster_img_path}/tile_0107.png",
+        f"{monster_img_path}/tile_0108.png"
+    ]
 }]
-monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 
 class ObjectO:
@@ -47,8 +51,8 @@ class ObjectO:
         for object_type in object_types:
             if self.type == object_type['name']:
                 self.images[object_type['name']] = [
-                    load_image(f"{monster_img_path}/tile_{(self.id + i):04}.png") for i in
-                    range(0, object_type['size'])]
+                    load_image(image_path) for image_path in object_type['load_images']
+                ]
                 self.frames_per_action = object_type['size']  # 이미지 개수
                 self.rigid_x1 = self.images[object_type['name']][0].w + object_type['rigid_']
                 self.rigid_x2 = self.images[object_type['name']][0].w + object_type['rigid_']
