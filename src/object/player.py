@@ -3,7 +3,7 @@
 
 from pico2d import get_time, load_image, load_font, \
     draw_rectangle
-from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT
+from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT, SDLK_DOWN
 
 import src.mode.complate_mode as complate_mode
 import src.config.game_world as game_world
@@ -145,6 +145,27 @@ class Jump:
             player.images['alienPink_jump'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
 
 
+class Down:
+    @staticmethod
+    def enter(player, e):
+        player.frame = 0
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
+
+    @staticmethod
+    def draw(player):
+        if player.dir < 0:
+            player.images['alienPink_down'][int(player.frame)].composite_draw(0, 'h', player.x, player.y, 66, 92)
+        else:
+            player.images['alienPink_down'][int(player.frame)].composite_draw(0, '', player.x, player.y, 66, 92)
+
+
 class Player:
     images = None
 
@@ -157,6 +178,8 @@ class Player:
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_walk{i}.png") for i in range(1, 4)]
             Player.images['alienPink_jump'] = [
                 load_image(f"./src/asset/mode/play/player_character/pink/alienPink_jump{i}.png") for i in range(1, 4)]
+            Player.images['alienPink_down'] = [
+                load_image(f"./src/asset/mode/play/player_character/pink/alienPink_down{i}.png") for i in range(1, 1)]
 
     def __init__(self):
         self.x, self.y = 40, 200
@@ -179,7 +202,8 @@ class Player:
             {
                 Idle: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, jump_down: Jump, jump_up: Jump},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, jump_down: Jump, jump_up: Jump},
-                Jump: {jump_time_out: self.decide_next_state}
+                Jump: {jump_time_out: self.decide_next_state, ('DOWN_PRESS', None): Down},
+                Down: {('DOWN_RELEASE', None): self.decide_next_state},
             }
         )
 
@@ -198,18 +222,21 @@ class Player:
             self.current_keys.add(event.key)  # 눌린 키를 추가
         elif event.type == SDL_KEYUP:
             self.current_keys.discard(event.key)  # 뗀 키를 제거
+            if event.key == SDLK_DOWN:
+                self.state_machine.add_event(('DOWN_RELEASE', event))
 
         self.state_machine.add_event(('INPUT', event))
         pass
 
     def decide_next_state(self, e):
-        # 눌린 키 상태에 따라 다음 상태 결정
         if SDLK_RIGHT in self.current_keys:  # 오른쪽 키가 눌려 있는 경우
             self.dir = 1
             return Run
         elif SDLK_LEFT in self.current_keys:  # 왼쪽 키가 눌려 있는 경우
             self.dir = -1
             return Run
+        elif SDLK_DOWN not in self.current_keys:  # 아래 방향키가 떼어진 경우
+            return Idle
         else:
             return Idle
 
