@@ -38,6 +38,9 @@ def collision_hide_box(player, xy):
         player.x -= xy
     elif player.x >= config.screen_width:
         player.x -= xy
+
+    if player.y <= -75:
+        game_framework.change_mode(fail_mode)
     pass
 
 
@@ -53,6 +56,7 @@ class Idle:
     @staticmethod
     def do(player):
         player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+        collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
 
     @staticmethod
     def draw(player):
