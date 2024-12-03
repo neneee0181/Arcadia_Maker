@@ -22,7 +22,7 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-monster_img_path = "./src/asset/mode/play/monster/"
+monster_img_path = "./src/asset/mode/play/monster"
 
 monster_types = [{
     'name': "fly_monster_bee",
@@ -34,7 +34,8 @@ monster_types = [{
         f"{monster_img_path}/fly_monster_bee/tile_0180.png",
         f"{monster_img_path}/fly_monster_bee/tile_0181.png",
         f"{monster_img_path}/fly_monster_bee/tile_0182.png"
-    ]
+    ],
+    'ai_status': True
 }, {
     'name': "water_monster_fishi",
     'size': 2,
@@ -42,9 +43,10 @@ monster_types = [{
     '_fishiO_object': None,
     '_fishiO_player': None,
     'load_images': [
-        f"{monster_img_path}/water_monster_fishi/tile_014.png",
-        f"{monster_img_path}/water_monster_fishi/tile_013.png",
-    ]
+        f"{monster_img_path}/water_monster_fishi/tile_0014.png",
+        f"{monster_img_path}/water_monster_fishi/tile_0013.png",
+    ],
+    'ai_status': True
 }]
 
 
@@ -90,12 +92,19 @@ class Monster:
         self.tile_size = tile_size
         self.select_num = select_num
         self.tt_line = tt_line
-        self.build_behavior_tree()  # ai
+        # ai_status 확인 후 BehaviorTree 초기화
+        monster_type = next((m for m in monster_types if m['name'] == self.type), None)
+        if monster_type and monster_type.get('ai_status', False):  # ai_status가 True인지 확인
+            self.build_behavior_tree()  # AI 초기화
+        else:
+            self.bt = None  # AI가 없을 경우 bt를 None으로 설정
 
     def update(self):
         self.frame = (self.frame + self.frames_per_action
                       * ACTION_PER_TIME * game_framework.frame_time) % self.frames_per_action
-        self.bt.run()
+        # bt가 초기화된 경우에만 실행
+        if self.bt:
+            self.bt.run()
         pass
 
     def handle_event(self, event):
@@ -144,11 +153,17 @@ class Monster:
             return BehaviorTree.RUNNING
         pass
 
+    def move_h(self, h=8):
+        print("물고기!!!!!!!!!!!!!!!!")
+        pass
+
     def build_behavior_tree(self):
         if self.type == monster_types[0]['name']:  # bee 일때
             c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 5)
             a4 = Action('player에게 접근', self.move_to_boy)
             root = chase_boy = Sequence('player 추적', c1, a4)
-
-        self.bt = BehaviorTree(root)
-        pass
+            self.bt = BehaviorTree(root)
+        elif self.type == monster_types[1]['name']:  # fishi일때
+            a1 = Action('물고기가 위에서 아래로 이동', self.move_h)
+            root = move_f = Sequence('물고기 상하 이동', a1)
+            self.bt = BehaviorTree(root)

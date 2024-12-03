@@ -539,7 +539,10 @@
   "tile_0179.png": {
     "type": "ui_number"
   },
-   "tile_0180.png": {
+  "tile_0180.png": {
     "type": "fly_monster_bee"
+  },
+  "tile_0181.png": {
+    "type": "water_monster_fishi"
   }
 }
