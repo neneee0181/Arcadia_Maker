@@ -109,20 +109,28 @@ class Jump:
 
     @staticmethod
     def do(player):
+        # 프레임 업데이트
         player.frame = (player.frame + 1 * ACTION_PER_TIME * game_framework.frame_time) % 1
 
+        # 점프 높이 업데이트
         player.y += player.jump_h_force * game_framework.frame_time
 
-        if SDLK_RIGHT in player.current_keys or SDLK_LEFT in player.current_keys:  # 오른쪽 키가 눌려 있는 경우
-            player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
+        # 좌우 이동 처리
+        if SDLK_RIGHT in player.current_keys:  # 오른쪽 키가 눌린 경우
+            player.x += RUN_SPEED_PPS * game_framework.frame_time
+            player.dir = 1
+        elif SDLK_LEFT in player.current_keys:  # 왼쪽 키가 눌린 경우
+            player.x -= RUN_SPEED_PPS * game_framework.frame_time
+            player.dir = -1
 
+        # 점프 시간이 초과되면 상태 전환
         if get_time() - player.jump_time > 0.5:
             player.jump_status = True
             player.state_machine.add_event(('JUMP_TIME_OUT', 0))
-            player.jump_h_force = JUMP_FORCE # 점프 높이 초기화 (점프 패드를 밟고 증가된 값을 초기화 시켜주는 부분)
+            player.jump_h_force = JUMP_FORCE  # 점프 높이 초기화
 
+        # 화면 경계 충돌 처리
         collision_hide_box(player, player.dir * RUN_SPEED_PPS * game_framework.frame_time)
-        pass
 
     @staticmethod
     def draw(player):

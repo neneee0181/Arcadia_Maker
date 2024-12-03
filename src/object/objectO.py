@@ -22,7 +22,7 @@ def jumpO_player(self_o, other_o):  # 점프패드 - player
     print(self_o.type)
     if self_o.jump_status:
         self_o.jump_count = 0
-        self_o.jump_h_force = self_o.jump_h_force * 1.2
+        self_o.jump_h_force = self_o.jump_h_force * 1.5
         from src.object.player import Jump  # 지연 Import
         self_o.state_machine.start(Jump)
 
