@@ -58,7 +58,7 @@ def init():
                 )
                 monsters.append(new_monster)
                 continue
-            if make_tile['type'] == 'jump_object':  # 점프패드
+            if make_tile['type'] == 'jump_object' or make_tile['type'] == 'water':  # 점프패드, water
                 new_object = objectO.ObjectO(
                     id=make_tile['id'],
                     x=make_tile['x'],
@@ -66,7 +66,7 @@ def init():
                     tile_type=make_tile['tile_type'],
                     num_tiles_x=make_tile['num_tiles_x'],
                     margin=make_tile['margin'],
-                    image=f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
+                    image= f"./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png",
                     tile_size=make_tile['tile_size'],
                     select_num=make_tile['select_num'],
                     tt_line=make_tile['tt_line'],

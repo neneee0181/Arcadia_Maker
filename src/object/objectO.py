@@ -28,6 +28,7 @@ def jumpO_player(self_o, other_o):  # 점프패드 - player
 
     pass
 
+
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 
 object_types = [{
@@ -36,11 +37,18 @@ object_types = [{
     'rigid_': 5,
     '_jumpO_object': None,
     '_jumpO_player': jumpO_player,
-    'load_images':[
+    'load_images': [
         f"{monster_img_path}/tile_0107.png",
         f"{monster_img_path}/tile_0108.png"
     ]
-}]
+}, {
+    'name': "water",
+    'size': 1,
+    'rigid_': 15,
+    '_waterO_object': None,
+    '_waterO_player': jumpO_player,
+}
+]
 
 
 class ObjectO:
@@ -50,9 +58,15 @@ class ObjectO:
         self.images = {}
         for object_type in object_types:
             if self.type == object_type['name']:
-                self.images[object_type['name']] = [
-                    load_image(image_path) for image_path in object_type['load_images']
-                ]
+                # load_images 키가 없으면 기본값 처리
+                if 'load_images' in object_type and object_type['load_images']:
+                    self.images[object_type['name']] = [
+                        load_image(image_path) for image_path in object_type['load_images']
+                    ]
+                else:
+                    # load_images가 없으면 단일 이미지로 로드
+                    self.images[object_type['name']] = [load_image(image)]
+
                 self.frames_per_action = object_type['size']  # 이미지 개수
                 self.rigid_x1 = self.images[object_type['name']][0].w + object_type['rigid_']
                 self.rigid_x2 = self.images[object_type['name']][0].w + object_type['rigid_']
