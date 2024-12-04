@@ -10,6 +10,7 @@ import src.config.game_framework as game_framework
 import src.config.status as status_
 import src.config.config as config
 import src.mode.complate_mode as complate_mode
+import src.mode.fail_mode as fail_mode
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -30,7 +31,6 @@ def jumpO_player(self_o, other_o):  # 점프패드 - player
         self_o.jump_h_force = self_o.jump_h_force * 1.5
         from src.object.player import Jump  # 지연 Import
         self_o.state_machine.start(Jump)
-
     pass
 
 
@@ -82,7 +82,7 @@ def sticky_blockO_player(self_o, other_o):
 
 
 def spikeO_player(self_o, other_o):
-    print(1111)
+    game_framework.change_mode(fail_mode)
     pass
 
 
@@ -123,7 +123,7 @@ object_types = [{
 }, {
     'name': "spike",
     'size': 1,
-    'rigid_': 28,
+    'rigid_': 20,
     '_spikeO_object': None,
     '_spikeO_player': spikeO_player,
 }, {
