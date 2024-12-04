@@ -40,6 +40,8 @@ def init():
     game_world.clear()
     global bottom_line_ui
     bottom_line_ui = load_image("./src/asset/mode/maker/bottom_line.png")
+    global background_img
+    background_img = load_image(f"./src/asset/mode/play/background{random.randint(1, 3)}.png")
 
     global monsters
     monsters = []
@@ -144,6 +146,7 @@ def update():
 def draw():
     clear_canvas()
     bottom_line_ui.draw(config.screen_width / 2, 1, config.screen_width, bottom_line_ui.h)
+    background_img.draw(config.screen_width / 2, config.screen_height / 2, config.screen_width, config.screen_height)
     game_world.render()
     update_canvas()
 

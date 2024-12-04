@@ -36,16 +36,16 @@
     "type": "object"
   },
   "tile_0012.png": {
-    "type": "object"
+    "type": "ground"
   },
   "tile_0013.png": {
-    "type": "object"
+    "type": "ground"
   },
   "tile_0014.png": {
-    "type": "object"
+    "type": "ground"
   },
   "tile_0015.png": {
-    "type": "object"
+    "type": "ground"
   },
   "tile_0016.png": {
     "type": "sticky_block"
@@ -141,7 +141,7 @@
     "type": "object"
   },
   "tile_0047.png": {
-    "type": "object"
+    "type": "ground"
   },
   "tile_0048.png": {
     "type": "ground"
@@ -162,10 +162,10 @@
     "type": "water"
   },
   "tile_0054.png": {
-    "type": "ground"
+    "type": "water"
   },
   "tile_0055.png": {
-    "type": "ground"
+    "type": "water"
   },
   "tile_0056.png": {
     "type": "sticky_block"
