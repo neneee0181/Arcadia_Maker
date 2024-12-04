@@ -25,6 +25,8 @@ def handle_events():
             game_world.clear_collision_pairs()
             game_world.clear()
             game_framework.push_mode(select_mode)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_b:
+            config.is_bb = not config.is_bb
         else:
             new_player.handle_event(event)
 
