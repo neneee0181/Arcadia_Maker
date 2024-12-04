@@ -1,6 +1,6 @@
 from pico2d import load_image, clear_canvas, update_canvas, get_events
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT, \
-    SDLK_RETURN
+    SDLK_RETURN, SDLK_b
 import src.config.game_framework as game_framework
 import src.config.config as config
 import src.mode.select_mode as select_mode
@@ -21,6 +21,8 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
             if 1550 <= event.x <= 1890 and 788 <= event.y <= 1048:
                 game_framework.change_mode(select_mode)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_b:
+            config.is_bb = not config.is_bb
 
 
 def init():
