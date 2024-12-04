@@ -102,8 +102,8 @@ def init():
             print(f"Cannot load image: ./src/asset/{make_tile['tile_type']}/Tiles/tile_{make_tile['id']:04}.png")
             tiles.append(None)  # 로드 실패 시 None 추가
 
-    game_world.add_objects(objects, 2)
-    game_world.add_objects(tiles, 2)
+    game_world.add_objects(objects, 1)
+    game_world.add_objects(tiles, 3)
     game_world.add_objects(monsters, 2)
 
     for tile in tiles:
@@ -122,7 +122,7 @@ def init():
         return  # 예외 발생 시 초기화 중단
 
     try:
-        game_world.add_object(new_player, 1)
+        game_world.add_object(new_player, 2)
         print("Player added to game_world.")
     except Exception as e:
         print(f"Error adding Player to game_world: {e}")
