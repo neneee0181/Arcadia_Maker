@@ -547,5 +547,8 @@
   },
   "tile_0182.png": {
     "type": "block_monster_block"
+  },
+  "tile_0183.png": {
+    "type": "robot_monster_robot"
   }
 }

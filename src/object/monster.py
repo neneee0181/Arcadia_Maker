@@ -60,7 +60,20 @@ monster_types = [{
         f"{monster_img_path}/block_monster_block/tile_0013.png",
         f"{monster_img_path}/block_monster_block/tile_0012.png",
     ],
-}]
+}, {
+    'name': "robot_monster_robot",
+    'size': 2,
+    'rigid_': 5,
+    '_blockO_object': None,
+    '_blockO_player': None,
+    'ai_status': True,
+    'inversion': 'h',
+    'load_images': [
+        f"{monster_img_path}/robot_monster_robot/tile_0021.png",
+        f"{monster_img_path}/robot_monster_robot/tile_0022.png",
+    ],
+}
+]
 
 
 class Monster:
@@ -151,6 +164,14 @@ class Monster:
         pass
 
     def handle_collision(self, group, other):
+        if group == "monster:tile":
+            for monster_type in monster_types:
+                if self.type == monster_type['name']:
+                    if self.dir == 1:
+                        self.dir = -1
+                    elif self.dir == -1:
+                        self.dir = 1
+
         pass
 
     def distance_less_than(self, x1, y1, x2, y2, r):
@@ -200,6 +221,10 @@ class Monster:
         self.frame = 2
         pass
 
+    def move_robot(self):
+        self.x += self.dir * RUN_SPEED_PPS * game_framework.frame_time
+        pass
+
     def build_behavior_tree(self):
         if self.type == monster_types[0]['name']:  # bee 일때
             c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 5)
@@ -214,4 +239,8 @@ class Monster:
             c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 9)
             a1 = Action('박스 이미지 변경', self.change_img)
             root = move_f = Sequence('근처에 있으면 박스 얼굴 변경', c1, a1)
+            self.bt = BehaviorTree(root)
+        elif self.type == monster_types[3]['name']:  # block 일때
+            a1 = Action('좌우 이동', self.move_robot)
+            root = move_f = Sequence('로봇 몬스터의 좌우 이동', a1)
             self.bt = BehaviorTree(root)

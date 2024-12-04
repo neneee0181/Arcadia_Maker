@@ -1,31 +1,7 @@
 [
     {
         "id": 0,
-        "x": 51,
-        "y": 249,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 0,
-        "x": 137,
-        "y": 247,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 91,
-        "select_num": 40,
-        "tt_line": 9,
-        "type": "ground"
-    },
-    {
-        "id": 0,
-        "x": 219,
+        "x": 50,
         "y": 250,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
@@ -36,9 +12,9 @@
         "type": "ground"
     },
     {
-        "id": 0,
-        "x": 301,
-        "y": 254,
+        "id": 1,
+        "x": 552,
+        "y": 492,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -49,8 +25,20 @@
     },
     {
         "id": 1,
-        "x": 386,
-        "y": 252,
+        "x": 645,
+        "y": 490,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 1,
+        "x": 738,
+        "y": 490,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -62,7 +50,7 @@
     {
         "id": 0,
         "x": 472,
-        "y": 255,
+        "y": 584,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
@@ -72,15 +60,75 @@
         "type": "ground"
     },
     {
-        "id": 182,
-        "x": 517,
-        "y": 389,
+        "id": 0,
+        "x": 1100,
+        "y": 594,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 832,
+        "y": 491,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 917,
+        "y": 489,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 1017,
+        "y": 492,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 1108,
+        "y": 490,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 183,
+        "x": 892,
+        "y": 597,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 91,
         "select_num": 200,
         "tt_line": 9,
-        "type": "block_monster_block"
+        "type": "robot_monster_robot"
     }
 ]

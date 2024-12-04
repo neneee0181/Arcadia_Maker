@@ -108,8 +108,10 @@ def init():
 
     for tile in tiles:
         game_world.add_collision_pair('player:tile', None, tile)
+        game_world.add_collision_pair('monster:tile', None, tile)
     for monster_c in monsters:
         game_world.add_collision_pair('player:monster', None, monster_c)
+        game_world.add_collision_pair('monster:tile', monster_c, None)
     for object_c in objects:
         game_world.add_collision_pair('player:Object', None, object_c)
 
