@@ -47,6 +47,19 @@ monster_types = [{
     ],
     'ai_status': True,
     'inversion': 'v'
+}, {
+    'name': "block_monster_block",
+    'size': 1,
+    'rigid_': 5,
+    '_blockO_object': None,
+    '_blockO_player': None,
+    'ai_status': True,
+    'inversion': 'h',
+    'load_images': [
+        f"{monster_img_path}/block_monster_block/tile_0013.png",
+        f"{monster_img_path}/block_monster_block/tile_0013.png",
+        f"{monster_img_path}/block_monster_block/tile_0012.png",
+    ],
 }]
 
 
@@ -124,9 +137,11 @@ class Monster:
 
     def draw(self):
         if self.dir < 0:
-            self.images[self.type][int(self.frame)].composite_draw(0, self.inversion, self.x, self.y, 66, 92)
+            self.images[self.type][int(self.frame)].composite_draw(0, self.inversion, self.x, self.y, self.tile_size,
+                                                                   self.tile_size)
         else:
-            self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, 66, 92)
+            self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, self.tile_size,
+                                                                   self.tile_size)
         if config.is_bb:
             draw_rectangle(*self.get_bb())
 
@@ -181,13 +196,22 @@ class Monster:
 
         return BehaviorTree.RUNNING
 
+    def change_img(self):
+        self.frame = 2
+        pass
+
     def build_behavior_tree(self):
         if self.type == monster_types[0]['name']:  # bee 일때
             c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 5)
             a4 = Action('player에게 접근', self.move_to_boy)
             root = chase_boy = Sequence('player 추적', c1, a4)
             self.bt = BehaviorTree(root)
-        elif self.type == monster_types[1]['name']:  # fishi일때
+        elif self.type == monster_types[1]['name']:  # fishi 일때
             a1 = Action('물고기가 위에서 아래로 이동', self.move_h)
             root = move_f = Sequence('물고기 상하 이동', a1)
+            self.bt = BehaviorTree(root)
+        elif self.type == monster_types[2]['name']:  # block 일때
+            c1 = Condition('player 근처에 있는가?', self.is_player_nearby, 9)
+            a1 = Action('박스 이미지 변경', self.change_img)
+            root = move_f = Sequence('근처에 있으면 박스 얼굴 변경', c1, a1)
             self.bt = BehaviorTree(root)

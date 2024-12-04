@@ -544,5 +544,8 @@
   },
   "tile_0181.png": {
     "type": "water_monster_fishi"
+  },
+  "tile_0182.png": {
+    "type": "block_monster_block"
   }
 }
