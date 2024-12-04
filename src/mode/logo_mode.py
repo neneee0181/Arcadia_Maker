@@ -4,7 +4,6 @@ import src.config.game_framework as game_framework, src.mode.title_mode as title
 import src.config.config as config
 
 
-
 def handle_events():
     event = get_events()
 
@@ -12,7 +11,7 @@ def handle_events():
 def init():
     global bgm
     bgm = load_music("./src/asset/sound/logo/game-start-6104.mp3")
-    bgm.set_volume(128)
+    bgm.set_volume(config.sound_size)
     bgm.play(1)
     global image
     global logo_start_time
