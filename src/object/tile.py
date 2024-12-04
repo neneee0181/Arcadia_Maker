@@ -48,9 +48,9 @@ class Tile:
         elif group == "mouse:tile_select" and other.click_status_r:
             game_world.remove_object(self)
             game_world.remove_collision_object(self)
-            """maker_mode의 maker_tiles에서 자신의 id와 동일한 타일을 찾아 삭제"""
+            """maker_mode의 maker_tiles에서 자신의 객체와 동일한 타일을 찾아 삭제"""
             for tile in maker_mode.maker_tiles:
-                if tile.id == self.id:
+                if tile is self:  # 객체 자체를 비교
                     maker_mode.maker_tiles.remove(tile)
                     print(f"Tile with id {self.id} removed from maker_tiles.")
                     break

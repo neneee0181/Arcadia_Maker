@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "x": 84,
+        "y": 267,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    },
+    {
+        "id": 2,
+        "x": 313,
+        "y": 334,
+        "tile_type": "kenney_pixel-platformer",
+        "margin": 5,
+        "num_tiles_x": 20,
+        "tile_size": 91,
+        "select_num": 40,
+        "tt_line": 9,
+        "type": "ground"
+    }
+]
