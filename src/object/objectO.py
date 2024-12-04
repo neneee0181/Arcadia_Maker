@@ -9,6 +9,7 @@ from sdl2 import SDLK_RIGHT, SDLK_LEFT
 import src.config.game_framework as game_framework
 import src.config.status as status_
 import src.config.config as config
+import src.mode.complate_mode as complate_mode
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -86,8 +87,7 @@ def spikeO_player(self_o, other_o):
 
 
 def finishO_player(self_o, other_o):
-    print(2222)
-    pass
+    game_framework.change_mode(complate_mode)
 
 
 monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"

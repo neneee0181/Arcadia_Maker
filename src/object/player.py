@@ -5,7 +5,6 @@ from pico2d import get_time, load_image, load_font, \
     draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT, SDLK_DOWN
 
-import src.mode.complate_mode as complate_mode
 import src.config.game_world as game_world
 import src.config.game_framework as game_framework
 from src.config.state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, \
@@ -263,9 +262,6 @@ class Player:
                 self.jump_count = 0  # 충돌 시 점프 횟수 초기화
                 self.jump_status = False
                 self.is_fast_falling = False
-            if other.type == "finish":  # 게임 종료 (성공)
-                game_framework.change_mode(complate_mode)
-                pass
         if group == "player:monster":
             if self.jump_status:  # 점프 -> 착지 -> 충돌
                 self.jump_count = 0
@@ -294,6 +290,10 @@ class Player:
                     return
                 if other.type == object_type['name'] and '_spikeO_player' in object_type:
                     object_type['_spikeO_player'](self, other)
+                    self.is_fast_falling = False
+                    return
+                if other.type == object_type['name'] and '_finishO_player' in object_type:
+                    object_type['_finishO_player'](self, other)
                     self.is_fast_falling = False
                     return
         pass
