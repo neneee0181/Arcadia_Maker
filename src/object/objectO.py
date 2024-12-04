@@ -95,7 +95,10 @@ monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 object_types = [{
     'name': "jump_object",
     'size': 2,
-    'rigid_': 28,
+    'rigid_x1': 15,
+    'rigid_x2': 15,
+    'rigid_y1': 15,
+    'rigid_y2': 15,
     '_jumpO_object': None,
     '_jumpO_player': jumpO_player,
     'load_images': [
@@ -105,31 +108,46 @@ object_types = [{
 }, {
     'name': "water",
     'size': 1,
-    'rigid_': 15,
+    'rigid_x1': 28,
+    'rigid_x2': 28,
+    'rigid_y1': 28,
+    'rigid_y2': 28,
     '_waterO_object': None,
     '_waterO_player': waterO_player,
 }, {
     'name': "item_jump_time_up",
     'size': 1,
-    'rigid_': 15,
+    'rigid_x1': 15,
+    'rigid_x2': 15,
+    'rigid_y1': 15,
+    'rigid_y2': 15,
     '_itemO_jump_time_up_object': None,
     '_itemO_jump_time_up_player': itemO_jump_time_up_player,
 }, {
     'name': "sticky_block",
     'size': 1,
-    'rigid_': 28,
+    'rigid_x1': 28,
+    'rigid_x2': 28,
+    'rigid_y1': 28,
+    'rigid_y2': 28,
     '_sticky_blockO_object': None,
     '_sticky_blockO_player': sticky_blockO_player,
 }, {
     'name': "spike",
     'size': 1,
-    'rigid_': 20,
+    'rigid_x1': 11,
+    'rigid_x2': 11,
+    'rigid_y1': 20,
+    'rigid_y2': -16,
     '_spikeO_object': None,
     '_spikeO_player': spikeO_player,
 }, {
     'name': "finish",
     'size': 2,
-    'rigid_': 28,
+    'rigid_x1': 28,
+    'rigid_x2': 28,
+    'rigid_y1': 28,
+    'rigid_y2': 28,
     '_finishO_object': None,
     '_finishO_player': finishO_player,
     'load_images': [
@@ -157,10 +175,10 @@ class ObjectO:
                     self.images[object_type['name']] = [load_image(image)]
 
                 self.frames_per_action = object_type['size']  # 이미지 개수
-                self.rigid_x1 = self.images[object_type['name']][0].w + object_type['rigid_']
-                self.rigid_x2 = self.images[object_type['name']][0].w + object_type['rigid_']
-                self.rigid_y1 = self.images[object_type['name']][0].h + object_type['rigid_']
-                self.rigid_y2 = self.images[object_type['name']][0].h + object_type['rigid_']
+                self.rigid_x1 = self.images[object_type['name']][0].w + object_type['rigid_x1']
+                self.rigid_x2 = self.images[object_type['name']][0].w + object_type['rigid_x2']
+                self.rigid_y1 = self.images[object_type['name']][0].h + object_type['rigid_y1']
+                self.rigid_y2 = self.images[object_type['name']][0].h + object_type['rigid_y2']
 
     def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
                  tile_size=20, select_num=40, tt_line=0, type="Unknown"):
