@@ -2,6 +2,8 @@ from pico2d import *
 
 import src.config.game_world as game_world
 import src.config.status as status_
+import src.mode.maker_mode as maker_mode
+
 
 class Tile:
     tile_size = 20  # 기본 타일 사이즈
@@ -46,7 +48,14 @@ class Tile:
         elif group == "mouse:tile_select" and other.click_status_r:
             game_world.remove_object(self)
             game_world.remove_collision_object(self)
-
+            """maker_mode의 maker_tiles에서 자신의 id와 동일한 타일을 찾아 삭제"""
+            for tile in maker_mode.maker_tiles:
+                if tile.id == self.id:
+                    maker_mode.maker_tiles.remove(tile)
+                    print(f"Tile with id {self.id} removed from maker_tiles.")
+                    break
+            else:
+                print(f"Tile with id {self.id} not found in maker_tiles.")
         if group == "player:tile":
             pass
         pass

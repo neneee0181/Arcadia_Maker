@@ -1,26 +1,14 @@
 [
     {
-        "id": 22,
-        "x": 35,
-        "y": 232,
+        "id": 3,
+        "x": 255,
+        "y": 342,
         "tile_type": "kenney_pixel-platformer",
         "margin": 5,
         "num_tiles_x": 20,
         "tile_size": 59,
-        "select_num": 60,
+        "select_num": 40,
         "tt_line": 9,
         "type": "ground"
-    },
-    {
-        "id": 180,
-        "x": 205,
-        "y": 465,
-        "tile_type": "kenney_pixel-platformer",
-        "margin": 5,
-        "num_tiles_x": 20,
-        "tile_size": 59,
-        "select_num": 200,
-        "tt_line": 9,
-        "type": "fly_monster_bee"
     }
 ]
