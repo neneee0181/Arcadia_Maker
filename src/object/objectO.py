@@ -95,7 +95,7 @@ monster_img_path = "./src/asset/kenney_pixel-platformer/Tiles"
 object_types = [{
     'name': "jump_object",
     'size': 2,
-    'rigid_': 5,
+    'rigid_': 28,
     '_jumpO_object': None,
     '_jumpO_player': jumpO_player,
     'load_images': [
