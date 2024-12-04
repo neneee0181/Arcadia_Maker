@@ -23,6 +23,11 @@ def handle_events():
 
 
 def init():
+    global bgm
+    music_path = f"./src/asset/sound/play/game_over.mp3"  # 파일 경로 생성
+    bgm = load_music(music_path)
+    bgm.set_volume(config.sound_size)
+    bgm.play(1)
 
     global success_font
     success_font = load_font('./src/asset/font/SourGummy-VariableFont_wdth,wght.ttf', 56)
