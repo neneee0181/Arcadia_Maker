@@ -1,10 +1,10 @@
 import tkinter as tk
 
-is_bb = True
+is_bb = False
 
 sound_limit = 128
-sound_size = 20
-effect_sound_size = 10
+sound_size = 40
+effect_sound_size = 20
 
 # 전체 화면
 root = tk.Tk()
