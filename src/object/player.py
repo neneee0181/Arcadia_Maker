@@ -12,7 +12,6 @@ from src.config.state_machine import start_event, right_down, left_up, left_down
 import src.config.config as config
 import src.mode.fail_mode as fail_mode
 import src.object.objectO as objectO
-import src.config.status as status_
 
 # 점프 크기 상수 추가
 SCREEN_HEIGHT = config.screen_height
@@ -248,7 +247,7 @@ class Player:
 
     def draw(self):
         self.state_machine.draw()
-        if status_.is_bb:
+        if config.is_bb:
             draw_rectangle(*self.get_bb())
 
     def get_bb(self):

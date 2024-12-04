@@ -7,7 +7,6 @@ import math
 from sdl2 import SDLK_RIGHT, SDLK_LEFT
 
 import src.config.game_framework as game_framework
-import src.config.status as status_
 import src.config.config as config
 import src.mode.complate_mode as complate_mode
 import src.mode.fail_mode as fail_mode
@@ -199,7 +198,7 @@ class ObjectO:
         else:
             self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, self.tile_size,
                                                                    self.tile_size)
-        if status_.is_bb:
+        if config.is_bb:
             draw_rectangle(*self.get_bb())
 
     def get_bb(self):

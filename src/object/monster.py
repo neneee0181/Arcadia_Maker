@@ -6,7 +6,7 @@ import math
 import src.config.game_framework as game_framework
 from src.config.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 import src.mode.play_mode as play_mode
-import src.config.status as status_
+import src.config.config as config
 
 # player Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -127,7 +127,7 @@ class Monster:
             self.images[self.type][int(self.frame)].composite_draw(0, self.inversion, self.x, self.y, 66, 92)
         else:
             self.images[self.type][int(self.frame)].composite_draw(0, '', self.x, self.y, 66, 92)
-        if status_.is_bb:
+        if config.is_bb:
             draw_rectangle(*self.get_bb())
 
     def get_bb(self):
