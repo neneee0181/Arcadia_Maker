@@ -3,7 +3,7 @@ import tkinter as tk
 is_bb = True
 
 sound_limit = 128
-sound_size = 40
+sound_size = 20
 effect_sound_size = 10
 
 # 전체 화면

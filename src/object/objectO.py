@@ -44,15 +44,16 @@ def waterO_player(self_o, other_o):
 def itemO_jump_time_up_player(self_o, other_o):
     from src.object.player import Jump
     if self_o.state_machine.cur_state == Jump:
-        self_o.y -= self_o._gravity * 1.2
+        self_o.y -= self_o._gravity * 1.5
         self_o.jump_status = True
         self_o.jump_time = 2
-        self_o.jump_count_limit = 2
-        self_o.jump_time_limit = 0.7
+        self_o.jump_time_limit = 0.8
     else:
-        self_o.jump_status = False
-        self_o.y += self_o._gravity * 1.2
-        self_o.jump_count = 0
+        # self_o.y = other_o.get_bb()[3] + self_o.images['alienPink_stand'][0].h / 2
+        # self_o.jump_status = False
+        # self_o.y += self_o._gravity * 1.2
+        # self_o.jump_count = 0
+        pass
     pass
 
 
