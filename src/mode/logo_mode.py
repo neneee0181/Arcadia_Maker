@@ -1,7 +1,8 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
+from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events, load_music
 
 import src.config.game_framework as game_framework, src.mode.title_mode as title_mode
 import src.config.config as config
+
 
 
 def handle_events():
@@ -9,10 +10,15 @@ def handle_events():
 
 
 def init():
+    global bgm
+    bgm = load_music("./src/asset/sound/logo/game-start-6104.mp3")
+    bgm.set_volume(128)
+    bgm.play(1)
     global image
     global logo_start_time
     image = load_image('./src/asset/tuk_credit.png')
     logo_start_time = get_time()
+
 
 def finish():
     global image
