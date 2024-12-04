@@ -2,7 +2,7 @@
 
 
 from pico2d import get_time, load_image, load_font, \
-    draw_rectangle
+    draw_rectangle, load_music, load_wav
 from sdl2 import SDL_KEYDOWN, SDL_KEYUP, SDLK_RIGHT, SDLK_LEFT, SDLK_DOWN
 
 import src.config.game_world as game_world
@@ -95,6 +95,9 @@ class Run:
 class Jump:
     @staticmethod
     def enter(player, e):
+        player.jump_sound.set_volume(config.effect_sound_size)
+        player.jump_sound.play(1)
+
         if player.jump_count < player.jump_count_limit:  # 2단 점프까지만 허용
             player.jump_status = False
             if right_down(e) or left_up(e):  # 오른쪽으로 RUN
@@ -206,6 +209,7 @@ class Player:
             }
         )
         self.is_fast_falling = False  # 빠른 낙하 상태 플래그 추가
+        self.jump_sound = load_wav(f"./src/asset/sound/play/jump.wav")
 
     # 중력
     def gravity(self):
