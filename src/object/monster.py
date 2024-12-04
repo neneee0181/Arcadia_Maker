@@ -25,7 +25,10 @@ monster_img_path = "./src/asset/mode/play/monster"
 monster_types = [{
     'name': "fly_monster_bee",
     'size': 3,
-    'rigid_': 5,
+    'rigid_x1': 15,
+    'rigid_x2': 15,
+    'rigid_y1': 5,
+    'rigid_y2': 5,
     '_beeO_object': None,
     '_beeO_player': None,
     'load_images': [
@@ -38,7 +41,10 @@ monster_types = [{
 }, {
     'name': "water_monster_fishi",
     'size': 2,
-    'rigid_': 5,
+    'rigid_x1': 5,
+    'rigid_x2': 5,
+    'rigid_y1': 5,
+    'rigid_y2': 5,
     '_fishiO_object': None,
     '_fishiO_player': None,
     'load_images': [
@@ -50,7 +56,10 @@ monster_types = [{
 }, {
     'name': "block_monster_block",
     'size': 1,
-    'rigid_': 5,
+    'rigid_x1': 5,
+    'rigid_x2': 5,
+    'rigid_y1': 5,
+    'rigid_y2': 5,
     '_blockO_object': None,
     '_blockO_player': None,
     'ai_status': True,
@@ -63,7 +72,10 @@ monster_types = [{
 }, {
     'name': "robot_monster_robot",
     'size': 2,
-    'rigid_': 5,
+    'rigid_x1': 5,
+    'rigid_x2': 5,
+    'rigid_y1': 5,
+    'rigid_y2': 5,
     '_blockO_object': None,
     '_blockO_player': None,
     'ai_status': True,
@@ -101,10 +113,10 @@ class Monster:
                     max_height = max(max_height, img.h)
 
                 self.frames_per_action = monster_type['size']  # 이미지 개수
-                self.rigid_x1 = max_width + monster_type['rigid_']
-                self.rigid_x2 = max_width + monster_type['rigid_']
-                self.rigid_y1 = max_height + monster_type['rigid_']
-                self.rigid_y2 = max_height + monster_type['rigid_']
+                self.rigid_x1 = max_width + monster_type['rigid_x1']
+                self.rigid_x2 = max_width + monster_type['rigid_x2']
+                self.rigid_y1 = max_height + monster_type['rigid_y1']
+                self.rigid_y2 = max_height + monster_type['rigid_y2']
 
     def __init__(self, id, x, y, tile_type, margin, num_tiles_x, image=None,
                  tile_size=20, select_num=40, tt_line=0, type="Unknown"):
@@ -166,7 +178,7 @@ class Monster:
     def handle_collision(self, group, other):
         if group == "monster:tile":
             for monster_type in monster_types:
-                if self.type == monster_type['name']:
+                if self.type == monster_type['name'] and monster_type['name'] == 'robot_monster_robot':
                     if self.dir == 1:
                         self.dir = -1
                     elif self.dir == -1:
