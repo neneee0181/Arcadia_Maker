@@ -8,6 +8,7 @@ import src.mode.maker_fileName_mode as maker_fileName_mode
 from src.object.mouse import Mouse
 from src.object.tile import Tile
 from PIL import Image
+import random
 
 import os
 
@@ -85,6 +86,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            bgm.stop()
             game_world.clear_collision_pairs()
             game_framework.change_mode(select_mode)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_q:
@@ -112,6 +114,12 @@ def handle_events():
 
 
 def init():
+    global bgm
+    music_path = f"./src/asset/sound/play/background_music{random.randint(1, 3)}.mp3"  # 파일 경로 생성
+    bgm = load_music(music_path)
+    bgm.set_volume(config.sound_size)
+    bgm.repeat_play()
+
     maker_tiles.clear()
     ui_init()
     global mouse
@@ -124,6 +132,7 @@ def init():
 
 
 def finish():
+    bgm.stop()
     game_world.clear()
     pass
 

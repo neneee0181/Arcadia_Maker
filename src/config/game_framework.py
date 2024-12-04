@@ -58,16 +58,16 @@ def run(start_mode):
         frame_rate = 1.0 / frame_time
         current_time += frame_time
         # print(f'Frame Time: {frame_time}, Frame Rate: {frame_rate}')
-        events = get_events()
-        for event in events:
-            if event.type == SDL_KEYDOWN and event.key == SDLK_LEFTBRACKET:  # 소리 불륨 낮추기
-                if config.sound_size > 0:
-                    config.sound_size -= 1
-                pass
-            elif event.type == SDL_KEYDOWN and event.key == SDLK_RIGHTBRACKET:  # 소리 볼륨 높이기
-                if config.sound_size < config.sound_size:
-                    config.sound_size += 1
-                pass
+        # events = get_events()
+        # for event in events:
+        #     if event.type == SDL_KEYDOWN and event.key == SDLK_LEFTBRACKET:  # 소리 불륨 낮추기
+        #         if config.sound_size > 0:
+        #             config.sound_size -= 1
+        #         pass
+        #     elif event.type == SDL_KEYDOWN and event.key == SDLK_RIGHTBRACKET:  # 소리 볼륨 높이기
+        #         if config.sound_size < config.sound_size:
+        #             config.sound_size += 1
+        #         pass
 
     # repeatedly delete the top of the stack
     while (len(stack) > 0):

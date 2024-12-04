@@ -18,8 +18,10 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
+            bgm.stop()
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            bgm.stop()
             game_world.clear_collision_pairs()
             game_world.clear()
             game_framework.push_mode(select_mode)
@@ -28,6 +30,12 @@ def handle_events():
 
 
 def init():
+    global bgm
+    music_path = f"./src/asset/sound/play/background_music{random.randint(1, 3)}.mp3"  # 파일 경로 생성
+    bgm = load_music(music_path)
+    bgm.set_volume(config.sound_size)
+    bgm.repeat_play()
+
     game_world.clear_collision_pairs()
     game_world.clear()
     global bottom_line_ui
@@ -124,6 +132,7 @@ def init():
 
 def finish():
     game_world.clear()
+    bgm.stop()
     pass
 
 
