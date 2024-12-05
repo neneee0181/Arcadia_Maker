@@ -188,7 +188,7 @@ class Player:
         self.ball_count = 10
         self.frame = 0
         self.dir = 1
-        self._gravity = 0.9
+        self._gravity = 0.5
         self.jump_time = 0
         self.jump_limit_time = 0.5  # 점프 가능 시간 (늘리면 점프 오래함)
         self.type = "player"
@@ -221,7 +221,7 @@ class Player:
     def update(self):
         self.gravity()
         self.state_machine.update()
-        self._gravity = 0.9
+        self._gravity = 0.5
 
     def handle_event(self, event):
         # 키 입력 상태 업데이트
