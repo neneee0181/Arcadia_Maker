@@ -35,8 +35,6 @@ Arcadia_Maker 3차 발표 링크 : https://#
 
 ![Arcadia_Maker_maker_mode_img](src/asset/ppt%20img/img3.png)
 
-map-s1 ~ map-s3 추천
-
 ***확장자 없이 입력해 주셔야 합니다!!***
 
 #### Arcadia Maker
